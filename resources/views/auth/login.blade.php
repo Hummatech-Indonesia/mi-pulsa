@@ -81,33 +81,34 @@
                                     <span
                                         class="border-top w-100 position-absolute top-50 start-50 translate-middle"></span>
                                 </div>
-                                <form>
+                                <form action="{{route('login')}}" method="POST">
+                                    @csrf
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp">
+                                            aria-describedby="emailHelp" name="email">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <div class="form-check">
                                             <input class="form-check-input primary" type="checkbox" value=""
                                                 id="flexCheckChecked" checked>
                                             <label class="form-check-label text-dark" for="flexCheckChecked">
-                                                Remeber this Device
+                                                Remember this Device
                                             </label>
                                         </div>
                                         <a class="text-primary fw-medium"
                                             href="authentication-forgot-password.html">Forgot Password ?</a>
                                     </div>
-                                    <a href="index-2.html" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Sign
-                                        In</a>
+                                    <button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Sign
+                                        In</button>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <p class="fs-4 mb-0 fw-medium">New to Modernize?</p>
                                         <a class="text-primary fw-medium ms-2"
-                                            href="authentication-register.html">Create an account</a>
+                                            href="{{route('register')}}">Create an account</a>
                                     </div>
                                 </form>
                             </div>
