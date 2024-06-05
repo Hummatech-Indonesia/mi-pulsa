@@ -13,6 +13,12 @@ use Illuminate\Validation\ValidationException;
 
 class LoginService
 {
+    private FcmTokenInterface $fcmToken;
+    public function __construct(FcmTokenInterface $fcmToken)
+    {
+        $this->fcmToken = $fcmToken;
+    }
+
     /**
      * Handle a login request to the application.
      *
@@ -44,7 +50,7 @@ class LoginService
         $fcmToken = $this->fcmToken->get();
         $fcmToken->update(['fcm_token' => $request->fcm_token]);
         if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
-            $data['token'] =  auth()->user()->createToken('auth_token')->plainTextToken;
+            $data['token'] = auth()->user()->createToken('auth_token')->plainTextToken;
             $data['user'] = UserResource::make(auth()->user());
 
             $id = auth()->user()->id;

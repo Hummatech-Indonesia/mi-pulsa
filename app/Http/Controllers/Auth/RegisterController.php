@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Interfaces\RegisterInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use App\Services\Auth\RegisterService;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class RegisterController extends Controller
 {
@@ -29,17 +34,31 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
-
+    private RegisterInterface $register;
+    private RegisterService $service;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(RegisterInterface $register, RegisterService $service)
     {
         $this->middleware('guest');
+        $this->register = $register;
+        $this->service = $service;
     }
 
+
+    /**
+     * Method showRegistrationForm
+     *
+     * @return View
+     */
+    public function showRegistrationForm(): View
+    {
+        $title = trans('title.register');
+        return view('auth.register', compact('title'));
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -54,6 +73,13 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
+
+    public function register(RegisterRequest $request): RedirectResponse
+    {
+        $this->service->handleRegistration($request, $this->register);
+        return back()->with('success', 'Berhasil melakukan pendaftaran');
+    }
+
 
     /**
      * Create a new user instance after a valid registration.
