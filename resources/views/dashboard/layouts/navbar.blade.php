@@ -411,7 +411,7 @@
                                     </div>
                                 </div>
                                 <div class="message-body">
-                                    <a href="page-user-profile.html"
+                                    <a href="{{route('profile.index')}}"
                                         class="py-8 px-7 mt-8 d-flex align-items-center">
                                         <span
                                             class="d-flex align-items-center justify-content-center bg-light rounded-1 p-6">
@@ -467,8 +467,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="authentication-login.html"
-                                        class="btn btn-outline-primary">Log Out</a>
+                                    <form action="{{route('logout')}}" method="POST">
+                                    @csrf
+                                    <button type="submit"
+                                    class="btn btn-outline-primary">Log Out</button>
+                                </form>
                                 </div>
                             </div>
                         </div>

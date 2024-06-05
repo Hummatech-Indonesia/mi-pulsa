@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\UserInterface;
+use App\Contracts\Repositories\ProfileRepository;
 use App\Contracts\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -10,6 +12,7 @@ class AppServiceProvider extends ServiceProvider
 {
     private array $register = [
         UserInterface::class => UserRepository::class,
+        ProfileInterface::class=>ProfileRepository::class,
     ];
     /**
      * Register any application services.
