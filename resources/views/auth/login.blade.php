@@ -101,7 +101,7 @@
                                             </label>
                                         </div>
                                         <a class="text-primary fw-medium"
-                                            href="{{route('profile.forgot.password')}}">Forgot Password ?</a>
+                                            href="{{route('password.request')}}">Forgot Password ?</a>
                                     </div>
                                     <button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Sign
                                         In</button>
