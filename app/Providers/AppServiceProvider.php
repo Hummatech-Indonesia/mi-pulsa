@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Contracts\Interfaces\Dashboard\CustomerInterface;
 use App\Contracts\Interfaces\FcmTokenInterface;
 use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\RegisterInterface;
 use App\Contracts\Interfaces\UserInterface;
+use App\Contracts\Repositories\Dashboard\CustomerRepository as DashboardCustomerRepository;
 use App\Contracts\Repositories\FcmTokenRepository;
 use App\Contracts\Repositories\ProfileRepository;
 use App\Contracts\Repositories\RegisterRepository;
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         ProfileInterface::class=>ProfileRepository::class,
         RegisterInterface::class=>RegisterRepository::class,
         FcmTokenInterface::class=>FcmTokenRepository::class,
+        CustomerInterface::class=>DashboardCustomerRepository::class,
     ];
     /**
      * Register any application services.

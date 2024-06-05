@@ -18,8 +18,8 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     public $incrementing = false;
     public $keyType = 'char';
-    protected $table = 'users';
     protected $primaryKey = 'id';
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *

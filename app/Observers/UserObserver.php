@@ -18,5 +18,6 @@ class UserObserver
     public function creating(User $user): void
     {
         $user->id = Uuid::uuid();
+        
     }
 }

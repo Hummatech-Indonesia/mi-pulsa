@@ -29,7 +29,7 @@
         <div class="card w-100 position-relative overflow-hidden">
             <div class="d-flex px-4 py-3 border-bottom justify-content-between">
                 <h5 class="card-title fw-semibold mb-0 lh-sm">Basic Table</h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
                     <i class="fs-4 ti ti-plus"></i>Add
                 </button>
             </div>
@@ -39,40 +39,40 @@
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">User</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Project Name</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Provider</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Phone Number</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Nomor Telepon</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Action</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
                                 </th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+
+                            @foreach ($customers as $customer)
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <img src="{{ asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"
                                                 class="rounded-circle" width="40" height="40" />
                                             <div class="ms-3">
-                                                <h6 class="fs-4 fw-semibold mb-0">{{ $user->name }}</h6>
+                                                <h6 class="fs-4 fw-semibold mb-0">{{ $customer->name }}</h6>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">{{ $user->email }}</p>
+                                        <p class="mb-0 fw-normal">{{ $customer->provider }}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">{{ $user->phone_number }}</p>
+                                        <p class="mb-0 fw-normal">{{ $customer->phone_number }}</p>
                                     </td>
 
-                                    @dd($user)
                                     <td>
                                         <div class="dropdown dropstart">
                                             <a href="#" class="text-muted" id="dropdownMenuButton"
@@ -83,19 +83,19 @@
 
                                                 <li>
                                                     <button type="button"
-                                                        class="dropdown-item d-flex align-items-center gap-3 update-user"
-                                                        data-bs-toggle="modal" data-bs-target="#updateUser"
-                                                        data-id="{{ $user->id }}" data-name="{{ $user->name }}"
-                                                        data-email="{{ $user->email }}"
-                                                        data-phone-number="{{ $user->phone_number }}">
+                                                        class="dropdown-item d-flex align-items-center gap-3 edit-customer"
+                                                        data-bs-toggle="modal" data-bs-target="#updateCustomer"
+                                                        data-id="{{ $customer->id }}" data-name="{{ $customer->name }}"
+                                                        data-provider="{{ $customer->provider }}"
+                                                        data-phone-number="{{ $customer->phone_number }}">
                                                         <i class="fs-4 ti ti-pencil"></i>Edit
                                                     </button>
                                                 </li>
                                                 <li>
                                                     <button type="button"
-                                                        class="dropdown-item d-flex align-items-center gap-3 delete-user"
-                                                        data-bs-toggle="modal" data-bs-target="#deleteUser"
-                                                        data-id="{{ $user->id }}">
+                                                        class="dropdown-item d-flex align-items-center gap-3 delete-customer"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteCustomer"
+                                                        data-id="{{ $customer->id }}">
                                                         <i class="fs-4 ti ti-trash"></i>Delete
                                                     </button>
                                                 </li>
@@ -118,26 +118,25 @@
 @endsection
 @section('script')
     <x-delete-modal></x-delete-modal>
-    <x-update-user-modal></x-update-user-modal>
-    <x-add-user-modal></x-add-user-modal>
-    <script>
-        $(document).on('click', '.update-user', function() {
-            $('#updateUserModal').modal('show')
-            const id = $(this).attr('data-id');
-            const name = $(this).attr('data-name');
-            const email = $(this).attr('data-email');
+    <x-edit-customer-modal></x-edit-customer-modal>
+    <x-add-customer-modal></x-add-customer-modal>
+<script>
+        $(document).on('click', '.edit-customer', function() {
+            $('#editCustomerModal').modal('show')
+            const id = $(this).data('id');
+            const name = $(this).data('name');
+            const provider = $(this).data('provider');
             const phone_number = $(this).data('phone-number');
-            console.log(id);
             $('#name').val(name);
-            $('#email').val(email);
+            $('#provider').val(provider);
             $('#phone_number').val(phone_number);
-            let url = `{{ route('users.update', ':id') }}`.replace(':id', id);
-            $('#updateUserForm').attr('action', url);
+            let url = `{{ route('customers.update', ':id') }}`.replace(':id', id);
+            $('#editCustomerForm').attr('action', url);
         });
-        $(document).on('click', '.delete-user', function() {
+        $(document).on('click', '.delete-customer', function() {
             $('#deleteModal').modal('show')
             const id = $(this).attr('data-id');
-            let url = `{{ route('users.destroy', ':id') }}`.replace(':id', id);
+            let url = `{{ route('customers.destroy', ':id') }}`.replace(':id', id);
             $('#deleteForm').attr('action', url);
         });
     </script>
