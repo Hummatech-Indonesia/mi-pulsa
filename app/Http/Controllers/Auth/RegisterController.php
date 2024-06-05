@@ -74,6 +74,12 @@ class RegisterController extends Controller
         ]);
     }
 
+    /**
+     * register
+     *
+     * @param  mixed $request
+     * @return RedirectResponse
+     */
     public function register(RegisterRequest $request): RedirectResponse
     {
         $this->service->handleRegistration($request, $this->register);

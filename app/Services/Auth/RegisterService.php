@@ -34,7 +34,5 @@ class RegisterService
         $user->assignRole(RoleEnum::AGENT->value);
 
         event(new Registered($user));
-
-        auth()->attempt(['email' => $user['email'], 'password' => $data['password']]);
     }
 }
