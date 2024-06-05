@@ -13,12 +13,6 @@ use Illuminate\Validation\ValidationException;
 
 class LoginService
 {
-    private FcmTokenInterface $fcmToken;
-    public function __construct(FcmTokenInterface $fcmToken)
-    {
-        $this->fcmToken = $fcmToken;
-    }
-
     /**
      * Handle a login request to the application.
      *

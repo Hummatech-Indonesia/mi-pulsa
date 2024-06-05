@@ -16,16 +16,21 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Assuming you have roles created already
         $roles = Role::all();
 
         foreach ($roles as $role) {
-            User::create([
+            $user = User::create([
                 'id' => Uuid::uuid(),
                 'name' => $role->name,
                 'email' => str_replace(' ', '', $role->name) . "@gmail.com",
                 'password' => bcrypt('password'),
                 'email_verified_at' => now(),
+            ]);
+            // dd($user->id);
+            DB::table('model_has_roles')->insert([
+                'model_id' => $user->id,
+                'model_type' => User::class,
+                'role_id' => $role->uuid,
             ]);
         }
     }
