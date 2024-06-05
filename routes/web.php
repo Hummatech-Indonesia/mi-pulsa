@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\CustomerController;
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,7 @@ Auth::routes([
 ]);
 
 Route::resource('customers',CustomerController::class);
+Route::resource('products',ProductController::class);
 Route::resource('users', UserController::class);
 Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
 Route::patch('profile-update', [ProfileController::class, 'update'])->name('profile.update');
