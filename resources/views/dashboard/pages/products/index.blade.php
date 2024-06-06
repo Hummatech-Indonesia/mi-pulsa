@@ -8,13 +8,13 @@
             <div class="card-body px-4 py-3">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Basic Table</h4>
+                        <h4 class="fw-semibold mb-8">Tabel Produk</h4>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a class="text-muted " href="index-2.html">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item" aria-current="page">Basic Table</li>
+                                <li class="breadcrumb-item" aria-current="page">Tabel Produk</li>
                             </ol>
                         </nav>
                     </div>
@@ -28,7 +28,7 @@
         </div>
         <div class="card w-100 position-relative overflow-hidden">
             <div class="d-flex px-4 py-3 border-bottom justify-content-between">
-                <h5 class="card-title fw-semibold mb-0 lh-sm">Basic Table</h5>
+                <h5 class="card-title fw-semibold mb-0 lh-sm">Tabel Produk</h5>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
                     <i class="fs-4 ti ti-plus"></i>Add
                 </button>
@@ -42,10 +42,10 @@
                                     <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Provider</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Nomor Telepon</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Deskripsi</h6>
                                 </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>

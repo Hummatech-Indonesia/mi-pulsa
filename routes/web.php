@@ -37,6 +37,9 @@ Route::prefix('tripay')->group(function () {
         Route::get('payment-channel', [TripayController::class, 'paymentChannel']);
     });
 });
+route::get('test', function () {
+    return view('dashboard.pages.packages.index');
+})->name('test');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 

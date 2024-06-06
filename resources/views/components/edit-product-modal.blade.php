@@ -18,7 +18,7 @@
                         <input type="file" name="logo" id="logo" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="" class="form-label">Name</label>
+                        <label for="" class="form-label">Nama</label>
                         <input type="text" name="name" id="name" class="form-control">
                     </div>
                     <div class="form-group">
@@ -26,7 +26,7 @@
                         <input type="number" name="price" id="price" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="" class="form-label">description</label>
+                        <label for="" class="form-label">Description</label>
                         <textarea name="description" id="description" cols="15" rows="5" class="form-control"></textarea>
                     </div>
                 </div>

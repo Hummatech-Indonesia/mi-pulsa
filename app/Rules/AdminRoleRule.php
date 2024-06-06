@@ -18,7 +18,7 @@ class AdminRoleRule implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        return in_array($value, [RoleEnum::ADMIN->value, RoleEnum::AGENT->value]);
+        return in_array($value, [RoleEnum::ADMIN->value, RoleEnum::AGEN->value]);
     }
 
     /**
