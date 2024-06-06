@@ -77,7 +77,7 @@
                                 </a>
                             </li>
                         @endrole
-                        @role('agent')
+                        @role('agen')
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link">
                                     <div class="round-16 d-flex align-items-center justify-content-center">
