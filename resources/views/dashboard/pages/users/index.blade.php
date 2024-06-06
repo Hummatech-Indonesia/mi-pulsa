@@ -11,13 +11,13 @@
             <div class="card-body px-4 py-3">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Basic Table</h4>
+                        <h4 class="fw-semibold mb-8">Tabel Admin & Agen</h4>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a class="text-muted " href="index-2.html">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item" aria-current="page">Basic Table</li>
+                                <li class="breadcrumb-item" aria-current="page">Tabel Admin & Agen</li>
                             </ol>
                         </nav>
                     </div>
@@ -30,8 +30,8 @@
             </div>
         </div>
         <div class="card w-100 position-relative overflow-hidden">
-            <div class="d-flex px-4 py-3 border-bottom justify-content-between">
-                <h5 class="card-title fw-semibold mb-0 lh-sm">Basic Table</h5>
+            <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
+                <h5 class="card-title fw-semibold mb-0 lh-sm">Tabel Admin & Agen</h5>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
                     <i class="fs-4 ti ti-plus"></i>Add
                 </button>
@@ -42,16 +42,16 @@
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">User</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Project Name</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Email</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Phone Number</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Nomor Telepon</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Action</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
                                 </th>
                                 <th></th>
                             </tr>
