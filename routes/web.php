@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TripayController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,12 @@ Auth::routes([
 
 Route::get('/', function () {
     return view('pages.index');
+});
+
+Route::prefix('tripay')->group(function () {
+    Route::name('tripay.')->group(function () {
+        Route::get('payment-channel', [TripayController::class, 'paymentChannel']);
+    });
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
