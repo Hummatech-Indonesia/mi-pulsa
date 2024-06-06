@@ -27,7 +27,7 @@
                             <label for="" class="form-label">Role</label>
                             <select name="role" id="role" class="form-control">
                                 <option value="">Role</option>
-                                <option value="agent">Agen</option>
+                                <option value="agen">Agen</option>
                                 <option value="admin">Admin</option>
                             </select>
                         </div>
