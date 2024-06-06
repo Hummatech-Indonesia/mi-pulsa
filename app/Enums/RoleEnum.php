@@ -2,8 +2,8 @@
 
 namespace App\Enums;
 
-enum StatusTransactionEnum: string
+enum RoleEnum: string
 {
     case ADMIN = 'admin';
-    case AGENT = 'agent';
+    case AGEN = 'agen';
 }
