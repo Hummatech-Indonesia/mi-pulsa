@@ -35,6 +35,7 @@ Route::get('/', function () {
 Route::prefix('tripay')->group(function () {
     Route::name('tripay.')->group(function () {
         Route::get('payment-channel', [TripayController::class, 'paymentChannel']);
+        Route::post('request-transaction', [TripayController::class, 'requestTransaction']);
     });
 });
 route::get('test', function () {

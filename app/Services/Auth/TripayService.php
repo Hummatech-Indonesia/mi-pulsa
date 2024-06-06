@@ -48,8 +48,8 @@ class TripayService
             'merchant_ref'   => $merchantRef,
             'amount'         => $amount,
             'customer_name'  => auth()->user()->name,
-            'customer_email' => auth()->user()->email,
             'customer_phone' => auth()->user()->phone_number,
+            'customer_email' => auth()->user()->email,
             'order_items'    => [
                 [
 
