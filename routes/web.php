@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Dashboard\CustomerController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -18,24 +20,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.index');
-});
-route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    route::get('dashboard', function () {
-        return view('dashboard.pages.index');
-    })->name('dashboard');
-});
+
+
 
 Auth::routes([
     'verify' => true
 ]);
 
-Route::resource('customers',CustomerController::class);
-Route::resource('products',ProductController::class);
-Route::resource('users', UserController::class);
-Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
-Route::patch('profile-update', [ProfileController::class, 'update'])->name('profile.update');
-route::patch('profile-change-password', [ProfileController::class, 'changePassword'])->name('profile.change.password');
-Route::get('profile-forgot-password', [ProfileController::class, 'forgotPassword'])->name('profile.forgot.password');
+Route::get('/', function () {
+    return view('pages.index');
+});
+
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('index');
+    });
+
+    Route::resource('customers', CustomerController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('users', UserController::class);
+
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'index'])->name('index');
+        Route::patch('/update', [ProfileController::class, 'update'])->name('update');
+        Route::patch('/change-password', [ProfileController::class, 'changePassword'])->name('change.password');
+        Route::get('/forgot-password', [ProfileController::class, 'forgotPassword'])->name('forgot.password');
+    });
+});

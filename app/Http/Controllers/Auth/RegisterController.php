@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\RegisterInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use App\Services\Auth\RegisterService;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\RedirectResponse;
@@ -33,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected string $redirectTo = RouteServiceProvider::HOME;
     private RegisterInterface $register;
     private RegisterService $service;
     /**
@@ -83,7 +84,7 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request): RedirectResponse
     {
         $this->service->handleRegistration($request, $this->register);
-        return back()->with('success', 'Berhasil melakukan pendaftaran');
+        return to_route('dashboard.index')->with('success', 'Berhasil melakukan pendaftaran');
     }
 
 

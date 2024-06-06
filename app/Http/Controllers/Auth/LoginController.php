@@ -79,7 +79,7 @@ class LoginController extends Controller
     public function login(LoginRequest $request): RedirectResponse
     {
         $this->loginService->handleLoginUser($request);
-        return to_route('dashboard');
+        return to_route('dashboard.index')->with('success','Berhasil login');
     }
 
     /**
