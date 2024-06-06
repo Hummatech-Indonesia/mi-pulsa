@@ -1,3 +1,6 @@
+@php
+    use App\Helpers\UserHelper;
+@endphp
 @extends('dashboard.layouts.app')
 @section('content')
     <div class="container-fluid">
@@ -72,7 +75,6 @@
                                         <p class="mb-0 fw-normal">{{ $user->phone_number }}</p>
                                     </td>
 
-                                    @dd($user)
                                     <td>
                                         <div class="dropdown dropstart">
                                             <a href="#" class="text-muted" id="dropdownMenuButton"
@@ -87,7 +89,8 @@
                                                         data-bs-toggle="modal" data-bs-target="#updateUser"
                                                         data-id="{{ $user->id }}" data-name="{{ $user->name }}"
                                                         data-email="{{ $user->email }}"
-                                                        data-phone-number="{{ $user->phone_number }}">
+                                                        data-phone-number="{{ $user->phone_number }}"
+                                                        data-role="{{ UserHelper::getRole($user) }}">
                                                         <i class="fs-4 ti ti-pencil"></i>Edit
                                                     </button>
                                                 </li>
@@ -127,10 +130,12 @@
             const name = $(this).attr('data-name');
             const email = $(this).attr('data-email');
             const phone_number = $(this).data('phone-number');
-            console.log(id);
+            const role = $(this).data('role');
+            console.log(role);
             $('#name').val(name);
             $('#email').val(email);
             $('#phone_number').val(phone_number);
+            $('#role').val(role);
             let url = `{{ route('users.update', ':id') }}`.replace(':id', id);
             $('#updateUserForm').attr('action', url);
         });

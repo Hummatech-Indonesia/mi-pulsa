@@ -23,6 +23,17 @@ class UserHelper
             return 'Anda belum login';
         }
     }
+    /**
+     * Method getRole
+     *
+     * @param User $user
+     *
+     * @return string
+     */
+    public static function getRole(User $user): string
+    {
+        return $user->roles->pluck('name')[0];
+    }
 
     /**
      * Handle get username

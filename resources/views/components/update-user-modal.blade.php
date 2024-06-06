@@ -21,6 +21,14 @@
                         <label for="" class="form-label">Nomor Telepon</label>
                         <input type="number" name="phone_number" id="phone_number" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Role Role</label>
+                        <select name="role" id="role" class="form-control">
+                            <option value="">Role</option>
+                            <option value="admin">Admin</option>
+                            <option value="agent">Agent</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-secondary">Simpan</button>

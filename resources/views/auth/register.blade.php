@@ -76,6 +76,10 @@
                                         <label for="exampleInputPassword1" class="form-label">Konfirmasi Password</label>
                                         <input type="password" class="form-control" id="exampleInputPassword1" name="password_confirmation">
                                     </div>
+                                    <div class="mb-4">
+                                        <label for="exampleInputPassword1" class="form-label">Nomor Telepon</label>
+                                        <input type="number" class="form-control" id="exampleInputPassword1" name="phone_number">
+                                    </div>
                                     <button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Daftar</button>
                                     <div class="d-flex align-items-center">
                                         <p class="fs-4 mb-0 text-dark">Sudah punya akun?</p>

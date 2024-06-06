@@ -44,7 +44,8 @@ class UserController extends Controller
         $data['password'] = $password;
 
         $data['email_verified_at'] = now();
-        $this->user->store($data);
+        $user = $this->user->store($data);
+        $user->assignRole($data['role']);
         return back()->with('success', 'Berhasil');
     }
     /**
@@ -57,7 +58,10 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user): RedirectResponse
     {
-        $this->user->update($user->id, $request->validated());
+        $data = $request->validated();
+        $this->user->update($user->id, $data);
+        $user->syncRoles($data['role']);
+
         return back()->with('success', 'Berhasil');
     }
     /**

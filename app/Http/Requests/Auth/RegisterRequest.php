@@ -26,6 +26,7 @@ class RegisterRequest extends FormRequest
             'email'=>'required',
             'password'=>'required',
             'password_confirmation'=>'required|same:password',
+            'phone_number'=>'required',
         ];
     }
     public function messages():array
@@ -35,6 +36,7 @@ class RegisterRequest extends FormRequest
             'email.required'=>'Kolom email tidak boleh kosong',
             'password.required'=>'Kolom password tidak boleh kosong',
             'password_confirmation.same'=>'Kolom password konfirmasi tidak sama',
+            'phone_number'=>'Kolom nomor telepon tidak boleh kosong',
         ];
     }
 }
