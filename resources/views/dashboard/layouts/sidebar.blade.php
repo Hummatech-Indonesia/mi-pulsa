@@ -28,9 +28,20 @@
                         <span>
                             <i class="ti ti-aperture"></i>
                         </span>
-                        <span class="hide-menu">Modern</span>
+                        <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
+                @role('admin')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ request()->routeIs('products.*') ? 'active' : '' }}"
+                            href="{{ route('products.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-aperture"></i>
+                            </span>
+                            <span class="hide-menu">Product</span>
+                        </a>
+                    </li>
+                @endrole
 
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow " href="#" aria-expanded="false">
@@ -40,14 +51,51 @@
                         <span class="hide-menu">Saldo</span>
                     </a>
                     <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Riwayat</span>
-                            </a>
-                        </li>
+                        @role('admin')
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Top Up Saldo Digiflazz</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Saldo Agen</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Riwayat Saldo Digiflazz</span>
+                                </a>
+                            </li>
+                        @endrole
+                        @role('agent')
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Top Up Saldo</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Riwayat Saldo</span>
+                                </a>
+                            </li>
+                        @endrole
+
                     </ul>
                 </li>
                 <li class="sidebar-item">
@@ -63,7 +111,15 @@
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
-                                <span class="hide-menu">Riwayat</span>
+                                <span class="hide-menu">Kirim Pulsa</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Riwayat Transaksi</span>
                             </a>
                         </li>
                     </ul>
@@ -77,14 +133,16 @@
                         <span class="hide-menu">Pengguna</span>
                     </a>
                     <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="{{ route('users.index') }}" class="sidebar-link ">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Admin & Agen</span>
-                            </a>
-                        </li>
+                        @role('admin')
+                            <li class="sidebar-item">
+                                <a href="{{ route('users.index') }}" class="sidebar-link ">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Admin & Agen</span>
+                                </a>
+                            </li>
+                        @endrole
                         <li class="sidebar-item">
                             <a href="{{ route('customers.index') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
