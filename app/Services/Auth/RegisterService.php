@@ -28,10 +28,10 @@ class RegisterService
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $password,
-            'role' => RoleEnum::AGENT->value
+            'role' => RoleEnum::AGEN->value
         ]);
 
-        $user->assignRole(RoleEnum::AGENT->value);
+        $user->assignRole(RoleEnum::AGEN->value);
 
         event(new Registered($user));
     }
