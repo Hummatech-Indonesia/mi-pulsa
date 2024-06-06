@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Tripay\RequestTransactionRequest;
 use App\Services\Auth\TripayService;
 
 class TripayController extends Controller
@@ -26,7 +27,15 @@ class TripayController extends Controller
         return $data;
     }
 
-    // public function FunctionName() : Returntype {
-
-    // }
+    /**
+     * requestTransaction
+     *
+     * @param  mixed $request
+     * @return void
+     */
+    public function requestTransaction(RequestTransactionRequest $request)
+    {
+        $service = $this->service->requestTransaction($request);
+        return $service;
+    }
 }
