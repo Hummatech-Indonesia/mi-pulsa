@@ -16,12 +16,12 @@
                     <div class="col-12 my-2">
                         <div class="d-flex mx-auto flex-wrap btn-group" role="group" aria-label="Pilihan Pulsa">
                             @for ($i = 1; $i <= 20; $i++)
-                                <div class="col-lg-3 col-md-4 col-sm-6 my-2" >
-                                    <input type="radio" class="btn-check" name="price" id="primary-outlined-{{ $i }}"
-                                        autocomplete="false" value="{{ $i * 50000 }}"
-
-                                        >
-                                    <label class="btn btn-outline-primary" for="primary-outlined-{{ $i }}">Rp. {{ number_format($i * 50000) }}</label>
+                                <div class="col-lg-3 col-md-4 col-sm-6 my-2">
+                                    <input type="radio" class="btn-check" name="price"
+                                        id="primary-outlined-{{ $i }}" autocomplete="false"
+                                        value="{{ $i * 50000 }}">
+                                    <label class="btn btn-outline-primary" for="primary-outlined-{{ $i }}">Rp.
+                                        {{ number_format($i * 50000) }}</label>
                                 </div>
                             @endfor
                         </div>
@@ -69,4 +69,16 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('#payment-channel').ready(function() {
+                $.ajax({
+                    url: 'tripay.payment.channel',
+                    method: 'GET',
+                })
+            })
+        })
+    </script>
 @endsection
