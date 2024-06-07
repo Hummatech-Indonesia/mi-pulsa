@@ -25,4 +25,8 @@ class PackagesController extends Controller
         $paymentChannels = $this->service->paymentChannel();
         return view('dashboard.pages.packages.index', compact('paymentChannels'));
     }
+    public function store(Request $request)
+    {
+        dd($request);
+    }
 }

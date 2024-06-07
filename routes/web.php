@@ -36,10 +36,10 @@ Route::get('/', function () {
 Route::prefix('tripay')->group(function () {
     Route::name('tripay.')->group(function () {
         Route::get('payment-channel', [TripayController::class, 'paymentChannel'])->name('payment.channel');
-        Route::post('request-transaction', [TripayController::class, 'requestTransaction']);
+        Route::post('request-transaction', [TripayController::class, 'requestTransaction'])->name('request.transaction');
     });
 });
-Route::get('packages',[PackagesController::class,'index'])->name('packages.index');
+Route::get('packages', [PackagesController::class, 'index'])->name('packages.index');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 

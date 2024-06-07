@@ -40,31 +40,30 @@ class TripayService
 
     public function requestTransaction(RequestTransactionRequest $request)
     {
-
         $data = $request->validated();
         $apiKey       = env('TRIPAY_API_KEY');
         $privateKey   = env('TRIPAY_PRIVATE_KEY');
         $merchantCode = env('TRIPAY_MERCHANT_CODE');
         $merchantRef  = 'INV' . substr(time(), -6);
-        $amount       = $data['amount'];
+        $balance       = intval($data['balance']);
 
         $data = [
             'method'         => 'BRIVA',
             'merchant_ref'   => $merchantRef,
-            'amount'         => $amount,
+            'amount'         => $balance,
             'customer_name'  => auth()->user()->name,
             'customer_phone' => auth()->user()->phone_number,
             'customer_email' => auth()->user()->email,
             'order_items'    => [
                 [
 
-                    'name'        => 'Saldo-' + "Rp " . number_format($amount, 0, ',', '.'),
-                    'price'       => $amount,
+                    'name'        => 'Saldo-Rp  . number_format($balance, 0, ',', '.')',
+                    'price'       => $balance,
                     'quantity'    => 1,
                 ],
             ],
             'expired_time' => (time() + (24 * 60 * 60)), // 24 jam
-            'signature'    => hash_hmac('sha256', $merchantCode . $merchantRef . $amount, $privateKey)
+            'signature'    => hash_hmac('sha256', $merchantCode . $merchantRef . $balance, $privateKey)
         ];
 
         $curl = curl_init();

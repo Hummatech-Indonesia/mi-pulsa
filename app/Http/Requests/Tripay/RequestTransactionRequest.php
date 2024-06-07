@@ -14,20 +14,20 @@ class RequestTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'saldo' => 'required',
+            'balance' => 'required',
             'method' => 'required',
         ];
     }
 
     /**
-     * messages
+     * Method messages
      *
-     * @return void
+     * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
-            'saldo.required' => 'Saldo wajib diisi',
+            'balance.required' => 'Saldo wajib diisi',
             'method.required' => 'Metode pembayaran wajib diisi'
         ];
     }
