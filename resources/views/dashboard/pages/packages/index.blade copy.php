@@ -11,7 +11,7 @@
                             <span class="fw-bold">Pilih Pulsa</span>
                         </div>
                         <div class="col">
-                            <input type="text" name="balance" id="balanceInput" class="form-control" width="50px"
+                            <input type="text" name="balance" id="balance" class="form-control" width="50px"
                                 placeholder="Ketik Nominal">
                             <span class="fw-light fs-2">Minimal Rp. 50.000</span>
                         </div>
@@ -20,9 +20,9 @@
                                 @for ($i = 1; $i <= 20; $i++)
                                     <div class="col-lg-3 col-md-4 col-sm-6 my-2">
                                         <input type="radio" class="btn-check" name="balance"
-                                            id="balanceRadio-{{ $i }}" autocomplete="false"
+                                            id="balance-{{ $i }}" autocomplete="false"
                                             value="{{ $i * 50000 }}">
-                                        <label class="btn btn-outline-primary" for="balanceRadio-{{ $i }}">Rp.
+                                        <label class="btn btn-outline-primary" for="balance-{{ $i }}">Rp.
                                             {{ number_format($i * 50000) }}</label>
                                     </div>
                                 @endfor
@@ -170,10 +170,51 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#balanceInput').on('change', function() {
-                const balance = $('#balanceInput').val()
-                console.log(balance);
-            })
-        })
+            // Function to update the order summary
+            function updateOrderSummary() {
+                const fee = $('input[name="method"]:checked').data('fee') || 0;
+                const name = $('input[name="method"]:checked').data('name') || '';
+                const balance = $('input[name="balance"]:checked').val() || $('#balance').val();
+
+                if (!balance) {
+                    console.log("Balance is empty");
+                    return;
+                }
+
+                const balanceInt = parseInt(balance);
+
+                if (isNaN(balanceInt)) {
+                    console.log("Balance is not a valid number");
+                    return;
+                }
+
+                const total = balanceInt + parseInt(fee);
+                console.log("Balance: ", balanceInt);
+                console.log("Fee: ", fee);
+                console.log("Total: ", total);
+
+                $('#price-order').text('Rp. ' + balanceInt.toLocaleString('id-ID'));
+                $('#payment-method').text(name);
+                $('#fee').text('Rp. ' + fee.toLocaleString('id-ID'));
+                $('#total-order').text('Rp. ' + total.toLocaleString('id-ID'));
+            }
+
+            // Update the order summary when payment method changes
+            $('input[name="method"]').change(function() {
+                updateOrderSummary();
+            });
+
+            // Update the order summary when balance input changes
+            $('input[name="balance"]').change(function() {
+                $('#balance').val(''); // Clear the balance input field
+                updateOrderSummary();
+            });
+
+            // Update the order summary when balance input is typed manually
+            $('#balance').on('input', function() {
+                $('input[name="balance"]').prop('checked', false); // Uncheck radio buttons
+                updateOrderSummary();
+            });
+        });
     </script>
 @endsection
