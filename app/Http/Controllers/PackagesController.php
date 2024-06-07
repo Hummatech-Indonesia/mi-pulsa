@@ -22,7 +22,7 @@ class PackagesController extends Controller
      */
     public function index(): View
     {
-        $paymenyChannel = $this->service->paymentChannel();
-        return view('dashboard.pages.packages.index', compact('paymentChannel'));
+        $paymentChannels = $this->service->paymentChannel();
+        return view('dashboard.pages.packages.index', compact('paymentChannels'));
     }
 }

@@ -30,11 +30,92 @@
                         <div class="bg-primary rounded-circle p-3"></div>
                         <span class="fw-bold">Metode Pembayaran</span>
                     </div>
-                    <select name="payment_method" id="" class="form-control">
-                        <option value="">Gopay</option>
-                        <option value="">Ovo</option>
-                        <option value="">Dana</option>
-                    </select>
+
+                    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse"
+    data-bs-target="#collapsePaymentChannelVA" aria-expanded="false"
+    aria-controls="collapsePaymentChannelVA">
+    Virtual Account
+</button>
+<div class="collapse mt-3" id="collapsePaymentChannelVA">
+    <div class="row col-12">
+        @foreach ($paymentChannels as $paymentChannel)
+            @if ($paymentChannel->group == 'Virtual Account')
+                <div class="col-6 mb-3">
+                    <div class="card p-3 d-flex flex-row align-items-center justify-content-between">
+                        <input type="radio" name="payment_channel"
+                            id="payment_channel_{{ $paymentChannel->code }}"
+                            class="form-check-input me-2">
+                        <label for="payment_channel_{{ $paymentChannel->code }}"
+                            class="form-check-label d-flex align-items-center justify-content-between w-100">
+                            <span>{{ $paymentChannel->name }}</span>
+                            <img src="{{ $paymentChannel->icon_url }}"
+                                alt="{{ $paymentChannel->name }} icon" class="img-fluid ms-2" style="max-width: 64px; height: auto;">
+                        </label>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+    </div>
+</div>
+
+<button class="btn btn-secondary my-3" type="button" data-bs-toggle="collapse"
+    data-bs-target="#collapsePaymentChannelCS" aria-expanded="false"
+    aria-controls="collapsePaymentChannelCS">
+    Convenience Store
+</button>
+<div class="collapse mt-3" id="collapsePaymentChannelCS">
+    <div class="row col-12">
+        @foreach ($paymentChannels as $paymentChannel)
+            @if ($paymentChannel->group == 'Convenience Store')
+                <div class="col-6 mb-3">
+                    <div class="card p-3 d-flex flex-row align-items-center justify-content-between">
+                        <input type="radio" name="payment_channel"
+                            id="payment_channel_{{ $paymentChannel->code }}"
+                            class="form-check-input me-2">
+                        <label for="payment_channel_{{ $paymentChannel->code }}"
+                            class="form-check-label d-flex align-items-center justify-content-between w-100">
+                            <span>{{ $paymentChannel->name }}</span>
+                            <img src="{{ $paymentChannel->icon_url }}"
+                                alt="{{ $paymentChannel->name }} icon" class="img-fluid ms-2" style="max-width: 64px; height: auto;">
+                        </label>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+    </div>
+</div>
+
+<button class="btn btn-secondary" type="button" data-bs-toggle="collapse"
+    data-bs-target="#collapsePaymentChannelEW" aria-expanded="false"
+    aria-controls="collapsePaymentChannelEW">
+    E-Wallet
+</button>
+<div class="collapse mt-3" id="collapsePaymentChannelEW">
+    <div class="row col-12">
+        @foreach ($paymentChannels as $paymentChannel)
+            @if ($paymentChannel->group == 'E-Wallet')
+                <div class="col-6 mb-3">
+                    <div class="card p-3 d-flex flex-row align-items-center justify-content-between">
+                        <input type="radio" name="payment_channel"
+                            id="payment_channel_{{ $paymentChannel->code }}"
+                            class="form-check-input me-2">
+                        <label for="payment_channel_{{ $paymentChannel->code }}"
+                            class="form-check-label d-flex align-items-center justify-content-between w-100">
+                            <span>{{ $paymentChannel->name }}</span>
+                            <img src="{{ $paymentChannel->icon_url }}"
+                                alt="{{ $paymentChannel->name }} icon" class="img-fluid ms-2" style="max-width: 64px; height: auto;">
+                        </label>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+    </div>
+</div>
+
+
+
+
+
                 </div>
             </div>
             <div class="col-lg-5">
@@ -71,14 +152,5 @@
     </div>
 @endsection
 @section('script')
-    <script>
-        $(document).ready(function() {
-            $('#payment-channel').ready(function() {
-                $.ajax({
-                    url: 'tripay.payment.channel',
-                    method: 'GET',
-                })
-            })
-        })
-    </script>
+    <script></script>
 @endsection

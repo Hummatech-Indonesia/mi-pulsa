@@ -10,9 +10,8 @@ class TripayService
 
     public function paymentChannel()
     {
-        $apiKey = env('TRIPAY_API_KEY');
+        $apiKey = "DEV-OJFjNqtkh6VZA3zeuGNSTPvTYMUQaRlPGXCYwrWN";
         $curl = curl_init();
-
         curl_setopt_array($curl, array(
             CURLOPT_FRESH_CONNECT  => true,
             CURLOPT_URL            => 'https://tripay.co.id/api-sandbox/merchant/payment-channel',
@@ -86,13 +85,6 @@ class TripayService
         $error = json_decode(curl_error($curl));
         $responseSuccess = json_decode($response);
 
-        $data =  $responseSuccess ? $responseSuccess : $error;
-        $response = json_decode($data);
-        if ($response->success == true) {
-            $data = $response->data;
-            return $data;
-        } else {
-            return $response->message;
-        }
+        return $responseSuccess ? $responseSuccess : $error;
     }
 }
