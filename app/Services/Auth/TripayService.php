@@ -28,7 +28,14 @@ class TripayService
 
         curl_close($curl);
 
-        return $response ? $response : $error;
+        $data = $response ? $response : $error;
+        $response = json_decode($data);
+        if ($response->success == true) {
+            $data = $response->data;
+            return $data;
+        } else {
+            return $response->message;
+        }
     }
 
 
