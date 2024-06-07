@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TripayController;
 use App\Http\Controllers\UserController;
@@ -38,9 +39,7 @@ Route::prefix('tripay')->group(function () {
         Route::post('request-transaction', [TripayController::class, 'requestTransaction']);
     });
 });
-route::get('test', function () {
-    return view('dashboard.pages.packages.index');
-})->name('test');
+Route::get('packages',[PackagesController::class,'index'])->name('packages.index');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 
