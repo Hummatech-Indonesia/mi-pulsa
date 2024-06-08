@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 @section('content')
     <style>
-        ul {
+        .ul {
             list-style: auto !important;
         }
     </style>
@@ -93,7 +93,7 @@
                                 </h2>
                                 <div id="collapseInternetBanking" class="accordion-collapse collapse show" aria-labelledby="headingInternetBanking" data-bs-parent="#paymentInstructions">
                                     <div class="accordion-body">
-                                        <ul class="border-bottom p-3">
+                                        <ul class="border-bottom p-3 ul">
                                             <li>Login ke Internet banking bank anda</li>
                                             <li>Masukkan informasi pembayaran</li>
                                             <li>Konfirmasi transaksi</li>
@@ -111,7 +111,7 @@
                                 </h2>
                                 <div id="collapseATM" class="accordion-collapse collapse" aria-labelledby="headingATM" data-bs-parent="#paymentInstructions">
                                     <div class="accordion-body">
-                                        <ul class="border-bottom p-3">
+                                        <ul class="border-bottom p-3 ul">
                                             <li>Masukkan kartu ATM dan PIN</li>
                                             <li>Pilih menu pembayaran</li>
                                             <li>Masukkan kode pembayaran</li>
