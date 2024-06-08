@@ -39,6 +39,9 @@ Route::prefix('tripay')->group(function () {
         Route::post('request-transaction', [TripayController::class, 'requestTransaction'])->name('request.transaction');
     });
 });
+Route::get('checkout',function(){
+    return view('dashboard.pages.packages.checkout');
+});
 Route::get('packages', [PackagesController::class, 'index'])->name('packages.index');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
