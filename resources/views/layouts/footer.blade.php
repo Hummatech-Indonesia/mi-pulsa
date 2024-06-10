@@ -25,18 +25,22 @@
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
                             <h3 class="text-light mb-0">Get In Touch</h3>
                         </div>
+                        @if ($contact)
+                            
                         <div class="d-flex mb-2">
-                            <i class="bi bi-geo-alt text-primary me-2"></i>
-                            <p class="mb-0">123 Street, New York, USA</p>
+                            <i class="bi bi-geo-alt me-2"></i>
+                            <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($contact->address) }}" class="text-primary mb-0">{{ $contact->address }}</a>
                         </div>
                         <div class="d-flex mb-2">
-                            <i class="bi bi-envelope-open text-primary me-2"></i>
-                            <p class="mb-0">info@example.com</p>
+                            <i class="bi bi-envelope-open me-2"></i>
+                            <a href="mailto:{{ $contact->email }}" class="text-primary mb-0">{{ $contact->email }}</a>
                         </div>
                         <div class="d-flex mb-2">
-                            <i class="bi bi-telephone text-primary me-2"></i>
-                            <p class="mb-0">+012 345 67890</p>
+                            <i class="bi bi-telephone me-2"></i>
+                            <a href="https://wa.me/{{ $contact->phone_number }}" class="text-primary mb-0">{{ $contact->phone_number }}</a>
                         </div>
+                        @endif
+                        
                         <div class="d-flex mt-4">
                             <a class="btn btn-primary btn-square me-2" href="#"><i
                                     class="fab fa-twitter fw-normal"></i></a>
@@ -53,18 +57,14 @@
                             <h3 class="text-light mb-0">Quick Links</h3>
                         </div>
                         <div class="link-animated d-flex flex-column justify-content-start">
-                            <a class="text-light mb-2" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                            <a class="text-light mb-2" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
-                            <a class="text-light mb-2" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                            <a class="text-light mb-2" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                            <a class="text-light mb-2" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
-                            <a class="text-light" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                            <a class="text-light mb-2" href="{{ Route('home.index') }}"><i
+                                    class="bi bi-arrow-right text-primary me-2"></i>Beranda</a>
+                            <a class="text-light mb-2" href=""><i
+                                    class="bi bi-arrow-right text-primary me-2"></i>Daftar Harga</a>
+                            <a class="text-light mb-2" href="{{ route('about.index') }}"><i
+                                    class="bi bi-arrow-right text-primary me-2"></i>Tentang Kami</a>
+                            <a class="text-light mb-2" href="{{ route('contact.index') }}"><i
+                                    class="bi bi-arrow-right text-primary me-2"></i>Hubungi Kami</a>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
@@ -72,18 +72,14 @@
                             <h3 class="text-light mb-0">Popular Links</h3>
                         </div>
                         <div class="link-animated d-flex flex-column justify-content-start">
-                            <a class="text-light mb-2" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                            <a class="text-light mb-2" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
-                            <a class="text-light mb-2" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                            <a class="text-light mb-2" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                            <a class="text-light mb-2" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
-                            <a class="text-light" href="#"><i
-                                    class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                            <a class="text-light mb-2" href="{{ Route('home.index') }}"><i
+                                    class="bi bi-arrow-right text-primary me-2"></i>Beranda</a>
+                            <a class="text-light mb-2" href=""><i
+                                    class="bi bi-arrow-right text-primary me-2"></i>Daftar Harga</a>
+                            <a class="text-light mb-2" href="{{ route('about.index') }}"><i
+                                    class="bi bi-arrow-right text-primary me-2"></i>Tentang Kami</a>
+                            <a class="text-light mb-2" href="{{ route('contact.index') }}"><i
+                                    class="bi bi-arrow-right text-primary me-2"></i>Hubungi Kami</a>
                         </div>
                     </div>
                 </div>
