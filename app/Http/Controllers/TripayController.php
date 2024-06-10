@@ -45,7 +45,6 @@ class TripayController extends Controller
     public function requestTransaction(RequestTransactionRequest $request): View
     {
         $service = $this->service->requestTransaction($request);
-        // dd($service->data);
         return view('dashboard.pages.packages.checkout', compact('service'));
     }
 }

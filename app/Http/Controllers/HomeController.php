@@ -31,11 +31,9 @@ class HomeController extends Controller
      */
     public function index(): View
     {
-
-        return view('pages.index', [
-            'contact' => $this->contact->get(),
-            'about' => $this->about->get(),
-        ]);
+        $contact = $this->contact->get();
+        $about = $this->about->get();
+        return view('pages.index', compact('contact', 'about'));
     }
     /**
      * Method about
@@ -46,7 +44,7 @@ class HomeController extends Controller
     {
         $about = $this->about->get();
         $contact = $this->contact->get();
-        return view('pages.about', compact('about','contact'));
+        return view('pages.about', compact('about', 'contact'));
     }
     public function contact(): View
     {

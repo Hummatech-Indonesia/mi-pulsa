@@ -25,8 +25,6 @@
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
                             <h3 class="text-light mb-0">Get In Touch</h3>
                         </div>
-                        @if ($contact)
-                            
                         <div class="d-flex mb-2">
                             <i class="bi bi-geo-alt me-2"></i>
                             <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($contact->address) }}" class="text-primary mb-0">{{ $contact->address }}</a>
@@ -39,7 +37,6 @@
                             <i class="bi bi-telephone me-2"></i>
                             <a href="https://wa.me/{{ $contact->phone_number }}" class="text-primary mb-0">{{ $contact->phone_number }}</a>
                         </div>
-                        @endif
                         
                         <div class="d-flex mt-4">
                             <a class="btn btn-primary btn-square me-2" href="#"><i
