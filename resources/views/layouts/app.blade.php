@@ -43,13 +43,14 @@
 
 
     <!-- Topbar Start -->
-    <div class="container-fluid bg-dark px-5 d-none d-lg-block">
+    {{-- <div class="container-fluid bg-dark px-5 d-none d-lg-block">
         <div class="row gx-0">
             <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
-                    {{-- <small class="me-3 text-light"><i class="fa fa-map-marker-alt me-2"></i>Perum Permata Regency 1 Blok 10/28, Perun Gpa, Ngijo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65152.</small> --}}
-                    <small class="me-3 text-light"><i class="fa fa-phone-alt me-2"></i>+62 821 3153 6153</small>
-                    <small class="text-light"><i class="fa fa-envelope-open me-2"></i>info@hummatech.com</small>
+                    <small class="me-3 text-light"><i class="fa fa-map-marker-alt me-2"></i>123 Street, New York,
+                        USA</small>
+                    <small class="me-3 text-light"><i class="fa fa-phone-alt me-2"></i>+012 345 6789</small>
+                    <small class="text-light"><i class="fa fa-envelope-open me-2"></i>info@example.com</small>
                 </div>
             </div>
             <div class="col-lg-4 text-center text-lg-end">
@@ -67,25 +68,36 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Topbar End -->
 
 
-    <!-- Navbar & Carousel Start -->
-    <div class="container-fluid position-relative p-0">
-        @include('layouts.navbar')
-        {{-- @if (request()->routeIs('home.index')) --}}
-            @include('layouts.carousel')
-        {{-- @endif --}}
-    </div>
-    <!-- Navbar & Carousel End -->
+    @include('layouts.navbar')
 
-    @yield('content')
-    
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-primary p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
 
 
     <!-- Facts Start -->
-    <div class="container-fluid facts py-5 pt-lg-0">
+    {{-- <div class="container-fluid facts py-5 pt-lg-0">
         <div class="container py-5 pt-lg-0">
             <div class="row gx-0">
                 <div class="col-lg-4 wow zoomIn" data-wow-delay="0.1s">
@@ -129,55 +141,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Facts Start -->
 
 
-    <!-- About Start -->
-    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-lg-7">
-                    <div class="section-title position-relative pb-3 mb-5">
-                        <h5 class="fw-bold text-primary text-uppercase">About Us</h5>
-                        <h1 class="mb-0">The Best IT Solution With 10 Years of Experience</h1>
-                    </div>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
-                        amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus
-                        clita duo justo et tempor eirmod magna dolore erat amet</p>
-                    <div class="row g-0 mb-3">
-                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.2s">
-                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>Award Winning</h5>
-                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>Professional Staff</h5>
-                        </div>
-                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.4s">
-                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>24/7 Support</h5>
-                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>Fair Prices</h5>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="bg-primary d-flex align-items-center justify-content-center rounded"
-                            style="width: 60px; height: 60px;">
-                            <i class="fa fa-phone-alt text-white"></i>
-                        </div>
-                        <div class="ps-4">
-                            <h5 class="mb-2">Call to ask any question</h5>
-                            <h4 class="text-primary mb-0">+012 345 6789</h4>
-                        </div>
-                    </div>
-                    <a href="quote.html" class="btn btn-primary py-3 px-5 mt-3 wow zoomIn"
-                        data-wow-delay="0.9s">Request A Quote</a>
-                </div>
-                <div class="col-lg-5" style="min-height: 500px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s"
-                            src="{{ asset('assets/img/about.jpg') }}" style="object-fit: cover;">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- About End -->
+    @yield('content')
 
 
     <!-- Features Start -->
@@ -213,7 +181,7 @@
                 <div class="col-lg-4  wow zoomIn" data-wow-delay="0.9s" style="min-height: 350px;">
                     <div class="position-relative h-100">
                         <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.1s"
-                            src="{{ asset('assets/img/feature.jpg') }}" style="object-fit: cover;">
+                            src="img/feature.jpg" style="object-fit: cover;">
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -503,7 +471,7 @@
             <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.6s">
                 <div class="testimonial-item bg-light my-4">
                     <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
-                        <img class="img-fluid rounded" src="{{ asset('assets/img/testimonial-1.jpg') }}"
+                        <img class="img-fluid rounded" src="img/testimonial-1.jpg"
                             style="width: 60px; height: 60px;">
                         <div class="ps-4">
                             <h4 class="text-primary mb-1">Client Name</h4>
@@ -516,7 +484,7 @@
                 </div>
                 <div class="testimonial-item bg-light my-4">
                     <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
-                        <img class="img-fluid rounded" src="{{ asset('assets/img/testimonial-2.jpg') }}"
+                        <img class="img-fluid rounded" src="img/testimonial-2.jpg"
                             style="width: 60px; height: 60px;">
                         <div class="ps-4">
                             <h4 class="text-primary mb-1">Client Name</h4>
@@ -529,7 +497,7 @@
                 </div>
                 <div class="testimonial-item bg-light my-4">
                     <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
-                        <img class="img-fluid rounded" src="{{ asset('assets/img/testimonial-3.jpg') }}"
+                        <img class="img-fluid rounded" src="img/testimonial-3.jpg"
                             style="width: 60px; height: 60px;">
                         <div class="ps-4">
                             <h4 class="text-primary mb-1">Client Name</h4>
@@ -542,7 +510,7 @@
                 </div>
                 <div class="testimonial-item bg-light my-4">
                     <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
-                        <img class="img-fluid rounded" src="{{ asset('assets/img/testimonial-4.jpg') }}"
+                        <img class="img-fluid rounded" src="img/testimonial-4.jpg"
                             style="width: 60px; height: 60px;">
                         <div class="ps-4">
                             <h4 class="text-primary mb-1">Client Name</h4>
@@ -570,7 +538,7 @@
                 <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
                     <div class="team-item bg-light rounded overflow-hidden">
                         <div class="team-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="{{ asset('assets/img/team-1.jpg') }}" alt="">
+                            <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
                             <div class="team-social">
                                 <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i
                                         class="fab fa-twitter fw-normal"></i></a>
@@ -591,7 +559,7 @@
                 <div class="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
                     <div class="team-item bg-light rounded overflow-hidden">
                         <div class="team-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="{{ asset('assets/img/team-2.jpg') }}" alt="">
+                            <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
                             <div class="team-social">
                                 <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i
                                         class="fab fa-twitter fw-normal"></i></a>
@@ -612,7 +580,7 @@
                 <div class="col-lg-4 wow slideInUp" data-wow-delay="0.9s">
                     <div class="team-item bg-light rounded overflow-hidden">
                         <div class="team-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="{{ asset('assets/img/team-3.jpg') }}" alt="">
+                            <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
                             <div class="team-social">
                                 <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i
                                         class="fab fa-twitter fw-normal"></i></a>
@@ -647,7 +615,7 @@
                 <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
                     <div class="blog-item bg-light rounded overflow-hidden">
                         <div class="blog-img position-relative overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('assets/img/blog-1.jpg') }}" alt="">
+                            <img class="img-fluid" src="img/blog-1.jpg" alt="">
                             <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
                                 href="">Web Design</a>
                         </div>
@@ -665,7 +633,7 @@
                 <div class="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
                     <div class="blog-item bg-light rounded overflow-hidden">
                         <div class="blog-img position-relative overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('assets/img/blog-2.jpg') }}" alt="">
+                            <img class="img-fluid" src="img/blog-2.jpg" alt="">
                             <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
                                 href="">Web Design</a>
                         </div>
@@ -683,7 +651,7 @@
                 <div class="col-lg-4 wow slideInUp" data-wow-delay="0.9s">
                     <div class="blog-item bg-light rounded overflow-hidden">
                         <div class="blog-img position-relative overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('assets/img/blog-3.jpg') }}" alt="">
+                            <img class="img-fluid" src="img/blog-3.jpg" alt="">
                             <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
                                 href="">Web Design</a>
                         </div>
@@ -709,25 +677,23 @@
         <div class="container py-5 mb-5">
             <div class="bg-white">
                 <div class="owl-carousel vendor-carousel">
-                    <img src="{{ asset('assets/img/vendor-1.jpg') }}" alt="">
-                    <img src="{{ asset('assets/img/vendor-2.jpg') }}" alt="">
-                    <img src="{{ asset('assets/img/vendor-3.jpg') }}" alt="">
-                    <img src="{{ asset('assets/img/vendor-4.jpg') }}" alt="">
-                    <img src="{{ asset('assets/img/vendor-5.jpg') }}" alt="">
-                    <img src="{{ asset('assets/img/vendor-6.jpg') }}" alt="">
-                    <img src="{{ asset('assets/img/vendor-7.jpg') }}" alt="">
-                    <img src="{{ asset('assets/img/vendor-8.jpg') }}" alt="">
-                    <img src="{{ asset('assets/img/vendor-9.jpg') }}" alt="">
+                    <img src="img/vendor-1.jpg" alt="">
+                    <img src="img/vendor-2.jpg" alt="">
+                    <img src="img/vendor-3.jpg" alt="">
+                    <img src="img/vendor-4.jpg" alt="">
+                    <img src="img/vendor-5.jpg" alt="">
+                    <img src="img/vendor-6.jpg" alt="">
+                    <img src="img/vendor-7.jpg" alt="">
+                    <img src="img/vendor-8.jpg" alt="">
+                    <img src="img/vendor-9.jpg" alt="">
                 </div>
             </div>
         </div>
     </div>
-    <!-- Vendor End --> --}}
+    <!-- Vendor End -->
 
-
-    <!-- Footer Start -->
     @include('layouts.footer')
-    <!-- Footer End -->
+
 
 
     <!-- Back to Top -->
@@ -746,6 +712,7 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+
 </body>
 
 </html>

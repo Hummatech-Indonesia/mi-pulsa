@@ -2,12 +2,16 @@
 
 namespace App\Providers;
 
+use App\Contracts\Interfaces\Dashboard\AboutInterface;
+use App\Contracts\Interfaces\Dashboard\ContactInterface;
 use App\Contracts\Interfaces\Dashboard\CustomerInterface;
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Contracts\Interfaces\FcmTokenInterface;
 use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\RegisterInterface;
 use App\Contracts\Interfaces\UserInterface;
+use App\Contracts\Repositories\Dashboard\AboutRepository;
+use App\Contracts\Repositories\Dashboard\ContactRepository;
 use App\Contracts\Repositories\Dashboard\CustomerRepository as DashboardCustomerRepository;
 use App\Contracts\Repositories\Dashboard\ProductRepository;
 use App\Contracts\Repositories\FcmTokenRepository;
@@ -20,11 +24,13 @@ class AppServiceProvider extends ServiceProvider
 {
     private array $register = [
         UserInterface::class => UserRepository::class,
-        ProfileInterface::class=>ProfileRepository::class,
-        RegisterInterface::class=>RegisterRepository::class,
-        FcmTokenInterface::class=>FcmTokenRepository::class,
-        CustomerInterface::class=>DashboardCustomerRepository::class,
-        ProductInterface::class=>ProductRepository::class,
+        ProfileInterface::class => ProfileRepository::class,
+        RegisterInterface::class => RegisterRepository::class,
+        FcmTokenInterface::class => FcmTokenRepository::class,
+        CustomerInterface::class => DashboardCustomerRepository::class,
+        ProductInterface::class => ProductRepository::class,
+        AboutInterface::class => AboutRepository::class,
+        ContactInterface::class=>ContactRepository::class
     ];
     /**
      * Register any application services.

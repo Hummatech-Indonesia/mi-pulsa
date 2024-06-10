@@ -161,6 +161,32 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow {{request()->routeIs('configuration.about.*') ? 'active' : ''}}" href="#" aria-expanded="false">
+                        <span class="d-flex">
+                            <i class="ti ti-settings"></i>
+                        </span>
+                        <span class="hide-menu">Konfigurasi</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a href="{{route('dashboard.contact.index')}}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Hubungi Kami</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{route('dashboard.about.index')}}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Tentang Kami</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">

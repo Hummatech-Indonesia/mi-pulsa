@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="card w-100 position-relative overflow-hidden">
-            <div class="d-flex px-4 py-3 border-bottom justify-content-between">
+            <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
                 <h5 class="card-title fw-semibold mb-0 lh-sm">Tabel Produk</h5>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
                     <i class="fs-4 ti ti-plus"></i>Add

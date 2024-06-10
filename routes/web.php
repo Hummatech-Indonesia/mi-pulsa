@@ -1,5 +1,6 @@
 <?php
-
+use App\Http\Controllers\Dashboard\AboutController;
+use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProductController;
@@ -39,12 +40,15 @@ Route::prefix('tripay')->group(function () {
         Route::post('request-transaction', [TripayController::class, 'requestTransaction'])->name('request.transaction');
     });
 });
-Route::get('checkout',function(){
+Route::get('checkout', function () {
     return view('dashboard.pages.packages.checkout');
 });
-Route::get('packages', [PackagesController::class, 'index'])->name('packages.index');
+
+
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+route::get('about', [HomeController::class, 'about'])->name('about.index');
+ROute::get('contact',[HomeController::class,'contact'])->name('contact.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -60,5 +64,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/update', [ProfileController::class, 'update'])->name('update');
         Route::patch('/change-password', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::get('/forgot-password', [ProfileController::class, 'forgotPassword'])->name('forgot.password');
+    });
+    Route::get('packages', [PackagesController::class, 'index'])->name('packages.index');
+
+    Route::prefix('configuration')->name('dashboard.')->group(function () {
+        Route::get('about', [AboutController::class, 'index'])->name('about.index');
+        Route::post('about', [AboutController::class, 'store'])->name('about.store');
+        Route::patch('about/{about}', [AboutController::class, 'update'])->name('about.update');
+        Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+        Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
+        Route::patch('contact/{contact}', [ContactController::class, 'update'])->name('contact.update');
     });
 });
