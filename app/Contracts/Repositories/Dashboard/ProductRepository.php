@@ -27,7 +27,7 @@ class ProductRepository extends BaseRepository implements ProductInterface
      */
     public function get(): mixed
     {
-        return $this->model->query()->get();
+        return $this->model->query()->fastPaginate(10);
     }
     /**
      * Method store

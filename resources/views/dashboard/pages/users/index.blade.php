@@ -109,8 +109,9 @@
                                 </tr>
                             @endforeach
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        {{ $users->links('pagination::bootstrap-5') }}
+                            </table>
                 </div>
             </div>
         </div>

@@ -25,7 +25,7 @@ class CustomerRepository extends BaseRepository implements CustomerInterface
      */
     public function get(): mixed
     {
-        return $this->model->query()->get();
+        return $this->model->query()->fastPaginate(10);
     }
     /**
      * Method store

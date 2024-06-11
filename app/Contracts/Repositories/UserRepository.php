@@ -23,7 +23,7 @@ class UserRepository extends BaseRepository implements UserInterface
      */
     public function get(): mixed
     {
-        return $this->model->query()->get();
+        return $this->model->query()->fastPaginate(10);
     }
     /**
      * Method getAgen

@@ -107,6 +107,7 @@
                             @endforeach
 
                         </tbody>
+                        {{ $customers->links('pagination::bootstrap-5') }}
                     </table>
                 </div>
             </div>
@@ -120,7 +121,7 @@
     <x-delete-modal></x-delete-modal>
     <x-edit-customer-modal></x-edit-customer-modal>
     <x-add-customer-modal></x-add-customer-modal>
-<script>
+    <script>
         $(document).on('click', '.edit-customer', function() {
             $('#editCustomerModal').modal('show')
             const id = $(this).data('id');
