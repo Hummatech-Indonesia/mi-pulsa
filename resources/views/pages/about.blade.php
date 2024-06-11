@@ -27,14 +27,17 @@
                         </div>
                         <div class="ps-4">
                             <h5 class="mb-2">Hubungi Kami</h5>
-                            <a class="text-primary mb-0 fs-4" href="https://wa.me/{{$about->phone_number}}">{{$about->phone_number}}</a>
+                            <a class="text-primary mb-0 fs-4"
+                                href="https://wa.me/{{ $about->phone_number }}">{{ $about->phone_number }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-5" style="min-height: 500px;">
                     <div class="position-relative h-100">
                         <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s"
-                            src="{{ asset('storage/' . $about->image) }}" style="object-fit: cover;">
+                            src="{{ filter_var($about->image, FILTER_VALIDATE_URL) ? $about->image : asset('storage/' . $about->image) }}"
+                            style="object-fit: cover;">
+
                     </div>
                 </div>
             </div>

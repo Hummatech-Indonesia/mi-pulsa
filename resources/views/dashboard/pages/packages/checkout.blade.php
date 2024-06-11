@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center border-bottom py-3">
-                            <span class="text-dark">Paket E-Learning (3 Bulan)</span>
+                            <span class="text-dark">Paket </span>
                             <div class="">
                                 <span class="fs-2">Rp. 1.550.000</span>
                                 <span class="text-primary">Rp. 850.000</span>
@@ -36,42 +36,50 @@
                         <div class="d-flex justify-content-between align-items-center border-bottom py-3">
                             <span class="text-dark">Diskon</span>
                             <div class="">
-                                <span class="text-primary">Rp. 300.000</span>
+                                <span class="text-primary">Rp. -</span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center py-3">
                             <span class="text-dark">Total Pembayaran</span>
                             <div class="">
-                                <span class="text-primary">Rp. 550.000</span>
+                                <span class="text-primary">{{ $service->data->amount }}</span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center border-bottom py-3">
                             <span class="text-dark">Kode Transaksi</span>
                             <div class="">
-                                <span class="text-primary">DEV-123456789ABC</span>
+                                <span class="text-primary">{{ $service->data->reference }}</span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center border-bottom py-3">
                             <span class="text-dark">Bayar sebelum tanggal</span>
                             <div class="">
-                                <span class="text-primary">13 Oktober 2023</span>
+                                <?php
+                                use Carbon\Carbon;
+                                
+                                // Set locale to Indonesian
+                                Carbon::setLocale('id');
+                                
+                                // Get the timestamp and format it
+                                $expiredTime = $service->data->expired_time;
+                                $formattedDateTime = Carbon::createFromTimestamp($expiredTime)->translatedFormat('j F Y');
+                                ?>
+
+
+
+                                <span class="text-primary">{{ $formattedDateTime }}</span>
                             </div>
                         </div>
                         <div class="grid col-12">
-                            <div class="row">
-                                <div class="col-2 d-flex align-items-start">
-                                    <img src="https://assets.tripay.co.id/upload/payment-icon/ytBKvaleGy1605201833.png"
-                                        alt="" class="img-fluid card p-2 mt-3" width="72" height="72">
-                                </div>
-                                <div class="col-10">
-                                    <p class="text-dark border-bottom py-3">Bank BCA</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="">
-                                            <p class="text-dark">Kode Pembayaran</p>
-                                            <p class="text-primary">ABCDEFGHIJKL123</p>
-                                        </div>
-                                        <button class="btn btn-primary">Salin</button>
+
+                            <div class="col-12">
+                                <p class="text-dark border-bottom py-3">{{ $service->data->payment_name }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="">
+                                        <p class="text-dark">Kode Pembayaran</p>
+                                        <p class="text-primary">{{ $service->data->pay_code }}</p>
                                     </div>
+                                    <button class="btn btn-primary">Salin</button>
                                 </div>
                             </div>
                         </div>
@@ -85,45 +93,32 @@
                     </div>
                     <div class="card-body mb-3">
                         <div class="accordion" id="paymentInstructions">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingInternetBanking">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInternetBanking" aria-expanded="true" aria-controls="collapseInternetBanking">
-                                        Internet Banking
-                                    </button>
-                                </h2>
-                                <div id="collapseInternetBanking" class="accordion-collapse collapse show" aria-labelledby="headingInternetBanking" data-bs-parent="#paymentInstructions">
-                                    <div class="accordion-body">
-                                        <ul class="border-bottom p-3 ul">
-                                            <li>Login ke Internet banking bank anda</li>
-                                            <li>Masukkan informasi pembayaran</li>
-                                            <li>Konfirmasi transaksi</li>
-                                            <li>Simpan bukti pembayaran</li>
-                                            <li>Verifikasi pembayaran di aplikasi kami</li>
-                                        </ul>
+                            @foreach ($service->data->instructions as $index => $instruction)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading{{ $index }}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ $index }}" aria-expanded="false"
+                                            aria-controls="collapse{{ $index }}">
+                                            {{ $instruction->title }}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{ $index }}" class="accordion-collapse collapse"
+                                        aria-labelledby="heading{{ $index }}" data-bs-parent="#paymentInstructions">
+                                        <div class="accordion-body">
+                                            <ul class="border-bottom p-3">
+                                                @foreach ($instruction->steps as $step)
+                                                    <li>{!! $step !!}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingATM">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseATM" aria-expanded="false" aria-controls="collapseATM">
-                                        ATM (nama bank)
-                                    </button>
-                                </h2>
-                                <div id="collapseATM" class="accordion-collapse collapse" aria-labelledby="headingATM" data-bs-parent="#paymentInstructions">
-                                    <div class="accordion-body">
-                                        <ul class="border-bottom p-3 ul">
-                                            <li>Masukkan kartu ATM dan PIN</li>
-                                            <li>Pilih menu pembayaran</li>
-                                            <li>Masukkan kode pembayaran</li>
-                                            <li>Konfirmasi transaksi</li>
-                                            <li>Simpan struk pembayaran</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
-                    <button class="btn bg-primary-subtle text-primary btn-light text-center text-primary mt-3">OK</button>
+
+                    <a href="{{ $service->data->checkout_url }}"
+                        class="btn bg-primary-subtle text-primary btn-light text-center text-primary mt-3">OK</a>
                 </div>
             </div>
         </div>

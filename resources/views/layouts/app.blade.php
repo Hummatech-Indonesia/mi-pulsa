@@ -73,7 +73,7 @@
 
 
     @include('layouts.navbar')
-
+    @yield('carousel')
 
     <!-- Full Screen Search Start -->
     <div class="modal fade" id="searchModal" tabindex="-1">

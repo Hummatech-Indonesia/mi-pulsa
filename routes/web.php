@@ -30,9 +30,7 @@ Auth::routes([
     'verify' => true
 ]);
 
-Route::get('/', function () {
-    return view('pages.index');
-});
+
 
 Route::prefix('tripay')->group(function () {
     Route::name('tripay.')->group(function () {
@@ -46,7 +44,7 @@ Route::get('checkout', function () {
 
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 route::get('about', [HomeController::class, 'about'])->name('about.index');
 ROute::get('contact',[HomeController::class,'contact'])->name('contact.index');
 

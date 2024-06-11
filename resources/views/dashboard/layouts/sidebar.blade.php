@@ -53,14 +53,6 @@
                     <ul aria-expanded="false" class="collapse first-level">
                         @role('admin')
                             <li class="sidebar-item">
-                                <a href="{{route('packages.index')}}" class="sidebar-link">
-                                    <div class="round-16 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-circle"></i>
-                                    </div>
-                                    <span class="hide-menu">Paketan</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
                                 <a href="#" class="sidebar-link">
                                     <div class="round-16 d-flex align-items-center justify-content-center">
                                         <i class="ti ti-circle"></i>
@@ -86,6 +78,14 @@
                             </li>
                         @endrole
                         @role('agen')
+                            <li class="sidebar-item">
+                                <a href="{{ route('packages.index') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Paketan</span>
+                                </a>
+                            </li>
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link">
                                     <div class="round-16 d-flex align-items-center justify-content-center">
@@ -162,7 +162,8 @@
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow {{request()->routeIs('configuration.about.*') ? 'active' : ''}}" href="#" aria-expanded="false">
+                    <a class="sidebar-link has-arrow {{ request()->routeIs('configuration.about.*') ? 'active' : '' }}"
+                        href="#" aria-expanded="false">
                         <span class="d-flex">
                             <i class="ti ti-settings"></i>
                         </span>
@@ -170,7 +171,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item">
-                            <a href="{{route('dashboard.contact.index')}}" class="sidebar-link">
+                            <a href="{{ route('dashboard.contact.index') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
@@ -178,7 +179,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{route('dashboard.about.index')}}" class="sidebar-link">
+                            <a href="{{ route('dashboard.about.index') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>

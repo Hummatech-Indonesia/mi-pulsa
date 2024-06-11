@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\Tripay\RequestTransactionRequest;
 use App\Services\Auth\TripayService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class TripayController extends Controller
 {
@@ -32,15 +34,17 @@ class TripayController extends Controller
         }
     }
 
+
     /**
-     * requestTransaction
+     * Method requestTransaction
      *
-     * @param  mixed $request
-     * @return void
+     * @param RequestTransactionRequest $request [explicite description]
+     *
+     * @return View
      */
-    public function requestTransaction(RequestTransactionRequest $request)
+    public function requestTransaction(RequestTransactionRequest $request): View
     {
         $service = $this->service->requestTransaction($request);
-        return $service;
+        return view('dashboard.pages.packages.checkout', compact('service'));
     }
 }
