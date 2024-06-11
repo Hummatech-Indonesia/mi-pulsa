@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\StatusTransactionEnum;
+use App\Enums\TopupViaEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->string('payment_channel')->nullable();
             $table->string('payment_method')->nullable();
             $table->enum('status', [StatusTransactionEnum::UNPAID->value, StatusTransactionEnum::PAID->value, StatusTransactionEnum::EXPIRED->value, StatusTransactionEnum::FAILED->value, StatusTransactionEnum::REFUND->value]);
+            $table->enum('transaction_via', [TopupViaEnum::TRIPAY->value, TopupViaEnum::WHATSAPP->value]);
             $table->timestamps();
         });
     }
