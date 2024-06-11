@@ -36,6 +36,7 @@ Route::prefix('tripay')->group(function () {
     Route::name('tripay.')->group(function () {
         Route::get('payment-channel', [TripayController::class, 'paymentChannel'])->name('payment.channel');
         Route::post('request-transaction', [TripayController::class, 'requestTransaction'])->name('request.transaction');
+        Route::post('request-transaction-whatsapp', [TripayController::class, 'requestTransactionWhatsapp'])->name('request.transaction.whatsapp');
     });
 });
 Route::get('checkout', function () {
@@ -63,7 +64,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/change-password', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::get('/forgot-password', [ProfileController::class, 'forgotPassword'])->name('forgot.password');
     });
-    Route::get('packages', [PackagesController::class, 'index'])->name('packages.index');
+    Route::name('packages.')->group(function(){
+        Route::get('packages', [PackagesController::class, 'index'])->name('index');
+        Route::get('packages-whatsapp', [PackagesController::class, 'transactionWhatsapp'])->name('whatsapp');
+    });
 
     Route::prefix('configuration')->name('dashboard.')->group(function () {
         Route::get('about', [AboutController::class, 'index'])->name('about.index');

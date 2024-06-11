@@ -4,9 +4,12 @@ namespace App\Providers;
 
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\TopupAgen;
 use App\Models\User;
 use App\Observers\Dashboard\CustomerObserver;
 use App\Observers\Dashboard\ProductObserver;
+use App\Observers\Dashboard\Topupagenobserver;
+use App\Observers\Dashboard\TopupObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -34,6 +37,7 @@ class EventServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Customer::observe(CustomerObserver::class);
         Product::observe(ProductObserver::class);
+        TopupAgen::observe(Topupagenobserver::class);
     }
 
     /**

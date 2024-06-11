@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
+use App\Http\Requests\RequestTransactionWhatsappRequest;
 use App\Http\Requests\Tripay\RequestTransactionRequest;
 use App\Services\Auth\TripayService;
 use Illuminate\Http\RedirectResponse;
@@ -47,4 +48,17 @@ class TripayController extends Controller
         $service = $this->service->requestTransaction($request);
         return view('dashboard.pages.packages.checkout', compact('service'));
     }
+    /**
+     * Method requestTransactionWhatsapp
+     *
+     * @param RequestTransactionWhatsappRequest $request [explicite description]
+     *
+     * @return View
+     */
+    public function requestTransactionWhatsapp(RequestTransactionWhatsappRequest $request): View
+    {
+        $service = $this->service->requestTransactionWhatsapp($request);
+        return view('dashboard.pages.packages.checkout-whatsapp', compact('service'));
+    }
+
 }
