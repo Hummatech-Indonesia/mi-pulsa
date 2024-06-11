@@ -21,9 +21,9 @@ class UserController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $users = $this->user->get();
+        $users = $this->user->search($request);
         return view('dashboard.pages.users.index', compact('users'));
     }
     /**

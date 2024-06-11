@@ -22,9 +22,9 @@ class CustomerController extends Controller
      *
      * @return View
      */
-    public function index():View
+    public function index(Request $request):View
     {
-        $customers = $this->customer->get();
+        $customers = $this->customer->search($request);
         return view('dashboard.pages.customers.index', compact('customers'));
     }
     /**

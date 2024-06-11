@@ -36,8 +36,15 @@
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
+                        <form action="" method="GET" class="mb-3">
+                            @csrf
+                            <input type="text" name="search" id="search" placeholder="cari.." class="form-control">
+                        </form>
                         <thead class="text-dark fs-4">
                             <tr>
+                                <th>
+                                    <h6 class="fs-4 fw-semibold mb-0">#</h6>
+                                </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
                                 </th>
@@ -56,7 +63,10 @@
                         <tbody>
 
                             @foreach ($customers as $customer)
-                                <tr>
+                            <tr>
+                                    <td>
+                                        <p class="mb-0 fw-normal">{{ $loop->iteration }}</p>
+                                    </td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <img src="{{ asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"

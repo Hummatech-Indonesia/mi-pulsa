@@ -29,6 +29,14 @@ class ProductRepository extends BaseRepository implements ProductInterface
     {
         return $this->model->query()->fastPaginate(10);
     }
+    public function search(Request $request): mixed
+    {
+        return $this->model->query()
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->search . '%');
+            })
+            ->fastPaginate(10);
+    }
     /**
      * Method store
      *

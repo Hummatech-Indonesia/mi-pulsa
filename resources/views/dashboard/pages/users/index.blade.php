@@ -39,6 +39,10 @@
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
+                        <form action="" method="GET" class="mb-3">
+                            @csrf
+                            <input type="text" name="search" id="search" placeholder="cari.." class="form-control">
+                        </form>
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th>
@@ -109,9 +113,9 @@
                                 </tr>
                             @endforeach
 
-                            </tbody>
+                        </tbody>
                         {{ $users->links('pagination::bootstrap-5') }}
-                            </table>
+                    </table>
                 </div>
             </div>
         </div>

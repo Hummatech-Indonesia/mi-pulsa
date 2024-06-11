@@ -18,12 +18,24 @@ class TopupAgenRepository extends BaseRepository implements TopupAgenInterface
 {
     public function __construct(TopupAgen $topupAgen)
     {
-$this->model=$topupAgen;
+        $this->model = $topupAgen;
     }
-    public function get():mixed{
+    public function get(): mixed
+    {
         return $this->model->query()->latest()->get();
     }
-    public function store(array $data):mixed{
+    public function search(Request $request): mixed
+    {
+        return $this->model->query()
+            ->when($request->search, function ($query) use ($request) {
+                $query->whereHas('user', function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%');
+                });
+            })
+            ->fastPaginate(10);
+    }
+    public function store(array $data): mixed
+    {
         return $this->model->query()->create($data);
     }
 }

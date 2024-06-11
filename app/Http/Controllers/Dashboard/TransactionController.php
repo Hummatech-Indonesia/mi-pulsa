@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestTransactionWhatsappRequest;
 use App\Models\TopupAgen;
 use App\Services\Dashboard\TransactionService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -22,9 +23,9 @@ class TransactionController extends Controller
         $this->topup->store($this->service->store($request));
         return to_route('transactions.history');
     }
-    public function historyTransaction()
+    public function historyTransaction(Request $request):View
     {
-        $topups = $this->topup->get();
+        $topups = $this->topup->search($request);
         return view('dashboard.pages.transactions.history', compact('topups'));
     }
 }

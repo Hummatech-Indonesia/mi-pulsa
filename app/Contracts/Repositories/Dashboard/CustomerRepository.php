@@ -28,6 +28,22 @@ class CustomerRepository extends BaseRepository implements CustomerInterface
         return $this->model->query()->fastPaginate(10);
     }
     /**
+     * Method search
+     *
+     * @param Request $request [explicite description]
+     *
+     * @return mixed
+     */
+    public function search(Request $request): mixed
+    {
+        return $this->model->query()
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->search . '%');
+            })
+            ->fastPaginate(10);
+    }
+
+    /**
      * Method store
      *
      * @param array $data [explicite description]

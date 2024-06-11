@@ -25,9 +25,9 @@ class ProductController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $products = $this->product->get();
+        $products = $this->product->search($request);
         return view('dashboard.pages.products.index', compact('products'));
     }
     /**
