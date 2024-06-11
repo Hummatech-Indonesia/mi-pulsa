@@ -32,6 +32,9 @@ class TopupAgenRepository extends BaseRepository implements TopupAgenInterface
                     $query->where('name', 'like', '%' . $request->search . '%');
                 });
             })
+            ->when($request->filter, function ($query) use ($request) {
+                $query->where('transaction_via', $request->filter);
+            })
             ->fastPaginate(10);
     }
     public function store(array $data): mixed

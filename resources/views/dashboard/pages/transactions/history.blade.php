@@ -1,5 +1,7 @@
 @php
     use App\Helpers\UserHelper;
+    use App\Enums\TopupViaEnum;
+
 @endphp
 @extends('dashboard.layouts.app')
 @section('content')
@@ -39,10 +41,25 @@
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
-                        <form action="" method="GET" class="mb-3">
-                            @csrf
-                            <input type="text" name="search" id="search" placeholder="cari.." class="form-control">
+                        <form action="" method="GET" class="">
+                            <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+
+                                @csrf
+                                <div class="">
+                                    <input type="text" name="search" id="search" placeholder="cari.."
+                                        class="form-control">
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <select name="filter" id="" class="form-control">
+                                        <option value="">filter via transaksi</option>
+                                        <option value="{{ TopupViaEnum::WHATSAPP->value }}">WHATSAPP</option>
+                                        <option value="{{ TopupViaEnum::TRIPAY->value }}">TRIPAY</option>
+                                    </select>
+                                    <button class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
                         </form>
+
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th>
