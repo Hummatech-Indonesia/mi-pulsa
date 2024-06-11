@@ -70,6 +70,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('packages-whatsapp', [PackagesController::class, 'transactionWhatsapp'])->name('whatsapp');
     });
     Route::name('transactions.')->group(function () {
+        route::post('transaction-whatsapp',[TransactionController::class,'store'])->name('whatsapp.store');
         route::get('history', [TransactionController::class, 'historyTransaction'])->name('history');
     });
 

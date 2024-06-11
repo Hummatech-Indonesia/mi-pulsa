@@ -11,13 +11,13 @@
             <div class="card-body px-4 py-3">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Tabel Admin & Agen</h4>
+                        <h4 class="fw-semibold mb-8">Tabel Riwayat Transaksi</h4>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a class="text-muted " href="index-2.html">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item" aria-current="page">Tabel Admin & Agen</li>
+                                <li class="breadcrumb-item" aria-current="page">Tabel Riwayat Transaksi</li>
                             </ol>
                         </nav>
                     </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="card w-100 position-relative overflow-hidden">
             <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
-                <h5 class="card-title fw-semibold mb-0 lh-sm">Tabel Admin & Agen</h5>
+                <h5 class="card-title fw-semibold mb-0 lh-sm">Tabel Riwayat Transaksi</h5>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
                     <i class="fs-4 ti ti-plus"></i>Add
                 </button>
@@ -46,6 +46,9 @@
                                 </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Email</h6>
+                                </th>
+                                <th>
+                                    <h6 class="fs-4 fw-semibold mb-0">Invoice Id</h6>
                                 </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Pembayaran</h6>
@@ -72,7 +75,10 @@
                                         <p class="mb-0 fw-normal">{{ $topup->user->email }}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">{{ $topup->amount }}</p>
+                                        <p class="mb-0 fw-normal">{{ $topup->invoice_id }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 fw-normal">Rp. {{ number_format($topup->amount, 0, ',', '.') }}</p>
                                     </td>
 
                                     <td>

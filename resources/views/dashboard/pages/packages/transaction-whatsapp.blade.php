@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 @section('content')
     <div class="container-fluid">
-        <form action="{{ route('tripay.request.transaction.whatsapp') }}" method="POST">
+        <form action="{{ route('transactions.whatsapp.store') }}" method="POST">
             @csrf
             <div class="row">
                 <div class="col-lg-7">
@@ -158,8 +158,8 @@
 
                 $('#payment-method').text(methodName);
                 $('#price-order').text('Rp. ' + Number(selectedBalance).toLocaleString());
+                $('#total-order').text('Rp. ' + Number(selectedBalance).toLocaleString());
                 $('#fee').text('Rp. ' + Number(fee).toLocaleString());
-                $('#total-order').text('Rp. ' + (Number(selectedBalance) + Number(fee)).toLocaleString());
             });
 
             $('#balanceInput').on('input', function() {
