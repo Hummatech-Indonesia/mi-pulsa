@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Contracts\Interfaces\Dashboard\TopupAgenInterface;
 use App\Enums\StatusTransactionEnum;
 use App\Enums\TopupViaEnum;
 use App\Http\Requests\RequestTransactionWhatsappRequest;
@@ -10,7 +11,11 @@ use App\Models\TopupAgen;
 
 class TripayService
 {
-
+    private TopupAgenInterface $topup;
+    public function __construct(TopupAgenInterface $topup)
+    {
+        $this->topup = $topup;
+    }
 
     public function paymentChannel()
     {
@@ -102,13 +107,7 @@ class TripayService
         $merchantRef = 'MPLS' . substr(time(), -6);
         $balance = intval($data['balance']);
 
-        TopupAgen::create([
-            'user_id' => $data['user_id'],
-            'invoice_id' => $merchantRef,
-            'amount' => $data['balance'],
-            'status' => StatusTransactionEnum::PAID->value,
-            'transaction_via' => TopupViaEnum::WHATSAPP->value,
-        ]);
+
 
 
 
@@ -121,7 +120,6 @@ class TripayService
             'customer_email' => auth()->user()->email,
             'order_items' => [
                 [
-
                     'name' => 'Saldo-Rp ' . number_format($balance, 0, ',', '.'),
                     'price' => $balance,
                     'quantity' => 1,
@@ -148,6 +146,31 @@ class TripayService
         $response = curl_exec($curl);
         $error = json_decode(curl_error($curl));
         $responseSuccess = json_decode($response);
+
+        // Mendapatkan tahun saat ini dalam format dua digit terakhir
+        $getYear = substr(now()->format('Y'), -2);
+
+        // Menghitung jumlah record di tabel TopupAgen untuk menentukan nomor berikutnya
+        $count = TopupAgen::count() + 1;
+
+        // Membuat external_id dengan format MPLSYYXXXX, di mana YY adalah tahun dan XXXX adalah nomor urut
+        $external_id = "MPLS" . $getYear . str_pad($count, 4, '0', STR_PAD_LEFT);
+
+        // dd($responseSuccess);
+        TopupAgen::create([
+            'user_id' => $request->input('user_id'),
+            'invoice_id' => $external_id,
+            'invoice_url' => $responseSuccess->data->checkout_url,
+            // 'expiry_date' => $responseSuccess->data->expired_time,
+            'paid_amount' => $responseSuccess->data->amount,
+            'fee_amount' => $responseSuccess->data->total_fee,
+            'payment_channel' => $responseSuccess->data->payment_name,
+            'payment_method' => $responseSuccess->data->payment_method,
+            'amount' => $responseSuccess->data->amount_received,
+            'status' => StatusTransactionEnum::UNPAID->value,
+            'transaction_via' => TopupViaEnum::WHATSAPP->value,
+        ]);
+
 
         return $responseSuccess ? $responseSuccess : $error;
     }

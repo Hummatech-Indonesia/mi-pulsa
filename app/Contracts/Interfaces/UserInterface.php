@@ -6,6 +6,11 @@ use App\Contracts\Interfaces\Eloquent\BaseInterface;
 
 interface UserInterface extends BaseInterface
 {
-
+/**
+ * Method getAgen
+ *
+ * @return mixed
+ */
+public function getAgen():mixed;
 
 }

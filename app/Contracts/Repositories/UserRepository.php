@@ -3,6 +3,7 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\UserInterface;
+use App\Enums\RoleEnum;
 use App\Enums\UserRoleEnum;
 use App\Helpers\UserHelper;
 use App\Models\User;
@@ -23,6 +24,15 @@ class UserRepository extends BaseRepository implements UserInterface
     public function get(): mixed
     {
         return $this->model->query()->get();
+    }
+    /**
+     * Method getAgen
+     *
+     * @return mixed
+     */
+    public function getAgen(): mixed
+    {
+        return $this->model->query()->role(RoleEnum::AGEN->value)->get();
     }
     /**
      * Method store

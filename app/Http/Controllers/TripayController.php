@@ -55,10 +55,11 @@ class TripayController extends Controller
      *
      * @return View
      */
-    public function requestTransactionWhatsapp(RequestTransactionWhatsappRequest $request): View
+    public function requestTransactionWhatsapp(RequestTransactionWhatsappRequest $request): RedirectResponse
     {
         $service = $this->service->requestTransactionWhatsapp($request);
-        return view('dashboard.pages.packages.checkout-whatsapp', compact('service'));
+
+        return to_route('transactions.history');
     }
 
 }

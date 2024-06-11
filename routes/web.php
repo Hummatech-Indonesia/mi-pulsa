@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\TransactionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\ProfileController;
@@ -47,7 +48,7 @@ Route::get('checkout', function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 route::get('about', [HomeController::class, 'about'])->name('about.index');
-ROute::get('contact',[HomeController::class,'contact'])->name('contact.index');
+ROute::get('contact', [HomeController::class, 'contact'])->name('contact.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -64,9 +65,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/change-password', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::get('/forgot-password', [ProfileController::class, 'forgotPassword'])->name('forgot.password');
     });
-    Route::name('packages.')->group(function(){
+    Route::name('packages.')->group(function () {
         Route::get('packages', [PackagesController::class, 'index'])->name('index');
         Route::get('packages-whatsapp', [PackagesController::class, 'transactionWhatsapp'])->name('whatsapp');
+    });
+    Route::name('transactions.')->group(function () {
+        route::get('history', [TransactionController::class, 'historyTransaction'])->name('history');
     });
 
     Route::prefix('configuration')->name('dashboard.')->group(function () {

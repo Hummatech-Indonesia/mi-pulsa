@@ -31,7 +31,7 @@ class PackagesController extends Controller
     public function transactionWhatsapp(): View
     {
         $paymentChannels = $this->service->paymentChannel();
-        $users=$this->user->get();
+        $users=$this->user->getAgen();
         return view('dashboard.pages.packages.transaction-whatsapp', compact('paymentChannels','users'));
     }
     public function store(Request $request)

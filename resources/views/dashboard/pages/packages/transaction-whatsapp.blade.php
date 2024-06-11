@@ -131,10 +131,6 @@
                                 <label for="" class="form-label">Harga Pesanan</label>
                                 <p id="price-order">Rp. -</p>
                             </div>
-                            <div class="justify-content-between d-flex">
-                                <label for="" class="form-label">Biaya Layanan</label>
-                                <p id="fee">Rp. -</p>
-                            </div>
                             <hr style="border-top: 1px solid rgba(0, 0, 0, 0.1)">
                             <div class="justify-content-between d-flex">
                                 <label for="" class="form-label fw-bold">Total Pesanan</label>
