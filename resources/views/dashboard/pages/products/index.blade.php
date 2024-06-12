@@ -79,7 +79,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <img src="{{ $product->logo ? asset('storage/' . $product->logo) : asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"
-                                                alt="photo" class="img-fluid rounded-circle mb-2"
+                                                alt="photo" class="img-fluid mb-2"
                                                 style="object-fit: cover;" width="64" height="64">
                                             <div class="ms-3">
                                                 <h6 class="fs-4 fw-semibold mb-0">{{ $product->name }}</h6>
