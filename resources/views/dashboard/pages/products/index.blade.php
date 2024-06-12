@@ -3,6 +3,8 @@
     <div class="container-fluid">
         @if (session('success'))
             <x-alert-success></x-alert-success>
+        @elseif ($errors->any())
+            <x-validation-errors :errors="$errors"></x-validation-errors>
         @elseif(session('error'))
             <x-alert-failed></x-alert-failed>
         @endif
@@ -33,14 +35,26 @@
         </div>
         <div class="card w-100 position-relative overflow-hidden">
             <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
-                <h5 class="card-title fw-semibold mb-0 lh-sm">Tabel Produk</h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
-                    <i class="fs-4 ti ti-plus"></i>Add
-                </button>
+                <div class="d-flex gap-2">
+                    <form action="" method="GET" class="d-flex mb-0">
+                        @csrf
+                        <input type="text" name="search" id="search" placeholder="cari.." class="form-control me-2"
+                            value="{{ request()->search }}">
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                    </form>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#addCustomerModal">
+                        <i class="fs-4 ti ti-plus"></i> Tambah Produk
+                    </button>
+                </div>
             </div>
+
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
+
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th>
@@ -80,42 +94,39 @@
                                     </td>
 
                                     <td>
-                                        <div class="dropdown dropstart">
-                                            <a href="#" class="text-muted" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ti ti-dots-vertical fs-6"></i>
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                                                <li>
-                                                    <button type="button"
-                                                        class="dropdown-item d-flex align-items-center gap-3 edit-product"
-                                                        data-bs-toggle="modal" data-bs-target="#editCustomer"
-                                                        data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                                        data-price="{{ $product->price }}"
-                                                        data-description="{{ $product->description }}"
-                                                        data-logo="{{ $product->logo }}">
-                                                        <i class="fs-4 ti ti-pencil"></i>Edit
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="button"
-                                                        class="dropdown-item d-flex align-items-center gap-3 delete-product"
-                                                        data-bs-toggle="modal" data-bs-target="#deleteCustomer"
-                                                        data-id="{{ $product->id }}">
-                                                        <i class="fs-4 ti ti-trash"></i>Delete
-                                                    </button>
-                                                </li>
+                                        <ul class="d-flex" aria-labelledby="dropdownMenuButton">
 
-                                            </ul>
-                                        </div>
+                                            <li>
+                                                <button type="button"
+                                                    class="btn d-flex align-items-center gap-3 edit-product"
+                                                    data-bs-toggle="modal" data-bs-target="#editCustomer"
+                                                    data-id="{{ $product->id }}" data-name="{{ $product->name }}"
+                                                    data-price="{{ $product->price }}"
+                                                    data-description="{{ $product->description }}"
+                                                    data-logo="{{ $product->logo }}">
+                                                    <i class="fs-4 ti ti-pencil"></i>Edit
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button"
+                                                    class="btn d-flex align-items-center gap-3 delete-product"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteCustomer"
+                                                    data-id="{{ $product->id }}">
+                                                    <i class="fs-4 ti ti-trash"></i>Delete
+                                                </button>
+                                            </li>
+
+                                        </ul>
                                     </td>
                                 </tr>
                             @endforeach
 
                         </tbody>
-                        {{ $products->links('pagination::bootstrap-5') }}
                     </table>
+                    <div class="mt-3">
+                        {{ $products->links('pagination::bootstrap-5') }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -129,11 +140,7 @@
     <x-edit-product-modal></x-edit-product-modal>
     <x-add-product-modal></x-add-product-modal>
     <script>
-        CKEDITOR.replace('add-description', {
-            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
-            filebrowserUploadMethod: 'form'
-        });
-        CKEDITOR.replace('description', {
+        CKEDITOR.replace('.ckeditor', {
             filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
             filebrowserUploadMethod: 'form'
         });

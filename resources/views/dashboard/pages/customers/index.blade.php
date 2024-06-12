@@ -3,6 +3,8 @@
     <div class="container-fluid">
         @if (session('success'))
             <x-alert-success></x-alert-success>
+        @elseif ($errors->any())
+            <x-validation-errors :errors="$errors"></x-validation-errors>
         @elseif(session('error'))
             <x-alert-failed></x-alert-failed>
         @endif
@@ -33,22 +35,19 @@
         </div>
         <div class="card w-100 position-relative overflow-hidden">
             <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
-                <h5 class="card-title fw-semibold mb-0 lh-sm">Tabel Pengguna</h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                <form action="" method="GET" class="d-flex mb-0 gap-2">
+                    @csrf
+                    <input type="text" name="search" id="" placeholder="cari.." class="form-control">
+                    <button class="btn btn-primary">Cari</button>
+                </form> <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#addCustomerModal">
                     <i class="fs-4 ti ti-plus"></i>Add
                 </button>
             </div>
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
-                        <form action="" method="GET" class="mb-3">
-                            @csrf
-                            <div class="d-flex justify-content-start align-items-center gap-2">
-                                <input type="text" name="search" id="search" placeholder="cari.."
-                                    class="form-control">
-                                <button class="btn btn-primary">Search</button>
-                            </div>
-                        </form>
+
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th>

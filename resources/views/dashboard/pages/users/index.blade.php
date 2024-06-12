@@ -6,6 +6,8 @@
     <div class="container-fluid">
         @if (session('success'))
             <x-alert-success></x-alert-success>
+        @elseif ($errors->any())
+            <x-validation-errors :errors="$errors"></x-validation-errors>
         @elseif(session('error'))
             <x-alert-failed></x-alert-failed>
         @endif
@@ -36,18 +38,25 @@
         </div>
         <div class="card w-100 position-relative overflow-hidden">
             <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
-                <h5 class="card-title fw-semibold mb-0 lh-sm">Tabel Admin & Agen</h5>
+                <form action="" method="GET" class="d-flex mb-0 gap-2">
+                    @csrf
+                    <input type="text" name="search" id="search" placeholder="cari.." class="form-control"
+                        value="{{ request()->search }}">
+                    <select name="role" id="" class="form-control">
+                        <option value="">filter role</option>
+                        <option value="agen" {{ request()->role == 'agen' ? 'selected' : '' }}>Agen</option>
+                        <option value="admin" {{ request()->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                    </select>
+                    <button class="btn btn-primary">Cari</button>
+                </form>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                    <i class="fs-4 ti ti-plus"></i>Add
+                    <i class="fs-4 ti ti-plus"></i>Tambah Admin / Agen
                 </button>
             </div>
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
-                        <form action="" method="GET" class="mb-3">
-                            @csrf
-                            <input type="text" name="search" id="search" placeholder="cari.." class="form-control">
-                        </form>
+
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th>
@@ -113,8 +122,10 @@
                             @endforeach
 
                         </tbody>
-                        {{ $users->links('pagination::bootstrap-5') }}
                     </table>
+                    <div class="mt-3">
+                        {{ $users->links('pagination::bootstrap-5') }}
+                    </div>
                 </div>
             </div>
         </div>
