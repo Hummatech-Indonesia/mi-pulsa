@@ -48,7 +48,7 @@
                             <label for="" class="form-label mb-2 text-black fw-bold fs-4">Alamat :</label>
                             <div class="mb-3">
 
-                                <span class="fs-3">{{ auth()->user()->address }}</span>
+                                <span class="fs-3">{!! auth()->user()->address !!}</span>
                                 <hr style="border:1px solid;">
                             </div>
                         </div>
