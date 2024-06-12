@@ -1,6 +1,11 @@
 @extends('dashboard.layouts.app')
 @section('content')
     <div class="container-fluid">
+        @if (session('success'))
+            <x-alert-success></x-alert-success>
+        @elseif(session('error'))
+            <x-alert-failed></x-alert-failed>
+        @endif
         <div class="card">
             <div class="card-body">
 
@@ -70,11 +75,4 @@
     @section('script')
         <x-edit-profile-modal></x-edit-profile-modal>
         <x-change-password-modal></x-change-password-modal>
-
-        <script>
-            CKEDITOR.replace('address', {
-                filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
-                filebrowserUploadMethod: 'form'
-            });
-        </script>
     @endsection

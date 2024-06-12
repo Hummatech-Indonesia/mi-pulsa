@@ -1,6 +1,11 @@
 @extends('dashboard.layouts.app')
 @section('content')
     <div class="container-fluid">
+        @if (session('success'))
+            <x-alert-success></x-alert-success>
+        @elseif(session('error'))
+            <x-alert-failed></x-alert-failed>
+        @endif
         <!-- --------------------------------------------------- -->
         <!--  Form Basic Start -->
         <!-- --------------------------------------------------- -->

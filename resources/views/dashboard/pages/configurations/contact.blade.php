@@ -1,6 +1,11 @@
 @extends('dashboard.layouts.app')
 @section('content')
     <div class="container-fluid">
+        @if (session('success'))
+            <x-alert-success></x-alert-success>
+        @elseif(session('error'))
+            <x-alert-failed></x-alert-failed>
+        @endif
         <!-- --------------------------------------------------- -->
         <!--  Form Basic Start -->
         <!-- --------------------------------------------------- -->
@@ -32,8 +37,8 @@
                     <!-- 1. Hubungi Kami -->
                     <!-- ----------------------------------------- -->
                     <!-- ---------------------
-                                                                                          start Hubungi Kami
-                                                                                      ---------------- -->
+                                                                                              start Hubungi Kami
+                                                                                          ---------------- -->
                     <div class="card">
                         <div class="card-body">
                             <h5 class="mb-3">Hubungi Kami</h5>
@@ -63,8 +68,7 @@
 
                                         <div class="col-md-6">
                                             <div class="form-floating mb-3">
-                                                <textarea name="address" id="address" cols="15" rows="5" class="form-control"
-                                                    placeholder="deskripsi">{{ $contact->address }}</textarea>
+                                                <textarea name="address" id="address" cols="15" rows="5" class="form-control" placeholder="deskripsi">{{ $contact->address }}</textarea>
                                                 <label for="address">Alamat</label>
                                             </div>
                                         </div>
@@ -107,8 +111,7 @@
 
                                         <div class="col-md-6">
                                             <div class="form-floating mb-3">
-                                                <textarea name="address" id="address" cols="15" rows="5" class="form-control"
-                                                    placeholder="deskripsi"></textarea>
+                                                <textarea name="address" id="address" cols="15" rows="5" class="form-control" placeholder="deskripsi"></textarea>
                                                 <label for="address">Alamat</label>
                                             </div>
                                         </div>
