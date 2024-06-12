@@ -47,6 +47,7 @@ Route::get('checkout', function () {
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::post('upload_image', [DashboardController::class, 'uploadImage'])->name('upload');
 route::get('about', [HomeController::class, 'about'])->name('about.index');
 ROute::get('contact', [HomeController::class, 'contact'])->name('contact.index');
 

@@ -38,7 +38,11 @@
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
                         <form action="" method="GET" class="mb-3">
                             @csrf
-                            <input type="text" name="search" id="search" placeholder="cari.." class="form-control">
+                            <div class="d-flex justify-content-start align-items-center gap-2">
+                                <input type="text" name="search" id="search" placeholder="cari.."
+                                    class="form-control">
+                                <button class="btn btn-primary">Search</button>
+                            </div>
                         </form>
                         <thead class="text-dark fs-4">
                             <tr>
@@ -63,7 +67,7 @@
                         <tbody>
 
                             @foreach ($customers as $customer)
-                            <tr>
+                                <tr>
                                     <td>
                                         <p class="mb-0 fw-normal">{{ $loop->iteration }}</p>
                                     </td>
@@ -84,41 +88,37 @@
                                     </td>
 
                                     <td>
-                                        <div class="dropdown dropstart">
-                                            <a href="#" class="text-muted" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ti ti-dots-vertical fs-6"></i>
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <ul class="d-flex" aria-labelledby="dropdownMenuButton">
 
-                                                <li>
-                                                    <button type="button"
-                                                        class="dropdown-item d-flex align-items-center gap-3 edit-customer"
-                                                        data-bs-toggle="modal" data-bs-target="#updateCustomer"
-                                                        data-id="{{ $customer->id }}" data-name="{{ $customer->name }}"
-                                                        data-provider="{{ $customer->provider }}"
-                                                        data-phone-number="{{ $customer->phone_number }}">
-                                                        <i class="fs-4 ti ti-pencil"></i>Edit
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="button"
-                                                        class="dropdown-item d-flex align-items-center gap-3 delete-customer"
-                                                        data-bs-toggle="modal" data-bs-target="#deleteCustomer"
-                                                        data-id="{{ $customer->id }}">
-                                                        <i class="fs-4 ti ti-trash"></i>Delete
-                                                    </button>
-                                                </li>
+                                            <li>
+                                                <button type="button"
+                                                    class="btn d-flex align-items-center gap-3 edit-customer"
+                                                    data-bs-toggle="modal" data-bs-target="#updateCustomer"
+                                                    data-id="{{ $customer->id }}" data-name="{{ $customer->name }}"
+                                                    data-provider="{{ $customer->provider }}"
+                                                    data-phone-number="{{ $customer->phone_number }}">
+                                                    <i class="fs-4 ti ti-pencil"></i>Edit
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button"
+                                                    class="btn d-flex align-items-center gap-3 delete-customer"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteCustomer"
+                                                    data-id="{{ $customer->id }}">
+                                                    <i class="fs-4 ti ti-trash"></i>Delete
+                                                </button>
+                                            </li>
 
-                                            </ul>
-                                        </div>
+                                        </ul>
                                     </td>
                                 </tr>
                             @endforeach
 
                         </tbody>
-                        {{ $customers->links('pagination::bootstrap-5') }}
                     </table>
+                    <div class="mt-3">
+                        {{ $customers->links('pagination::bootstrap-5') }}
+                    </div>
                 </div>
             </div>
         </div>

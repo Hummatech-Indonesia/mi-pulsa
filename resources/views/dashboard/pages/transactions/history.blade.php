@@ -35,7 +35,7 @@
             <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
                 <h5 class="card-title fw-semibold mb-0 lh-sm">Tabel Riwayat Transaksi</h5>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                    <i class="fs-4 ti ti-plus"></i>Add
+                    <i class="fs-4 ti ti-plus"></i>Tambah data
                 </button>
             </div>
             <div class="card-body p-4">
@@ -55,7 +55,7 @@
                                         <option value="{{ TopupViaEnum::WHATSAPP->value }}">WHATSAPP</option>
                                         <option value="{{ TopupViaEnum::TRIPAY->value }}">TRIPAY</option>
                                     </select>
-                                    <button class="btn btn-primary">Submit</button>
+                                    <button class="btn btn-primary">Search</button>
                                 </div>
                             </div>
                         </form>
@@ -103,30 +103,24 @@
                                     </td>
 
                                     <td>
-                                        <div class="dropdown dropstart">
-                                            <a href="#" class="text-muted" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ti ti-dots-vertical fs-6"></i>
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <ul class="d-flex gap-1" aria-labelledby="dropdownMenuButton">
 
-                                                <li>
-                                                    <button type="button"
-                                                        class="dropdown-item d-flex align-items-center gap-3 update-user"
-                                                        data-bs-toggle="modal" data-bs-target="#updateUser">
-                                                        <i class="fs-4 ti ti-pencil"></i>Edit
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="button"
-                                                        class="dropdown-item d-flex align-items-center gap-3 delete-user"
-                                                        data-bs-toggle="modal" data-bs-target="#deleteUser">
-                                                        <i class="fs-4 ti ti-trash"></i>Delete
-                                                    </button>
-                                                </li>
+                                            <li>
+                                                <button type="button"
+                                                    class="btn d-flex align-items-center gap-3 update-user"
+                                                    data-bs-toggle="modal" data-bs-target="#updateUser">
+                                                    <i class="fs-4 ti ti-pencil"></i>Edit
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button"
+                                                    class="btn d-flex align-items-center gap-3 delete-user"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteUser">
+                                                    <i class="fs-4 ti ti-trash"></i>Delete
+                                                </button>
+                                            </li>
 
-                                            </ul>
-                                        </div>
+                                        </ul>
                                     </td>
                                 </tr>
                             @endforeach

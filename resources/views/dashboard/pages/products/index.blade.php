@@ -68,10 +68,10 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">{{ $product->price }}</p>
+                                        <p class="mb-0 fw-normal">Rp.{{ number_format($product->price, 0, ',', '.') }}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">{{ $product->description }}</p>
+                                        <p class="mb-0 fw-normal">{!! $product->description !!}</p>
                                     </td>
 
                                     <td>
@@ -109,7 +109,7 @@
                             @endforeach
 
                         </tbody>
-                        {{$products->links('pagination::bootstrap-5')}}
+                        {{ $products->links('pagination::bootstrap-5') }}
                     </table>
                 </div>
             </div>
@@ -124,6 +124,14 @@
     <x-edit-product-modal></x-edit-product-modal>
     <x-add-product-modal></x-add-product-modal>
     <script>
+        CKEDITOR.replace('add-description', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form'
+        });
+        CKEDITOR.replace('description', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form'
+        });
         $(document).on('click', '.edit-product', function() {
             $('#editProductModal').modal('show');
 

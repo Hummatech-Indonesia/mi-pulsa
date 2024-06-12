@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="form-label">Description</label>
-                        <textarea name="description" id="description" cols="15" rows="5" class="form-control"></textarea>
+                        <textarea name="description ckeditor" id="description" cols="15" rows="5" class="form-control"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

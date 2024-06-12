@@ -42,7 +42,7 @@
                             </div>
                             <div class="form-group col-6">
                                 <label for="" class="form-label">Alamat</label>
-                                <textarea name="address" id="" cols="15" rows="5" class="form-control">{{ auth()->user()->address }}</textarea>
+                                <textarea name="address" id="summery" cols="15" rows="5" class="form-control">{{ auth()->user()->address }}</textarea>
                             </div>
                         </div>
                     </div>

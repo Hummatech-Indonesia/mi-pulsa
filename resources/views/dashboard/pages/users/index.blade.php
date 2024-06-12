@@ -80,35 +80,29 @@
                                     </td>
 
                                     <td>
-                                        <div class="dropdown dropstart">
-                                            <a href="#" class="text-muted" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ti ti-dots-vertical fs-6"></i>
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <ul class="d-flex " aria-labelledby="dropdownMenuButton">
 
-                                                <li>
-                                                    <button type="button"
-                                                        class="dropdown-item d-flex align-items-center gap-3 update-user"
-                                                        data-bs-toggle="modal" data-bs-target="#updateUser"
-                                                        data-id="{{ $user->id }}" data-name="{{ $user->name }}"
-                                                        data-email="{{ $user->email }}"
-                                                        data-phone-number="{{ $user->phone_number }}"
-                                                        data-role="{{ UserHelper::getRole($user) }}">
-                                                        <i class="fs-4 ti ti-pencil"></i>Edit
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="button"
-                                                        class="dropdown-item d-flex align-items-center gap-3 delete-user"
-                                                        data-bs-toggle="modal" data-bs-target="#deleteUser"
-                                                        data-id="{{ $user->id }}">
-                                                        <i class="fs-4 ti ti-trash"></i>Delete
-                                                    </button>
-                                                </li>
+                                            <li>
+                                                <button type="button"
+                                                    class=" btn d-flex align-items-center gap-3 update-user"
+                                                    data-bs-toggle="modal" data-bs-target="#updateUser"
+                                                    data-id="{{ $user->id }}" data-name="{{ $user->name }}"
+                                                    data-email="{{ $user->email }}"
+                                                    data-phone-number="{{ $user->phone_number }}"
+                                                    data-role="{{ UserHelper::getRole($user) }}">
+                                                    <i class="fs-4 ti ti-pencil"></i>Edit
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button"
+                                                    class=" btn d-flex align-items-center gap-3 delete-user"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteUser"
+                                                    data-id="{{ $user->id }}">
+                                                    <i class="fs-4 ti ti-trash"></i>Delete
+                                                </button>
+                                            </li>
 
-                                            </ul>
-                                        </div>
+                                        </ul>
                                     </td>
                                 </tr>
                             @endforeach
