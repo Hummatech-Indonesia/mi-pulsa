@@ -58,7 +58,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('customers', CustomerController::class);
     Route::resource('products', ProductController::class);
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->except('index');
+    Route::get('users',[UserController::class,'index'])->name('users.index');
+    Route::get('users-agen',[UserController::class,'agen'])->name('users.agen');
 
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');

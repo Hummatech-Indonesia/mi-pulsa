@@ -27,6 +27,18 @@ class UserController extends Controller
         return view('dashboard.pages.users.index', compact('users'));
     }
     /**
+     * Method agen
+     *
+     * @param Request $request [explicite description]
+     *
+     * @return View
+     */
+    public function agen(Request $request): View
+    {
+        $users = $this->user->searchAgen($request);
+        return view('dashboard.pages.users.agen', compact('users'));
+    }
+    /**
      * Method store
      *
      * @param UserRequest $request [explicite description]

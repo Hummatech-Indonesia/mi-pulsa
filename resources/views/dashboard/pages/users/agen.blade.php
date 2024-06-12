@@ -1,11 +1,16 @@
 @php
     use App\Helpers\UserHelper;
-    use App\Enums\TopupViaEnum;
-
 @endphp
 @extends('dashboard.layouts.app')
 @section('content')
     <div class="container-fluid">
+        @if (session('success'))
+            <x-alert-success></x-alert-success>
+        @elseif ($errors->any())
+            <x-validation-errors :errors="$errors"></x-validation-errors>
+        @elseif(session('error'))
+            <x-alert-failed></x-alert-failed>
+        @endif
         <!-- --------------------------------------------------- -->
         <!--  Form Basic Start -->
         <!-- --------------------------------------------------- -->
@@ -13,13 +18,13 @@
             <div class="card-body px-4 py-3">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Tabel Riwayat Transaksi</h4>
+                        <h4 class="fw-semibold mb-8">Tabel Agen</h4>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a class="text-muted " href="index-2.html">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item" aria-current="page">Tabel Riwayat Transaksi</li>
+                                <li class="breadcrumb-item" aria-current="page">Tabel Agen</li>
                             </ol>
                         </nav>
                     </div>
@@ -32,50 +37,21 @@
             </div>
         </div>
         <div class="card w-100 position-relative overflow-hidden">
-            <div class="container">
-                <div class="row align-items-center py-3 border-bottom">
-                    <div class="col-12 col-md-9 mb-3 mb-md-0">
-                        <form action="" class="row gx-2 gy-2 align-items-center">
-                            @csrf
-                            <div class="col-12 col-sm-6 col-md-3">
-                                <input type="text" name="search" id="search" placeholder="cari.." value="{{ request()->search }}" class="form-control">
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3">
-                                <select name="filter" id="filter" class="form-control">
-                                    <option value="">Filter via transaksi</option>
-                                    <option value="{{ TopupViaEnum::WHATSAPP->value }}" {{ request()->filter == TopupViaEnum::WHATSAPP->value ? 'selected' : '' }}>
-                                        WHATSAPP
-                                    </option>
-                                    <option value="{{ TopupViaEnum::TRIPAY->value }}" {{ request()->filter == TopupViaEnum::TRIPAY->value ? 'selected' : '' }}>
-                                        TRIPAY
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3">
-                                <select name="user_id" id="" class="form-control">
-                                    <option value="">Filter pengguna</option>
-                                    @foreach ($topups as $topup)
-                                        <option value="{{ $topup->user->id }}">{{ $topup->user->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3">
-                                <button class="btn btn-primary w-100">Search</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-12 col-md-3 text-md-end">
-                        <button type="button" class="btn btn-primary w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                            <i class="fs-4 ti ti-plus"></i> Tambah data
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
+                <form action="" method="GET" class="d-flex mb-0 gap-2">
+                    @csrf
+                    <input type="text" name="search" id="search" placeholder="cari.." class="form-control"
+                        value="{{ request()->search }}">
 
+                    <button class="btn btn-primary">Cari</button>
+                </form>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                    <i class="fs-4 ti ti-plus"></i>TambahAgen
+                </button>
+            </div>
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
-
 
                         <thead class="text-dark fs-4">
                             <tr>
@@ -86,16 +62,7 @@
                                     <h6 class="fs-4 fw-semibold mb-0">Email</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Invoice Id</h6>
-                                </th>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Pembayaran</h6>
-                                </th>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Metode Pembayaran</h6>
-                                </th>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Transaksi Via</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Nomor Telepon</h6>
                                 </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
@@ -104,41 +71,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($topups as $topup)
+                            @foreach ($users as $user)
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <img src="{{ asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"
                                                 class="rounded-circle" width="40" height="40" />
                                             <div class="ms-3">
-                                                <h6 class="fs-4 fw-semibold mb-0">{{ $topup->user->name }}</h6>
+                                                <h6 class="fs-4 fw-semibold mb-0">{{ $user->name }}</h6>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">{{ $topup->user->email }}</p>
+                                        <p class="mb-0 fw-normal">{{ $user->email }}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">{{ $topup->invoice_id }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 fw-normal">Rp. {{ number_format($topup->amount, 0, ',', '.') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 fw-normal">{{ $topup->payment_method }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 fw-normal">{{ $topup->transaction_via }}</p>
+                                        <p class="mb-0 fw-normal">{{ $user->phone_number }}</p>
                                     </td>
 
                                     <td>
-                                        <ul class="d-flex gap-1" aria-labelledby="dropdownMenuButton">
+                                        <ul class="d-flex " aria-labelledby="dropdownMenuButton">
 
                                             <li>
                                                 <button type="button"
-                                                    class="btn d-flex align-items-center gap-3 update-user"
-                                                    data-bs-toggle="modal" data-bs-target="#updateUser">
-                                                    <i class="fs-4 ti ti-eye"></i>Detail
+                                                    class=" btn d-flex align-items-center gap-3 update-user"
+                                                    data-bs-toggle="modal" data-bs-target="#updateUser"
+                                                    data-id="{{ $user->id }}" data-name="{{ $user->name }}"
+                                                    data-email="{{ $user->email }}"
+                                                    data-phone-number="{{ $user->phone_number }}"
+                                                    data-role="{{ UserHelper::getRole($user) }}">
+                                                    <i class="fs-4 ti ti-pencil"></i>Edit
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button"
+                                                    class=" btn d-flex align-items-center gap-3 delete-user"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteUser"
+                                                    data-id="{{ $user->id }}">
+                                                    <i class="fs-4 ti ti-trash"></i>Delete
                                                 </button>
                                             </li>
 
@@ -149,6 +119,9 @@
 
                         </tbody>
                     </table>
+                    <div class="mt-3">
+                        {{ $users->links('pagination::bootstrap-5') }}
+                    </div>
                 </div>
             </div>
         </div>

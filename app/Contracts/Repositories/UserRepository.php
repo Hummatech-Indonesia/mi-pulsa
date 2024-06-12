@@ -41,9 +41,25 @@ class UserRepository extends BaseRepository implements UserInterface
             ->when($request->role, function ($query) use ($request) {
                 $query->role($request->role);
             })
+            ->role('admin')
             ->where('id', '!=', auth()->id()) // Exclude the currently logged-in user
+            ->where('email', '!=', 'admin@gmail.com') // Exclude the currently logged-in user
             ->fastPaginate(5);
 
+    }
+    public function searchAgen(Request $request): mixed
+    {
+        return $this->model->query()
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->search . '%');
+            })
+            ->when($request->role, function ($query) use ($request) {
+                $query->role($request->role);
+            })
+            ->role('agen')
+            ->where('id', '!=', auth()->id()) // Exclude the currently logged-in user
+            ->where('email', '!=', 'agen@gmail.com') // Exclude the currently logged-in user
+            ->fastPaginate(5);
     }
     /**
      * Method getAgen

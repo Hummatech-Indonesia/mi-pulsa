@@ -15,4 +15,4 @@
 
 {{-- cdn --}}
 <script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script> --}}

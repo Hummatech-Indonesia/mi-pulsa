@@ -18,13 +18,13 @@
             <div class="card-body px-4 py-3">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Tabel Admin & Agen</h4>
+                        <h4 class="fw-semibold mb-8">Tabel Admin</h4>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a class="text-muted " href="index-2.html">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item" aria-current="page">Tabel Admin & Agen</li>
+                                <li class="breadcrumb-item" aria-current="page">Tabel Admin</li>
                             </ol>
                         </nav>
                     </div>
@@ -42,15 +42,11 @@
                     @csrf
                     <input type="text" name="search" id="search" placeholder="cari.." class="form-control"
                         value="{{ request()->search }}">
-                    <select name="role" id="" class="form-control">
-                        <option value="">filter role</option>
-                        <option value="agen" {{ request()->role == 'agen' ? 'selected' : '' }}>Agen</option>
-                        <option value="admin" {{ request()->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                    </select>
+
                     <button class="btn btn-primary">Cari</button>
                 </form>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                    <i class="fs-4 ti ti-plus"></i>Tambah Admin / Agen
+                    <i class="fs-4 ti ti-plus"></i>Tambah Admin
                 </button>
             </div>
             <div class="card-body p-4">
