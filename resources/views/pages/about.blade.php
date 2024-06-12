@@ -9,7 +9,7 @@
                         <h5 class="fw-bold text-primary text-uppercase">About Us</h5>
                         <h1 class="mb-0">{{ $about->title }}</h1>
                     </div>
-                    <p class="mb-4">{{ $about->description }}</p>
+                    <p class="mb-4">{!! $about->description !!}</p>
                     <div class="row g-0 mb-3">
                         <div class="col-sm-6 wow zoomIn" data-wow-delay="0.2s">
                             <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>Award Winning</h5>

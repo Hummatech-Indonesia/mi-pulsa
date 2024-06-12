@@ -37,20 +37,26 @@
                     <!-- 1. Tentang Kami -->
                     <!-- ----------------------------------------- -->
                     <!-- ---------------------
-                                                                                                              start Tentang Kami
-                                                                                                          ---------------- -->
+                                                                                                                      start Tentang Kami
+                                                                                                                  ---------------- -->
                     <div class="card">
                         <div class="card-body">
                             <h5 class="mb-3">Tentang Kami</h5>
                             @if ($about)
                                 <div class="d-flex justify-content-center mb-2">
-                                    <img src="{{ $about->image ? asset('storage/' . $about->image) : 'https://themewagon.github.io/startup2/img/about.jpg' }}"
+                                    <img src="{{ filter_var($about->image, FILTER_VALIDATE_URL) ? $about->image : asset('storage/' . $about->image) }}"
                                         alt="" class="img-fluid" width="150" height="150">
                                 </div>
                                 <form action="{{ route('dashboard.about.update', $about->id) }}" method="post"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PATCH')
+                                    <div class="row mb-3">
+                                        <label for="image" class="col-md-4 col-form-label">Gambar</label>
+                                        <div class="col-md-8">
+                                            <input type="file" name="image" id="image" class="form-control">
+                                        </div>
+                                    </div>
                                     <div class="row mb-3">
                                         <label for="title" class="col-md-4 col-form-label">Judul</label>
                                         <div class="col-md-8">
@@ -66,12 +72,7 @@
                                                 value="{{ $about->phone_number }}" />
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
-                                        <label for="image" class="col-md-4 col-form-label">Gambar</label>
-                                        <div class="col-md-8">
-                                            <input type="file" name="image" id="image" class="form-control">
-                                        </div>
-                                    </div>
+
                                     <div class="row mb-3">
                                         <label for="description" class="col-md-4 col-form-label">Deskripsi</label>
                                         <div class="col-md-8">

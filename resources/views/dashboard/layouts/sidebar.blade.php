@@ -26,7 +26,7 @@
                     <a class="sidebar-link {{ request()->routeIs('dashboard.*') ? 'active' : '' }}"
                         href="{{ route('dashboard.index') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-aperture"></i>
+                            <i class="ti ti-dashboard"></i>
                         </span>
                         <span class="hide-menu">Dashboard</span>
                     </a>
@@ -36,7 +36,7 @@
                         <a class="sidebar-link {{ request()->routeIs('products.*') ? 'active' : '' }}"
                             href="{{ route('products.index') }}" aria-expanded="false">
                             <span>
-                                <i class="ti ti-aperture"></i>
+                                <i class="ti ti-package"></i>
                             </span>
                             <span class="hide-menu">Product</span>
                         </a>
@@ -46,7 +46,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow " href="#" aria-expanded="false">
                         <span class="d-flex">
-                            <i class="ti ti-layout"></i>
+                            <i class="ti ti-wallet"></i>
                         </span>
                         <span class="hide-menu">Saldo</span>
                     </a>
@@ -61,7 +61,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{route('packages.whatsapp')}}" class="sidebar-link">
+                                <a href="{{ route('packages.whatsapp') }}" class="sidebar-link">
                                     <div class="round-16 d-flex align-items-center justify-content-center">
                                         <i class="ti ti-circle"></i>
                                     </div>
@@ -109,7 +109,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow " href="#" aria-expanded="false">
                         <span class="d-flex">
-                            <i class="ti ti-layout"></i>
+                            <i class="ti ti-exchange"></i>
                         </span>
                         <span class="hide-menu">Transaksi</span>
                     </a>
@@ -123,7 +123,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{route('transactions.history')}}" class="sidebar-link">
+                            <a href="{{ route('transactions.history') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
@@ -136,7 +136,7 @@
                     <a class="sidebar-link has-arrow {{ (request()->routeIs('customers.*') ? 'active' : '' || request()->routeIs('users.*')) ? 'active' : '' }}"
                         href="#" aria-expanded="false">
                         <span class="d-flex">
-                            <i class="ti ti-layout"></i>
+                            <i class="ti ti-users"></i>
                         </span>
                         <span class="hide-menu">Pengguna</span>
                     </a>
