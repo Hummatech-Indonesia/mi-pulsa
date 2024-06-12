@@ -34,16 +34,27 @@
             </div>
         </div>
         <div class="card w-100 position-relative overflow-hidden">
-            <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
-                <form action="" method="GET" class="d-flex mb-0 gap-2">
-                    @csrf
-                    <input type="text" name="search" id="" placeholder="cari.." class="form-control">
-                    <button class="btn btn-primary">Cari</button>
-                </form> <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#addCustomerModal">
-                    <i class="fs-4 ti ti-plus"></i>Add
-                </button>
+            <div class="container">
+                <div class="row align-items-center py-3 border-bottom">
+                    <div class="col-12 col-md-9 mb-3 mb-md-0">
+                        <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
+                            @csrf
+                            <div class="col-12 col-sm-8 col-md-9">
+                                <input type="text" name="search" id="search" placeholder="cari.." class="form-control">
+                            </div>
+                            <div class="col-12 col-sm-4 col-md-3">
+                                <button class="btn btn-primary w-100">Cari</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 col-md-3 text-md-end">
+                        <button type="button" class="btn btn-primary w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                            <i class="fs-4 ti ti-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
             </div>
+
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
