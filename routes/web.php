@@ -1,10 +1,12 @@
 <?php
+
 use App\Http\Controllers\Dashboard\AboutController;
 use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\TransactionController;
+use App\Http\Controllers\DigiFlazzController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +33,9 @@ Auth::routes([
     'verify' => true
 ]);
 
+Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
+    Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo']);
+});
 
 
 Route::prefix('tripay')->group(function () {
@@ -69,6 +74,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/change-password', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::get('/forgot-password', [ProfileController::class, 'forgotPassword'])->name('forgot.password');
     });
+
+
     Route::name('packages.')->group(function () {
         Route::get('packages', [PackagesController::class, 'index'])->name('index');
         Route::get('packages-whatsapp', [PackagesController::class, 'transactionWhatsapp'])->name('whatsapp');
