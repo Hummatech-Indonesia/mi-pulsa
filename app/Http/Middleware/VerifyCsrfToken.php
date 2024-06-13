@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
+        'digi-flazz/price-list',
         'digi-flazz/cek-saldo'
     ];
 }

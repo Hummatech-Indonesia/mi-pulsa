@@ -35,6 +35,7 @@ Auth::routes([
 
 Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
     Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo']);
+    Route::post('price-list', [DigiFlazzController::class, 'priceList']);
 });
 
 

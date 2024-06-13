@@ -33,103 +33,160 @@
                 </div>
             </div>
         </div>
-        <div class="card w-100 position-relative overflow-hidden">
-            <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
-                <div class="d-flex gap-2">
-                    <form action="" method="GET" class="d-flex mb-0">
-                        @csrf
-                        <input type="text" name="search" id="search" placeholder="cari.." class="form-control me-2"
-                            value="{{ request()->search }}">
-                        <button type="submit" class="btn btn-primary">Cari</button>
-                    </form>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#addCustomerModal">
-                        <i class="fs-4 ti ti-plus"></i> Tambah Produk
-                    </button>
-                </div>
-            </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab">
+                                    <span>Harga Jual</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
+                                    <span>Harga Beli</span>
+                                </a>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home" role="tabpanel">
+                                <div class="w-100 position-relative overflow-hidden">
+                                    <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
+                                        <div class="d-flex gap-2">
+                                            <form action="" method="GET" class="d-flex mb-0">
+                                                @csrf
+                                                <input type="text" name="search" id="search" placeholder="cari.."
+                                                    class="form-control me-2" value="{{ request()->search }}">
+                                                <button type="submit" class="btn btn-primary">Cari</button>
+                                            </form>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#addCustomerModal">
+                                                <i class="fs-4 ti ti-plus"></i> Tambah Produk
+                                            </button>
+                                        </div>
+                                    </div>
 
-            <div class="card-body p-4">
-                <div class="table-responsive rounded-2 mb-4">
-                    <table class="table border text-nowrap customize-table mb-0 align-middle">
+                                    <div class="card-body p-4">
+                                        <div class="table-responsive rounded-2 mb-4">
+                                            <table class="table border text-nowrap customize-table mb-0 align-middle">
+                                                <thead class="text-dark fs-4">
+                                                    <tr>
+                                                        <th>
+                                                            <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
+                                                        </th>
+                                                        <th>
+                                                            <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
+                                                        </th>
+                                                        <th>
+                                                            <h6 class="fs-4 fw-semibold mb-0">Deskripsi</h6>
+                                                        </th>
+                                                        <th>
+                                                            <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
+                                                        </th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($products as $product)
+                                                        <tr>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="{{ $product->logo ? asset('storage/' . $product->logo) : asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"
+                                                                        alt="photo" class="img-fluid mb-2"
+                                                                        style="object-fit: cover;" width="64"
+                                                                        height="64">
+                                                                    <div class="ms-3">
+                                                                        <h6 class="fs-4 fw-semibold mb-0">
+                                                                            {{ $product->name }}</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <p class="mb-0 fw-normal">
+                                                                    Rp.{{ number_format($product->price, 0, ',', '.') }}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="mb-0 fw-normal">{!! $product->description !!}</p>
+                                                            </td>
 
-                        <thead class="text-dark fs-4">
-                            <tr>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
-                                </th>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
-                                </th>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Deskripsi</h6>
-                                </th>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                                                            <td>
 
-                            @foreach ($products as $product)
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="{{ $product->logo ? asset('storage/' . $product->logo) : asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"
-                                                alt="photo" class="img-fluid mb-2"
-                                                style="object-fit: cover;" width="64" height="64">
-                                            <div class="ms-3">
-                                                <h6 class="fs-4 fw-semibold mb-0">{{ $product->name }}</h6>
+                                                                <ul class="d-flex" aria-labelledby="dropdownMenuButton">
+
+                                                                    <li>
+                                                                        <button type="button"
+                                                                            class="btn d-flex align-items-center gap-3 edit-product"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#editCustomer"
+                                                                            data-id="{{ $product->id }}"
+                                                                            data-name="{{ $product->name }}"
+                                                                            data-price="{{ $product->price }}"
+                                                                            data-description="{{ $product->description }}"
+                                                                            data-logo="{{ $product->logo }}">
+                                                                            <i class="fs-4 ti ti-pencil"></i>Edit
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button type="button"
+                                                                            class="btn d-flex align-items-center gap-3 delete-product"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#deleteCustomer"
+                                                                            data-id="{{ $product->id }}">
+                                                                            <i class="fs-4 ti ti-trash"></i>Delete
+                                                                        </button>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                            <div class="mt-3">
+                                                {{ $products->links('pagination::bootstrap-5') }}
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 fw-normal">Rp.{{ number_format($product->price, 0, ',', '.') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 fw-normal">{!! $product->description !!}</p>
-                                    </td>
-
-                                    <td>
-
-                                        <ul class="d-flex" aria-labelledby="dropdownMenuButton">
-
-                                            <li>
-                                                <button type="button"
-                                                    class="btn d-flex align-items-center gap-3 edit-product"
-                                                    data-bs-toggle="modal" data-bs-target="#editCustomer"
-                                                    data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                                    data-price="{{ $product->price }}"
-                                                    data-description="{{ $product->description }}"
-                                                    data-logo="{{ $product->logo }}">
-                                                    <i class="fs-4 ti ti-pencil"></i>Edit
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button"
-                                                    class="btn d-flex align-items-center gap-3 delete-product"
-                                                    data-bs-toggle="modal" data-bs-target="#deleteCustomer"
-                                                    data-id="{{ $product->id }}">
-                                                    <i class="fs-4 ti ti-trash"></i>Delete
-                                                </button>
-                                            </li>
-
-                                        </ul>
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                        </tbody>
-                    </table>
-                    <div class="mt-3">
-                        {{ $products->links('pagination::bootstrap-5') }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane p-3" id="profile" role="tabpanel">
+                                <div class="w-100 position-relative overflow-hidden">
+                                    <div class="card-body p-4">
+                                        <div class="table-responsive rounded-2 mb-4">
+                                            <table class="table border text-nowrap customize-table mb-0 align-middle">
+                                                <thead class="text-dark fs-4">
+                                                    <tr>
+                                                        <th>
+                                                            <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
+                                                        </th>
+                                                        <th>
+                                                            <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
+                                                        </th>
+                                                        <th>
+                                                            <h6 class="fs-4 fw-semibold mb-0">Operator</h6>
+                                                        </th>
+                                                        <th>
+                                                            <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tableContent">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- --------------------------------------------------- -->
         <!--  Form Basic End -->
         <!-- --------------------------------------------------- -->
@@ -170,6 +227,74 @@
             const id = $(this).attr('data-id');
             let url = `{{ route('products.destroy', ':id') }}`.replace(':id', id);
             $('#deleteForm').attr('action', url);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            function calculateMD5Hash(username, developmentKey) {
+                var message = username + developmentKey + 'depo';
+                return CryptoJS.MD5(message).toString();
+            }
+
+            function postDataToAPI() {
+                var username = '{{ env('DIGIFLAZZ_USERNAME') }}';
+                var developmentKey = '{{ env('DIGIFLAZZ_DEVELOPMENT_KEY') }}';
+
+                var hash = calculateMD5Hash(username, developmentKey);
+
+                var postData = {
+                    "cmd": "deposit",
+                    "username": username,
+                    "sign": hash
+                };
+
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    url: 'digi-flazz/price-list',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    data: JSON.stringify(postData),
+                    success: function(response) {
+                        $.each(response.data, function(index, value) {
+                            $('#tableContent').append(
+                                `<tr>
+                                <td>
+                                    <h6 class="fs-4 fw-semibold mb-0">${value.product_name}</h6>
+                                </td>
+                                <td>
+                                    <p class="mb-0 fw-normal">
+                                        ${value.category}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p class="mb-0 fw-normal">${value.brand}</p>
+                                </td>
+                                <td>
+                                    <p class="mb-0 fw-normal">Rp. ${formatRupiah(value.price)}</p>
+                                </td>
+                            </tr>`
+                            );
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            function formatRupiah(angka) {
+                var reverse = angka.toString().split('').reverse().join(''),
+                    ribuan = reverse.match(/\d{1,3}/g);
+                ribuan = ribuan.join('.').split('').reverse().join('');
+                return ribuan;
+            }
+
+            postDataToAPI();
         });
     </script>
 @endsection

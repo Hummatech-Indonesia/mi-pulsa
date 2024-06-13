@@ -1,4 +1,4 @@
-@extends('layouts.app')
+
 @section('content')
 <!-- Service Start -->
 <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
