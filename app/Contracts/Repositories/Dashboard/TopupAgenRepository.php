@@ -35,6 +35,9 @@ class TopupAgenRepository extends BaseRepository implements TopupAgenInterface
             ->when($request->filter, function ($query) use ($request) {
                 $query->where('transaction_via', $request->filter);
             })
+            ->when($request->user_id, function ($query) use ($request) {
+                $query->where('user_id', $request->user_id);
+            })
             ->fastPaginate(10);
     }
     public function store(array $data): mixed

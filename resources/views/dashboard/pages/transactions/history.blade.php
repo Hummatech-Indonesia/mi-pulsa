@@ -32,33 +32,50 @@
             </div>
         </div>
         <div class="card w-100 position-relative overflow-hidden">
-            <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
-                <h5 class="card-title fw-semibold mb-0 lh-sm">Tabel Riwayat Transaksi</h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                    <i class="fs-4 ti ti-plus"></i>Tambah data
-                </button>
+            <div class="container">
+                <div class="row align-items-center py-3 border-bottom">
+                    <div class="col-12 col-md-9 mb-3 mb-md-0">
+                        <form action="" class="row gx-2 gy-2 align-items-center">
+                            @csrf
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <input type="text" name="search" id="search" placeholder="cari.." value="{{ request()->search }}" class="form-control">
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <select name="filter" id="filter" class="form-control">
+                                    <option value="">Filter via transaksi</option>
+                                    <option value="{{ TopupViaEnum::WHATSAPP->value }}" {{ request()->filter == TopupViaEnum::WHATSAPP->value ? 'selected' : '' }}>
+                                        WHATSAPP
+                                    </option>
+                                    <option value="{{ TopupViaEnum::TRIPAY->value }}" {{ request()->filter == TopupViaEnum::TRIPAY->value ? 'selected' : '' }}>
+                                        TRIPAY
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <select name="user_id" id="" class="form-control">
+                                    <option value="">Filter pengguna</option>
+                                    @foreach ($topups as $topup)
+                                        <option value="{{ $topup->user->id }}">{{ $topup->user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <button class="btn btn-primary w-100">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 col-md-3 text-md-end">
+                        <button type="button" class="btn btn-primary w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                            <i class="fs-4 ti ti-plus"></i> Tambah data
+                        </button>
+                    </div>
+                </div>
             </div>
+
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
-                        <form action="" method="GET" class="">
-                            <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
 
-                                @csrf
-                                <div class="">
-                                    <input type="text" name="search" id="search" placeholder="cari.."
-                                        class="form-control">
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <select name="filter" id="" class="form-control">
-                                        <option value="">filter via transaksi</option>
-                                        <option value="{{ TopupViaEnum::WHATSAPP->value }}">WHATSAPP</option>
-                                        <option value="{{ TopupViaEnum::TRIPAY->value }}">TRIPAY</option>
-                                    </select>
-                                    <button class="btn btn-primary">Search</button>
-                                </div>
-                            </div>
-                        </form>
 
                         <thead class="text-dark fs-4">
                             <tr>
@@ -73,6 +90,12 @@
                                 </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Pembayaran</h6>
+                                </th>
+                                <th>
+                                    <h6 class="fs-4 fw-semibold mb-0">Metode Pembayaran</h6>
+                                </th>
+                                <th>
+                                    <h6 class="fs-4 fw-semibold mb-0">Transaksi Via</h6>
                                 </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
@@ -101,6 +124,12 @@
                                     <td>
                                         <p class="mb-0 fw-normal">Rp. {{ number_format($topup->amount, 0, ',', '.') }}</p>
                                     </td>
+                                    <td>
+                                        <p class="mb-0 fw-normal">{{ $topup->payment_method }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 fw-normal">{{ $topup->transaction_via }}</p>
+                                    </td>
 
                                     <td>
                                         <ul class="d-flex gap-1" aria-labelledby="dropdownMenuButton">
@@ -109,14 +138,7 @@
                                                 <button type="button"
                                                     class="btn d-flex align-items-center gap-3 update-user"
                                                     data-bs-toggle="modal" data-bs-target="#updateUser">
-                                                    <i class="fs-4 ti ti-pencil"></i>Edit
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button"
-                                                    class="btn d-flex align-items-center gap-3 delete-user"
-                                                    data-bs-toggle="modal" data-bs-target="#deleteUser">
-                                                    <i class="fs-4 ti ti-trash"></i>Delete
+                                                    <i class="fs-4 ti ti-eye"></i>Detail
                                                 </button>
                                             </li>
 

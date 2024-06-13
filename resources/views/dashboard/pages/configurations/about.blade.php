@@ -3,6 +3,8 @@
     <div class="container-fluid">
         @if (session('success'))
             <x-alert-success></x-alert-success>
+        @elseif ($errors->any())
+            <x-validation-errors :errors="$errors"></x-validation-errors>
         @elseif(session('error'))
             <x-alert-failed></x-alert-failed>
         @endif

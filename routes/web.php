@@ -48,7 +48,8 @@ Route::get('checkout', function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::post('upload_image', [DashboardController::class, 'uploadImage'])->name('upload');
-route::get('about', [HomeController::class, 'about'])->name('about.index');
+Route::get('product', [HomeController::class, 'product'])->name('home.product');
+Route::get('about', [HomeController::class, 'about'])->name('about.index');
 ROute::get('contact', [HomeController::class, 'contact'])->name('contact.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -58,7 +59,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('customers', CustomerController::class);
     Route::resource('products', ProductController::class);
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->except('index');
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('users-agen', [UserController::class, 'agen'])->name('users.agen');
 
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');
@@ -71,7 +74,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('packages-whatsapp', [PackagesController::class, 'transactionWhatsapp'])->name('whatsapp');
     });
     Route::name('transactions.')->group(function () {
-        route::post('transaction-whatsapp',[TransactionController::class,'store'])->name('whatsapp.store');
+        route::post('transaction-whatsapp', [TransactionController::class, 'store'])->name('whatsapp.store');
         route::get('history', [TransactionController::class, 'historyTransaction'])->name('history');
     });
 

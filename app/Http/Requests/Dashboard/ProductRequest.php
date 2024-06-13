@@ -22,10 +22,10 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|unique:products,name',
-            'logo'=>'nullable',
-            'description'=>'required',
-            'price'=>'required',
+            'name' => 'required|unique:products,name',
+            'logo' => 'nullable',
+            'description' => 'required',
+            'price' => 'required',
         ];
     }
     /**
@@ -33,13 +33,13 @@ class ProductRequest extends FormRequest
      *
      * @return array
      */
-    public function messages():array
+    public function messages(): array
     {
         return [
-            'name.required'=>'Kolom nama tidak boleh kosong',
-            'name.unique'=>'Nama tidak tersedia',
-            'description.required'=>'Kolom deskripsi tidak boleh kosong',
-            'price.required'=>'Kolom harga tidak boleh kosong',
+            'name.required' => 'Kolom nama tidak boleh kosong',
+            'name.unique' => 'Nama tidak tersedia',
+            'description.required' => 'Kolom deskripsi tidak boleh kosong',
+            'price.required' => 'Kolom harga tidak boleh kosong',
         ];
     }
 }

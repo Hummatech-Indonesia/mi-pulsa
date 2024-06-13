@@ -40,7 +40,7 @@ class CustomerRepository extends BaseRepository implements CustomerInterface
             ->when($request->search, function ($query) use ($request) {
                 $query->where('name', 'like', '%' . $request->search . '%');
             })
-            ->fastPaginate(10);
+            ->fastPaginate(5);
     }
 
     /**

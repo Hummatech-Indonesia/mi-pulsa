@@ -1,3 +1,6 @@
+@php
+    use App\Helpers\UserHelper;
+@endphp
 @extends('dashboard.layouts.app')
 @section('content')
     <div class="container-fluid">
@@ -15,13 +18,13 @@
             <div class="card-body px-4 py-3">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Tabel Produk</h4>
+                        <h4 class="fw-semibold mb-8">Tabel Agen</h4>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a class="text-muted " href="index-2.html">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item" aria-current="page">Tabel Produk</li>
+                                <li class="breadcrumb-item" aria-current="page">Tabel Agen</li>
                             </ol>
                         </nav>
                     </div>
@@ -34,20 +37,24 @@
             </div>
         </div>
         <div class="card w-100 position-relative overflow-hidden">
-            <div class="d-flex px-4 py-3 border-bottom justify-content-between align-items-center">
-                <div class="d-flex gap-2">
-                    <form action="" method="GET" class="d-flex mb-0">
-                        @csrf
-                        <input type="text" name="search" id="search" placeholder="cari.." class="form-control me-2"
-                            value="{{ request()->search }}">
-                        <button type="submit" class="btn btn-primary">Cari</button>
-                    </form>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#addCustomerModal">
-                        <i class="fs-4 ti ti-plus"></i> Tambah Produk
-                    </button>
+            <div class="container">
+                <div class="row align-items-center py-3 border-bottom">
+                    <div class="col-12 col-md-9 mb-3 mb-md-0">
+                        <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
+                            @csrf
+                            <div class="col-12 col-sm-8 col-md-9">
+                                <input type="text" name="search" id="search" placeholder="cari.." class="form-control" value="{{ request()->search }}">
+                            </div>
+                            <div class="col-12 col-sm-4 col-md-3">
+                                <button class="btn btn-primary w-100">Cari</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 col-md-3 text-md-end">
+                        <button type="button" class="btn btn-primary w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                            <i class="fs-4 ti ti-plus"></i>Tambah Agen
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -61,10 +68,10 @@
                                     <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Email</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Deskripsi</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Nomor Telepon</h6>
                                 </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
@@ -73,46 +80,43 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            @foreach ($products as $product)
+                            @foreach ($users as $user)
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ $product->logo ? asset('storage/' . $product->logo) : asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"
-                                                alt="photo" class="img-fluid mb-2"
-                                                style="object-fit: cover;" width="64" height="64">
+                                            <img src="{{ asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"
+                                                class="rounded-circle" width="40" height="40" />
                                             <div class="ms-3">
-                                                <h6 class="fs-4 fw-semibold mb-0">{{ $product->name }}</h6>
+                                                <h6 class="fs-4 fw-semibold mb-0">{{ $user->name }}</h6>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">Rp.{{ number_format($product->price, 0, ',', '.') }}</p>
+                                        <p class="mb-0 fw-normal">{{ $user->email }}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">{!! $product->description !!}</p>
+                                        <p class="mb-0 fw-normal">{{ $user->phone_number }}</p>
                                     </td>
 
                                     <td>
-
-                                        <ul class="d-flex" aria-labelledby="dropdownMenuButton">
+                                        <ul class="d-flex " aria-labelledby="dropdownMenuButton">
 
                                             <li>
                                                 <button type="button"
-                                                    class="btn d-flex align-items-center gap-3 edit-product"
-                                                    data-bs-toggle="modal" data-bs-target="#editCustomer"
-                                                    data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                                    data-price="{{ $product->price }}"
-                                                    data-description="{{ $product->description }}"
-                                                    data-logo="{{ $product->logo }}">
+                                                    class=" btn d-flex align-items-center gap-3 update-user"
+                                                    data-bs-toggle="modal" data-bs-target="#updateUser"
+                                                    data-id="{{ $user->id }}" data-name="{{ $user->name }}"
+                                                    data-email="{{ $user->email }}"
+                                                    data-phone-number="{{ $user->phone_number }}"
+                                                    data-role="{{ UserHelper::getRole($user) }}">
                                                     <i class="fs-4 ti ti-pencil"></i>Edit
                                                 </button>
                                             </li>
                                             <li>
                                                 <button type="button"
-                                                    class="btn d-flex align-items-center gap-3 delete-product"
-                                                    data-bs-toggle="modal" data-bs-target="#deleteCustomer"
-                                                    data-id="{{ $product->id }}">
+                                                    class=" btn d-flex align-items-center gap-3 delete-user"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteUser"
+                                                    data-id="{{ $user->id }}">
                                                     <i class="fs-4 ti ti-trash"></i>Delete
                                                 </button>
                                             </li>
@@ -125,7 +129,7 @@
                         </tbody>
                     </table>
                     <div class="mt-3">
-                        {{ $products->links('pagination::bootstrap-5') }}
+                        {{ $users->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             </div>
@@ -137,38 +141,28 @@
 @endsection
 @section('script')
     <x-delete-modal></x-delete-modal>
-    <x-edit-product-modal></x-edit-product-modal>
-    <x-add-product-modal></x-add-product-modal>
+    <x-update-user-modal></x-update-user-modal>
+    <x-add-user-modal></x-add-user-modal>
     <script>
-        CKEDITOR.replace('.ckeditor', {
-            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
-            filebrowserUploadMethod: 'form'
-        });
-        $(document).on('click', '.edit-product', function() {
-            $('#editProductModal').modal('show');
-
-            const id = $(this).data('id');
-            const name = $(this).data('name');
-            const description = $(this).data('description');
-            const price = $(this).data('price');
-            const logo = $(this).data('logo');
-
+        $(document).on('click', '.update-user', function() {
+            $('#updateUserModal').modal('show')
+            const id = $(this).attr('data-id');
+            const name = $(this).attr('data-name');
+            const email = $(this).attr('data-email');
+            const phone_number = $(this).data('phone-number');
+            const role = $(this).data('role');
+            console.log(role);
             $('#name').val(name);
-            $('#description').val(description);
-            $('#price').val(price);
-            // $('#logo').val(logo);
-
-            var logoImage = `{{ asset('storage') }}/${logo}`;
-            $('#logoImage').attr('src', logoImage);
-
-            let url = `{{ route('products.update', ':id') }}`.replace(':id', id);
-            $('#editProductForm').attr('action', url);
+            $('#email').val(email);
+            $('#phone_number').val(phone_number);
+            $('#role').val(role);
+            let url = `{{ route('users.update', ':id') }}`.replace(':id', id);
+            $('#updateUserForm').attr('action', url);
         });
-
-        $(document).on('click', '.delete-product', function() {
+        $(document).on('click', '.delete-user', function() {
             $('#deleteModal').modal('show')
             const id = $(this).attr('data-id');
-            let url = `{{ route('products.destroy', ':id') }}`.replace(':id', id);
+            let url = `{{ route('users.destroy', ':id') }}`.replace(':id', id);
             $('#deleteForm').attr('action', url);
         });
     </script>

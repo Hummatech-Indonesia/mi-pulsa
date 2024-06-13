@@ -3,6 +3,8 @@
     <div class="container-fluid">
         @if (session('success'))
             <x-alert-success></x-alert-success>
+        @elseif ($errors->any())
+            <x-validation-errors :errors="$errors"></x-validation-errors>
         @elseif(session('error'))
             <x-alert-failed></x-alert-failed>
         @endif
@@ -37,8 +39,8 @@
                     <!-- 1. Hubungi Kami -->
                     <!-- ----------------------------------------- -->
                     <!-- ---------------------
-                                                                                              start Hubungi Kami
-                                                                                          ---------------- -->
+                                                                                                  start Hubungi Kami
+                                                                                              ---------------- -->
                     <div class="card">
                         <div class="card-body">
                             <h5 class="mb-3">Hubungi Kami</h5>
