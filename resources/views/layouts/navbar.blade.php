@@ -12,7 +12,7 @@
         <div class="navbar-nav ms-auto py-0">
             <a href="{{ route('home.index') }}"
                 class="nav-item nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}">Beranda</a>
-            <a href="about.html" class="nav-item nav-link">Daftar Harga</a>
+            <a href="{{route('home.product')}}" {{request()->}} class="nav-item nav-link">Daftar Harga</a>
             <a href="{{ route('about.index') }}"
                 class="nav-item nav-link {{ request()->routeIs('about.index') ? 'active' : '' }}">Tentang Kami</a>
             <a href="{{route('contact.index')}}" class="nav-item nav-link">Hubungi Kami</a>
