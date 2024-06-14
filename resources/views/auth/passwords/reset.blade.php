@@ -56,10 +56,9 @@
                             <div class="d-flex align-items-center w-100 h-100">
                                 <div class="card-body">
                                     <div class="mb-5">
-                                        <h2 class="fw-bolder fs-7 mb-3">Forgot your password?</h2>
+                                        <h2 class="fw-bolder fs-7 mb-3">Lupa Password Anda?</h2>
                                         <p class="mb-0 ">
-                                            Please enter the email address associated with your account and We will
-                                            email you a link to reset your password.
+                                            Mohon masukkan alamat email yang terhubung dengan akun anda dan kami akan mengirim link untuk mereset password anda.
                                         </p>
                                     </div>
                                     <form action="{{ route('password.update') }}" method="POST">
@@ -67,10 +66,10 @@
                                         <input type="hidden" name="token" value="{{ $token }}">
 
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Email address</label>
+                                            <label for="email" class="form-label">Email</label>
                                             <input type="email"
                                                 class="form-control @error('email') is-invalid @enderror" id="email"
-                                                name="email" value="{{ $email ?? old('email') }}" required autofocus>
+                                                name="email" value="{{ $email ?? old('email') }}" required autofocus placeholder="mipulsa@gmail.com">
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

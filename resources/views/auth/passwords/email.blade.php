@@ -56,23 +56,21 @@
                             <div class="d-flex align-items-center w-100 h-100">
                                 <div class="card-body">
                                     <div class="mb-5">
-                                        <h2 class="fw-bolder fs-7 mb-3">Forgot your password?</h2>
+                                        <h2 class="fw-bolder fs-7 mb-3">Lupa Password?</h2>
                                         <p class="mb-0 ">
-                                            Please enter the email address associated with your account and We will
-                                            email you a link to reset your password.
+                                            Mohon masukkan alamat email yang terhubung dengan akun anda dan kami akan mengirim link untuk mereset password anda.
                                         </p>
                                     </div>
                                     <form action="{{route('password.email')}}" method="POST">
                                         @csrf
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                            <label for="exampleInputEmail1" class="form-label">Email</label>
                                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp" name="email">
+                                                aria-describedby="emailHelp" name="email" placeholder="mipulsa@gmail.com">
                                         </div>
-                                        <button type="submit" class="btn btn-primary w-100 py-8 mb-3">Forgot
-                                            Password</button>
+                                        <button type="submit" class="btn btn-primary w-100 py-8 mb-3">Reset Password</button>
                                         <a href="{{ route('login') }}"
-                                            class="btn btn-light-primary text-primary w-100 py-8">Back to Login</a>
+                                            class="btn btn-light-primary text-primary w-100 py-8">Kembali Login</a>
                                     </form>
                                 </div>
                             </div>

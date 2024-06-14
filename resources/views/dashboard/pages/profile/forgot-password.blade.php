@@ -56,17 +56,17 @@
                             <div class="d-flex align-items-center w-100 h-100">
                                 <div class="card-body">
                                     <div class="mb-5">
-                                        <h2 class="fw-bolder fs-7 mb-3">Forgot your password?</h2>
+                                        <h2 class="fw-bolder fs-7 mb-3">Lupa Password Anda?</h2>
                                         <p class="mb-0 ">
-                                            Please enter the email address associated with your account and We will
-                                            email you a link to reset your password.
+                                            Mohon masukkan alamat email yang terhubung dengan akun anda dan kami akan mengirim link untuk mereset password anda
+                                            
                                         </p>
                                     </div>
                                     <form>
                                         <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Email address</label>
                                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp">
+                                                aria-describedby="emailHelp" placeholder="mipulsa@gmail.com">
                                         </div>
                                         <a href="javascript:void(0)" class="btn btn-primary w-100 py-8 mb-3">Forgot
                                             Password</a>
