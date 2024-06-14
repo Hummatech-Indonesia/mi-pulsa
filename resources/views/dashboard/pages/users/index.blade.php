@@ -43,7 +43,8 @@
                         <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
                             @csrf
                             <div class="col-12 col-sm-8 col-md-9">
-                                <input type="text" name="search" id="search" placeholder="cari.." class="form-control" value="{{ request()->search }}">
+                                <input type="text" name="search" id="search" placeholder="cari.."
+                                    class="form-control" value="{{ request()->search }}">
                             </div>
                             <div class="col-12 col-sm-4 col-md-3">
                                 <button class="btn btn-primary w-100">Cari</button>
@@ -51,7 +52,8 @@
                         </form>
                     </div>
                     <div class="col-12 col-md-3 text-md-end">
-                        <button type="button" class="btn btn-primary w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                        <button type="button" class="btn btn-primary w-100 w-md-auto add-user" data-bs-toggle="modal"
+                            data-bs-target="#addUserModal">
                             <i class="fs-4 ti ti-plus"></i>Tambah Admin
                         </button>
                     </div>
@@ -164,6 +166,11 @@
             const id = $(this).attr('data-id');
             let url = `{{ route('users.destroy', ':id') }}`.replace(':id', id);
             $('#deleteForm').attr('action', url);
+        });
+        $(document).on('click', '.add-user', function() {
+            $('#addUserModal').modal('show')
+            let url = `{{ route('users.store', ':id') }}`.replace(':id', id);
+            $('#addUserForm').attr('action', url);
         });
     </script>
 @endsection

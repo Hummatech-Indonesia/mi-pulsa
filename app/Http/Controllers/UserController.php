@@ -48,6 +48,24 @@ class UserController extends Controller
     public function store(UserRequest $request): RedirectResponse
     {
         $data = $request->validated();
+        $data['role'] = 'admin';
+
+        if ($data['password'] == null) {
+            $password = bcrypt('password');
+        } else {
+            $password = bcrypt($data['password']);
+        }
+        $data['password'] = $password;
+
+        $data['email_verified_at'] = now();
+        $user = $this->user->store($data);
+        $user->assignRole($data['role']);
+        return back()->with('success', 'Berhasil');
+    }
+    public function storeAgen(UserRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $data['role'] = 'agen';
         if ($data['password'] == null) {
             $password = bcrypt('password');
         } else {

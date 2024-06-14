@@ -25,13 +25,12 @@ class UserRequest extends FormRequest
     {
         $request = [
             'name' => 'required',
-            'email'=>'required|unique:users,email,except,id',
+            'email' => 'required|unique:users,email,except,id',
             'phone_number' => 'required',
             'password' => 'nullable|min:8',
-            'role' => ['required', new AdminRoleRule],
         ];
-        if(request()->routeIs('users.update')){
-            $request['email']=['required','email',Rule::unique('users')->ignore($this->user)];
+        if (request()->routeIs('users.update')) {
+            $request['email'] = ['required', 'email', Rule::unique('users')->ignore($this->user)];
         }
         return $request;
     }
@@ -43,7 +42,6 @@ class UserRequest extends FormRequest
             'phone_number.required' => 'Kolom nomor kosong',
             'password.nullable' => 'Kolom password kosong',
             'password.min' => 'Kolom password minimal 8 karakter',
-            'role.required'=>'Kolom role kosong',
         ];
     }
 }
