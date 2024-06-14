@@ -19,7 +19,7 @@ class TripayService
 
     public function paymentChannel()
     {
-        $apiKey = env('TRIPAY_API_KEY');
+        $apiKey = "DEV-90fiDvHFgfI2jPBmCGUYWTv85K1G9Q0XozJF4lVR";
         $curl = curl_init();
         curl_setopt_array(
             $curl,

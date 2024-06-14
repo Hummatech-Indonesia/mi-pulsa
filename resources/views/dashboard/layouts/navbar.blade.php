@@ -23,7 +23,7 @@
             </span>
         </button>
         <div>
-            <span class="badge rounded-pill text-bg-primary">Rp. <span id="saldoDigiFlazz"></span></span>
+            <span class="badge rounded-pill text-bg-primary">Saldo Rp. <span id="saldoDigiFlazz"></span></span>
         </div>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <div class="d-flex align-items-center justify-content-between">
