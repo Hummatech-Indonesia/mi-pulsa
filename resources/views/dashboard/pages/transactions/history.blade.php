@@ -38,15 +38,18 @@
                         <form action="" class="row gx-2 gy-2 align-items-center">
                             @csrf
                             <div class="col-12 col-sm-6 col-md-3">
-                                <input type="text" name="search" id="search" placeholder="cari.." value="{{ request()->search }}" class="form-control">
+                                <input type="text" name="search" id="search" placeholder="cari.."
+                                    value="{{ request()->search }}" class="form-control">
                             </div>
                             <div class="col-12 col-sm-6 col-md-3">
                                 <select name="filter" id="filter" class="form-control">
                                     <option value="">Filter via transaksi</option>
-                                    <option value="{{ TopupViaEnum::WHATSAPP->value }}" {{ request()->filter == TopupViaEnum::WHATSAPP->value ? 'selected' : '' }}>
+                                    <option value="{{ TopupViaEnum::WHATSAPP->value }}"
+                                        {{ request()->filter == TopupViaEnum::WHATSAPP->value ? 'selected' : '' }}>
                                         WHATSAPP
                                     </option>
-                                    <option value="{{ TopupViaEnum::TRIPAY->value }}" {{ request()->filter == TopupViaEnum::TRIPAY->value ? 'selected' : '' }}>
+                                    <option value="{{ TopupViaEnum::TRIPAY->value }}"
+                                        {{ request()->filter == TopupViaEnum::TRIPAY->value ? 'selected' : '' }}>
                                         TRIPAY
                                     </option>
                                 </select>
@@ -63,11 +66,6 @@
                                 <button class="btn btn-primary w-100">Search</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="col-12 col-md-3 text-md-end">
-                        <button type="button" class="btn btn-primary w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                            <i class="fs-4 ti ti-plus"></i> Tambah data
-                        </button>
                     </div>
                 </div>
             </div>
@@ -132,17 +130,16 @@
                                     </td>
 
                                     <td>
-                                        <ul class="d-flex gap-1" aria-labelledby="dropdownMenuButton">
-
-                                            <li>
-                                                <button type="button"
-                                                    class="btn d-flex align-items-center gap-3 update-user"
-                                                    data-bs-toggle="modal" data-bs-target="#updateUser">
-                                                    <i class="fs-4 ti ti-eye"></i>Detail
-                                                </button>
-                                            </li>
-
-                                        </ul>
+                                        <button type="button"
+                                            class="btn d-flex align-items-center gap-3 detail-transaction"
+                                            data-bs-toggle="modal" data-bs-target="#detailTransaction"
+                                            data-id="{{ $topup->id }}" data-name="{{ $topup->user->name }}"
+                                            data-email="{{ $topup->user->email }}"
+                                            data-invoice-id="{{ $topup->invoice_id }}" data-amount="{{ $topup->amount }}"
+                                            data-status="{{ $topup->status }}"
+                                            data-transaction-via="{{ $topup->transaction_via }}">
+                                            <i class="fs-4 ti ti-eye"></i>Detail
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -158,30 +155,30 @@
     </div>
 @endsection
 @section('script')
-    <x-delete-modal></x-delete-modal>
-    <x-update-user-modal></x-update-user-modal>
-    <x-add-user-modal></x-add-user-modal>
+    <x-detail-transaction-modal></x-detail-transaction-modal>
     <script>
-        $(document).on('click', '.update-user', function() {
-            $('#updateUserModal').modal('show')
+        $(document).on('click', '.detail-transaction', function() {
+            $('#detailTransactionModal').modal('show');
+
+            // Ambil nilai data dari elemen yang diklik
             const id = $(this).attr('data-id');
             const name = $(this).attr('data-name');
             const email = $(this).attr('data-email');
-            const phone_number = $(this).data('phone-number');
-            const role = $(this).data('role');
-            console.log(role);
-            $('#name').val(name);
-            $('#email').val(email);
-            $('#phone_number').val(phone_number);
-            $('#role').val(role);
-            let url = `{{ route('users.update', ':id') }}`.replace(':id', id);
-            $('#updateUserForm').attr('action', url);
-        });
-        $(document).on('click', '.delete-user', function() {
-            $('#deleteModal').modal('show')
-            const id = $(this).attr('data-id');
-            let url = `{{ route('users.destroy', ':id') }}`.replace(':id', id);
-            $('#deleteForm').attr('action', url);
+            const invoiceId = $(this).attr('data-invoice-id');
+            const amount = parseFloat($(this).attr('data-amount')); // Ubah ke tipe float
+            const status = $(this).attr('data-status');
+            const transactionVia = $(this).attr('data-transaction-via');
+
+            // Format amount ke dalam format miliar Indonesia
+            const formattedAmount = amount.toLocaleString('id-ID');
+
+            // Masukkan nilai ke dalam elemen modal
+            $('#name').html(name);
+            $('#email').html(email);
+            $('#invoiceId').html(invoiceId);
+            $('#amount').html('Rp.' + formattedAmount); // Gunakan formattedAmount yang sudah diformat
+            $('#status').html(status);
+            $('#transactionVia').html(transactionVia);
         });
     </script>
 @endsection
