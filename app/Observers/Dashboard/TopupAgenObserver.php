@@ -9,7 +9,7 @@ use App\Models\TopupAgen;
 use App\Models\User;
 use Faker\Provider\Uuid;
 
-class Topupagenobserver
+class TopupagenObserver
 {
     /**
      * Method creating
