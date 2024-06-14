@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Http\Requests\DepositRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
 class DigiFlazzController extends Controller
 {
+    private ProductInterface $product;
+
+    public function __construct(ProductInterface $product)
+    {
+        $this->product = $product;
+    }
+
     /**
      * cekSaldo
      *
@@ -52,7 +60,12 @@ class DigiFlazzController extends Controller
         ];
 
         $response = Http::post('https://api.digiflazz.com/v1/price-list', $postData);
-        
+
+        $data = $response->json();
+        foreach ($data['data'] as $product) {
+            $product['selling_price'] = $product['price'];
+            $this->product->store($product);
+        }
         return $response->json();
     }
 
