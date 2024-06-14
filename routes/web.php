@@ -62,6 +62,9 @@ ROute::get('contact', [HomeController::class, 'contact'])->name('contact.index')
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
+        Route::get('topup-digiflazz', [DashboardController::class, 'index'])->name('topup.digiflazz');
+        Route::get('topup-customer', [DashboardController::class, 'index'])->name('topup.customer');
+        Route::get('history-digiflazz', [DashboardController::class, 'index'])->name('history.digiflazz');
     });
 
     Route::resource('customers', CustomerController::class);
