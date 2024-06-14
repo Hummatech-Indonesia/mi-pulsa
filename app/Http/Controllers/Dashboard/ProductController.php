@@ -15,7 +15,7 @@ class ProductController extends Controller
 {
     private ProductInterface $product;
     private ProductService $service;
-    public function __construct(ProductInterface $product,ProductService $service)
+    public function __construct(ProductInterface $product, ProductService $service)
     {
         $this->product = $product;
         $this->service = $service;
@@ -52,7 +52,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product): RedirectResponse
     {
-        $this->product->update($product->id, $this->service->update($product,$request));
+        $this->product->update($product->id, $this->service->update($product, $request));
         return back()->with('success', 'Berhasil mengubah data');
     }
     /**

@@ -63,8 +63,19 @@ class DigiFlazzController extends Controller
 
         $data = $response->json();
         foreach ($data['data'] as $product) {
-            $product['selling_price'] = $product['price'];
-            $this->product->store($product);
+            $getProduct = $this->product->getWhere(['product_name' => $product['product_name']]);
+            if ($getProduct == null) {
+                $product['selling_price'] = $product['price'];
+                $this->product->store([
+                    'selling_price' => $product['price'],
+                    'product_name' => $product['product_name'],
+                    'brand' => $product['brand'],
+                    'buyer_sku_code' => $product['buyer_sku_code'],
+                    'desc' => $product['desc'],
+                    'price' => $product['price'],
+                    'selling_price' => $product['selling_price']
+                ]);
+            }
         }
         return $response->json();
     }

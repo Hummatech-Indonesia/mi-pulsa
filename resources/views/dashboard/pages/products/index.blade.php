@@ -1,3 +1,6 @@
+@php
+    use App\Helpers\FormatedHelper;
+@endphp
 @extends('dashboard.layouts.app')
 @section('content')
     <div class="container-fluid">
@@ -36,39 +39,64 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <div>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="home" role="tabpanel">
-                                <div class="w-100 position-relative overflow-hidden">
-                                    <div class="card-body p-4">
-                                        <div class="table-responsive rounded-2 mb-4">
-                                            <table class="table border text-nowrap customize-table mb-0 align-middle">
-                                                <thead class="text-dark fs-4">
-                                                    <tr>
-                                                        <th>
-                                                            <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
-                                                        </th>
-                                                        <th>
-                                                            <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
-                                                        </th>
-                                                        <th>
-                                                            <h6 class="fs-4 fw-semibold mb-0">Operator</h6>
-                                                        </th>
-                                                        <th>
-                                                            <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="tableContent">
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="w-100 position-relative overflow-hidden">
+                        <div class="card-body p-4">
+                            <div class="table-responsive rounded-2 mb-4">
+                                <table class="table border text-nowrap customize-table mb-0 align-middle">
+                                    <thead class="text-dark fs-4">
+                                        <tr>
+                                            <th>
+                                                <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
+                                            </th>
+                                            <th>
+                                                <h6 class="fs-4 fw-semibold mb-0">Kode Produk</h6>
+                                            </th>
+                                            <th>
+                                                <h6 class="fs-4 fw-semibold mb-0">Operator</h6>
+                                            </th>
+                                            <th>
+                                                <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
+                                            </th>
+                                            <th>
+                                                <h6 class="fs-4 fw-semibold mb-0">Harga Jual</h6>
+                                            </th>
+                                            <th>
+                                                <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableContent">
+                                        @foreach ($products as $product)
+                                            <tr>
+                                                <td>
+                                                    <h6 class="fs-4 fw-semibold mb-0">{{ $product->product_name }}</h6>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0 fw-normal">{{ $product->buyer_sku_code }}</p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0 fw-normal">{{ $product->brand }}</p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0 fw-normal">
+                                                        {{ FormatedHelper::rupiahCurrency($product->price) }}
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0 fw-normal">
+                                                        {{ FormatedHelper::rupiahCurrency($product->selling_price) }}
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0 fw-normal">
+                                                        Aksi
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -118,7 +146,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             function calculateMD5Hash(username, developmentKey) {
                 var message = username + developmentKey + 'depo';
@@ -184,5 +212,5 @@
 
             postDataToAPI();
         });
-    </script>
+    </script> --}}
 @endsection

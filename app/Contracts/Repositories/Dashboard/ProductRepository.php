@@ -82,4 +82,17 @@ class ProductRepository extends BaseRepository implements ProductInterface
     {
         return $this->show($id)->delete();
     }
+
+    /**
+     * getWhere
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function getWhere(array $data): mixed
+    {
+        return $this->model->query()
+            ->where('product_name', $data['product_name'])
+            ->first();
+    }
 }
