@@ -33,11 +33,6 @@ Auth::routes([
     'verify' => true
 ]);
 
-Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
-    Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo']);
-    Route::post('price-list', [DigiFlazzController::class, 'priceList']);
-    Route::post('deposit', [DigiFlazzController::class, 'deposit']);
-});
 
 
 Route::prefix('tripay')->group(function () {
@@ -68,7 +63,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::resource('customers', CustomerController::class);
-    Route::resource('products', ProductController::class);
+    Route::get('products', [ProductController::class, 'index'])->name('products.index');
+    Route::patch('product-selling-price/{product}', [ProductController::class, 'sellingPrice'])->name('product.selling.price');
     Route::resource('users', UserController::class)->except('index');
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::post('users-store-agen', [UserController::class, 'storeAgen'])->name('users.store.agen');
@@ -79,6 +75,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/update', [ProfileController::class, 'update'])->name('update');
         Route::patch('/change-password', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::get('/forgot-password', [ProfileController::class, 'forgotPassword'])->name('forgot.password');
+    });
+
+    Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
+        Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo']);
+        Route::post('price-list', [DigiFlazzController::class, 'priceList']);
+        Route::post('deposit', [DigiFlazzController::class, 'deposit']);
     });
 
 

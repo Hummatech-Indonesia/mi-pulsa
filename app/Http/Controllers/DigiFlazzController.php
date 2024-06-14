@@ -75,6 +75,19 @@ class DigiFlazzController extends Controller
                     'price' => $product['price'],
                     'selling_price' => $product['selling_price']
                 ]);
+            } else {
+                if ($getProduct->product_name != $product['product_name'] || $getProduct->brand != $product['brand'] || $getProduct->buyer_sku_code != $product['buyer_sku_code'] || $getProduct->desc != $product['desc'] || $getProduct->price != $product['price']) {
+                    $this->product->update(
+                        $getProduct->id,
+                        [
+                            'product_name' => $product['product_name'],
+                            'brand' => $product['brand'],
+                            'buyer_sku_code' => $product['buyer_sku_code'],
+                            'desc' => $product['desc'],
+                            'price' => $product['price']
+                        ]
+                    );
+                }
             }
         }
         return $response->json();

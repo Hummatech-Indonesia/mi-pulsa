@@ -33,7 +33,7 @@ class ProductRepository extends BaseRepository implements ProductInterface
     {
         return $this->model->query()
             ->when($request->search, function ($query) use ($request) {
-                $query->where('name', 'like', '%' . $request->search . '%');
+                $query->where('product_name', 'like', '%' . $request->search . '%')->orWhere('buyer_sku_code', $request->search);
             })
             ->fastPaginate(5);
     }
