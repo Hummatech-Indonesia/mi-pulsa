@@ -8,7 +8,7 @@ use App\Models\TopupAgen;
 use App\Models\User;
 use App\Observers\Dashboard\CustomerObserver;
 use App\Observers\Dashboard\ProductObserver;
-use App\Observers\Dashboard\Topupagenobserver;
+use App\Observers\Dashboard\TopupAgenObserver;
 use App\Observers\Dashboard\TopupObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
