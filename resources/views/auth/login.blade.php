@@ -23,6 +23,7 @@
 </head>
 
 <body>
+
     <!-- Preloader -->
     <div class="preloader">
         <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/favicon.ico"
@@ -54,6 +55,13 @@
                         <div
                             class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
                             <div class="col-sm-8 col-md-6 col-xl-9">
+                                @if (session('success'))
+                                    <x-alert-success></x-alert-success>
+                                @elseif ($errors->any())
+                                    <x-validation-errors :errors="$errors"></x-validation-errors>
+                                @elseif(session('error'))
+                                    <x-alert-failed></x-alert-failed>
+                                @endif
                                 <h2 class="mb-3 fs-7 fw-bolder">Selamat datang di MiPulsa</h2>
 
                                 <form action="{{ route('login') }}" method="POST">
@@ -61,13 +69,13 @@
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp" name="email">
+                                            aria-describedby="emailHelp" name="email" placeholder="mipulsa@gmail.com">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
                                         <div class="d-flex align-items-center">
                                             <input type="password" class="form-control" id="exampleInputPassword1"
-                                                name="password">
+                                                name="password" placeholder="password">
                                             <i class="ti ti-eye" id="togglePassword"
                                                 style="z-index: 100; margin-left:-10%;"></i>
                                         </div>

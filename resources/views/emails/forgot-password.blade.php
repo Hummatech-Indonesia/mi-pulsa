@@ -116,7 +116,7 @@
                                             rel="noopener noreferrer"
                                             style="text-decoration: none; line-height: 100%; background: #1b613d; color: white; font-family: Ubuntu, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: normal; text-transform: none; margin: 0px;">
                                             Reset Password
-                                        </a>
+                                        </a>reset
                                     </td>
                                 </tr>
                             </tbody>
