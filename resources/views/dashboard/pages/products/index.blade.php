@@ -40,6 +40,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="w-100 position-relative overflow-hidden">
+                        <form action="" method="GET" class="d-flex mb-0 col-3">
+                            @csrf
+                            <input type="text" name="search" id="search" placeholder="cari.."
+                                class="form-control me-2" value="{{ request()->search }}">
+                            <button type="submit" class="btn btn-primary">Cari</button>
+                        </form>
                         <div class="card-body p-4">
                             <div class="table-responsive rounded-2 mb-4">
                                 <table class="table border text-nowrap customize-table mb-0 align-middle">
@@ -55,17 +61,14 @@
                                                 <h6 class="fs-4 fw-semibold mb-0">Operator</h6>
                                             </th>
                                             <th>
-                                                <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
+                                                <h6 class="fs-4 fw-semibold mb-0">Harga Beli</h6>
                                             </th>
                                             <th>
                                                 <h6 class="fs-4 fw-semibold mb-0">Harga Jual</h6>
                                             </th>
-                                            <th>
-                                                <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
-                                            </th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tableContent">
+                                    <tbody>
                                         @foreach ($products as $product)
                                             <tr>
                                                 <td>
@@ -78,19 +81,23 @@
                                                     <p class="mb-0 fw-normal">{{ $product->brand }}</p>
                                                 </td>
                                                 <td>
-                                                    <p class="mb-0 fw-normal">
-                                                        {{ FormatedHelper::rupiahCurrency($product->price) }}
-                                                    </p>
+                                                    @if ($product->price <= $product->selling_price)
+                                                        <span
+                                                            class="badge rounded-pill text-bg-primary">{{ FormatedHelper::rupiahCurrency($product->price) }}</span>
+                                                    @else
+                                                        <span
+                                                            class="badge rounded-pill text-bg-danger">{{ FormatedHelper::rupiahCurrency($product->price) }}</span>
+                                                    @endif
                                                 </td>
                                                 <td>
-                                                    <p class="mb-0 fw-normal">
-                                                        {{ FormatedHelper::rupiahCurrency($product->selling_price) }}
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    <p class="mb-0 fw-normal">
-                                                        Aksi
-                                                    </p>
+                                                    <form action="{{ route('product.selling.price', $product->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <input type="number" name="selling_price" class="form-control"
+                                                            value="{{ $product->selling_price }}" id="">
+                                                        <button style="display: none" type="submit"></button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -109,44 +116,7 @@
     </div>
 @endsection
 @section('script')
-    <x-delete-modal></x-delete-modal>
-    <x-edit-product-modal></x-edit-product-modal>
-    <x-add-product-modal></x-add-product-modal>
     <script>
-        CKEDITOR.replace('.ckeditor', {
-            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
-            filebrowserUploadMethod: 'form'
-        });
-        $(document).on('click', '.edit-product', function() {
-            $('#editProductModal').modal('show');
-
-            const id = $(this).data('id');
-            const name = $(this).data('name');
-            const description = $(this).data('description');
-            const price = $(this).data('price');
-            const logo = $(this).data('logo');
-
-            $('#name').val(name);
-            $('#description').val(description);
-            $('#price').val(price);
-            // $('#logo').val(logo);
-
-            var logoImage = `{{ asset('storage') }}/${logo}`;
-            $('#logoImage').attr('src', logoImage);
-
-            let url = `{{ route('products.update', ':id') }}`.replace(':id', id);
-            $('#editProductForm').attr('action', url);
-        });
-
-        $(document).on('click', '.delete-product', function() {
-            $('#deleteModal').modal('show')
-            const id = $(this).attr('data-id');
-            let url = `{{ route('products.destroy', ':id') }}`.replace(':id', id);
-            $('#deleteForm').attr('action', url);
-        });
-    </script>
-
-    {{-- <script>
         $(document).ready(function() {
             function calculateMD5Hash(username, developmentKey) {
                 var message = username + developmentKey + 'depo';
@@ -176,26 +146,7 @@
                     },
                     data: JSON.stringify(postData),
                     success: function(response) {
-                        $.each(response.data, function(index, value) {
-                            $('#tableContent').append(
-                                `<tr>
-                                <td>
-                                    <h6 class="fs-4 fw-semibold mb-0">${value.product_name}</h6>
-                                </td>
-                                <td>
-                                    <p class="mb-0 fw-normal">
-                                        ${value.category}
-                                    </p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 fw-normal">${value.brand}</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 fw-normal">Rp. ${formatRupiah(value.price)}</p>
-                                </td>
-                            </tr>`
-                            );
-                        });
+                        console.log(response);
                     },
                     error: function(xhr, status, error) {
                         console.error(error);
@@ -212,5 +163,5 @@
 
             postDataToAPI();
         });
-    </script> --}}
+    </script>
 @endsection
