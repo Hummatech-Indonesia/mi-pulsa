@@ -37,7 +37,7 @@ class EventServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Customer::observe(CustomerObserver::class);
         Product::observe(ProductObserver::class);
-        TopupAgen::observe(TopupagenObserver::class);
+        TopupAgen::observe(TopupAgenObserver::class);
     }
 
     /**
