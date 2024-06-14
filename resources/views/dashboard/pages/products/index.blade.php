@@ -37,18 +37,7 @@
             <div class="card">
                 <div class="card-body">
                     <div>
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab">
-                                    <span>Harga Jual</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
-                                    <span>Harga Beli</span>
-                                </a>
-                        </ul>
+                     
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane active" id="home" role="tabpanel">
