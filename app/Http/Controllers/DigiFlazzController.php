@@ -100,21 +100,23 @@ class DigiFlazzController extends Controller
      */
     public function deposit(DepositRequest $request)
     {
+        $data = $request->validated();
         $username = env('DIGIFLAZZ_USERNAME');
         $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
 
-        $message = $username . $developmentKey . 'pricelist';
+        $message = $username . $developmentKey . 'deposit';
         $hash = md5($message);
 
         $postData = [
             "username" => $username,
-            "amount" => 1000000,
-            "Bank" => "BCA",
+            "amount" => intval($data['amount']),
+            "Bank" => $data['bank'],
             "owner_name" => auth()->user()->name,
             "sign" => $hash
         ];
 
-        $response = Http::post('https://api.digiflazz.com/v1/price-list', $postData);
+        $response = Http::post('https://api.digiflazz.com/v1/deposit', $postData);
+        dd($response->json());
         return $response->json();
     }
 }

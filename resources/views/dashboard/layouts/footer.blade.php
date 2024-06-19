@@ -42,7 +42,7 @@
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: 'digi-flazz/cek-saldo',
+                url: '/digi-flazz/cek-saldo',
                 type: 'POST',
                 contentType: 'application/json',
                 headers: {

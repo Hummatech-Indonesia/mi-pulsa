@@ -138,7 +138,7 @@
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
                 $.ajax({
-                    url: 'digi-flazz/price-list',
+                    url: '/digi-flazz/price-list',
                     type: 'POST',
                     contentType: 'application/json',
                     headers: {

@@ -10,6 +10,7 @@ use App\Http\Controllers\DigiFlazzController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TripayController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,11 @@ Auth::routes([
     'verify' => true
 ]);
 
-
+Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
+    Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo']);
+    Route::post('price-list', [DigiFlazzController::class, 'priceList']);
+    Route::post('deposit', [DigiFlazzController::class, 'deposit']);
+});
 
 Route::prefix('tripay')->group(function () {
     Route::name('tripay.')->group(function () {
@@ -60,6 +65,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('topup-digiflazz', [DashboardController::class, 'index'])->name('topup.digiflazz');
         Route::get('topup-customer', [DashboardController::class, 'index'])->name('topup.customer');
         Route::get('history-digiflazz', [DashboardController::class, 'index'])->name('history.digiflazz');
+
+        Route::resources([
+            'providers' => ProviderController::class
+        ]);
     });
 
     Route::resource('customers', CustomerController::class);
@@ -75,12 +84,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/update', [ProfileController::class, 'update'])->name('update');
         Route::patch('/change-password', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::get('/forgot-password', [ProfileController::class, 'forgotPassword'])->name('forgot.password');
-    });
-
-    Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
-        Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo']);
-        Route::post('price-list', [DigiFlazzController::class, 'priceList']);
-        Route::post('deposit', [DigiFlazzController::class, 'deposit']);
     });
 
 

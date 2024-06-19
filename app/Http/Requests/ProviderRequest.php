@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DepositRequest extends FormRequest
+class ProviderRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,21 +14,20 @@ class DepositRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'bank' => 'required',
-            'amount' => 'required'
+            'name' => 'required|max:255'
         ];
     }
 
     /**
      * messages
      *
-     * @return void
+     * @return array
      */
     public function messages(): array
     {
         return [
-            'bank.required' => 'Bank Tujuan wajib diisi',
-            'amount.required' => 'Nominal wajib diisi'
+            'name.required' => 'Nama wajib diisi',
+            'name.max' => 'Nama maksimal 255 karakter'
         ];
     }
 }

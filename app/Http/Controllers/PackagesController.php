@@ -40,7 +40,4 @@ class PackagesController extends Controller
         $users = $this->user->searchAgen($request);
         return view('dashboard.pages.packages.transaction-whatsapp', compact('paymentChannels', 'users'));
     }
-    public function store(Request $request)
-    {
-    }
 }

@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'digi-flazz/price-list',
-        'digi-flazz/cek-saldo'
+        'digi-flazz/cek-saldo',
+        'digi-flazz/deposit',
     ];
 }
