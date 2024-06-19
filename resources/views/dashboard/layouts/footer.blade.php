@@ -10,8 +10,8 @@
 <script src="{{ asset('dashboard_assets/dist/js/custom.js') }}"></script>
 <!--  current page js files -->
 <!-- <script src="{{ asset('dashboard_assets/dist/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script> -->
-<script src="{{ asset('dashboard_assets/dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
-<script src="{{ asset('dashboard_assets/dist/js/dashboard.js') }}"></script>
+<!-- <script src="{{ asset('dashboard_assets/dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script> -->
+<!-- <script src="{{ asset('dashboard_assets/dist/js/dashboard.js') }}"></script> -->
 
 {{-- cdn --}}
 <script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
