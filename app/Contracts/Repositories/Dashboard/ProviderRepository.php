@@ -24,6 +24,9 @@ class ProviderRepository extends BaseRepository implements ProviderInterface
     public function customPaginate(Request $request, int $pagination = 10): LengthAwarePaginator
     {
         return $this->model->query()
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->name . '%');
+            })
             ->fastPaginate($pagination);
     }
 
