@@ -58,7 +58,6 @@ class UserRepository extends BaseRepository implements UserInterface
             })
             ->role('agen')
             ->where('id', '!=', auth()->id()) // Exclude the currently logged-in user
-            ->where('email', '!=', 'agen@gmail.com') // Exclude the currently logged-in user
             ->fastPaginate(5);
     }
     /**
