@@ -36,20 +36,28 @@
         <div class="card w-100 position-relative overflow-hidden">
             <div class="container">
                 <div class="row align-items-center py-3 border-bottom">
-                    <div class="col-12 col-md-9 mb-3 mb-md-0">
+                    <div class="col-12 col-md-7 mb-3 mb-md-0">
                         <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
                             @csrf
                             <div class="col-12 col-sm-8 col-md-9">
-                                <input type="text" name="search" id="search" placeholder="cari.." class="form-control">
+                                <input type="text" name="search" id="search" placeholder="cari.."
+                                    class="form-control">
                             </div>
                             <div class="col-12 col-sm-4 col-md-3">
                                 <button class="btn btn-primary w-100">Cari</button>
                             </div>
                         </form>
                     </div>
-                    <div class="col-12 col-md-3 text-md-end">
-                        <button type="button" class="btn btn-primary w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
-                            <i class="fs-4 ti ti-plus"></i> Add
+                    <div class="col-6 col-md-3 text-md-end mb-3 mb-md-0">
+                        <button type="button" class="btn btn-add btn-primary w-100" data-bs-toggle="modal"
+                            data-bs-target="#addCustomerModal" data-product="{{ $products }}">
+                            <i class="fs-4 ti ti-plus"></i> Tambah Pengguna
+                        </button>
+                    </div>
+                    <div class="col-6 col-md-2 text-md-end">
+                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                            data-bs-target="#importCustomerModal">
+                            <i class="fs-4 ti ti-plus"></i> Import
                         </button>
                     </div>
                 </div>
@@ -58,7 +66,6 @@
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
-
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th>
@@ -68,19 +75,15 @@
                                     <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Provider</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Produk</h6>
                                 </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Nomor Telepon</h6>
-                                </th>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
                                 </th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-
                             @foreach ($customers as $customer)
                                 <tr>
                                     <td>
@@ -96,15 +99,13 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">{{ $customer->provider }}</p>
+                                        <p class="mb-0 fw-normal">{{ $customer->product->product_name }}</p>
                                     </td>
                                     <td>
                                         <p class="mb-0 fw-normal">{{ $customer->phone_number }}</p>
                                     </td>
-
                                     <td>
                                         <ul class="d-flex" aria-labelledby="dropdownMenuButton">
-
                                             <li>
                                                 <button type="button"
                                                     class="btn d-flex align-items-center gap-3 edit-customer"
@@ -128,7 +129,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                     <div class="mt-3">
@@ -137,12 +137,10 @@
                 </div>
             </div>
         </div>
-        <!-- --------------------------------------------------- -->
-        <!--  Form Basic End -->
-        <!-- --------------------------------------------------- -->
     </div>
 @endsection
 @section('script')
+    <x-import-customer-modal></x-import-customer-modal>
     <x-delete-modal></x-delete-modal>
     <x-edit-customer-modal></x-edit-customer-modal>
     <x-add-customer-modal></x-add-customer-modal>
@@ -159,6 +157,21 @@
             let url = `{{ route('customers.update', ':id') }}`.replace(':id', id);
             $('#editCustomerForm').attr('action', url);
         });
+        $(document).on('click', '.btn-add', function() {
+            let products = JSON.parse($(this).attr('data-product'));
+
+            $('#product_id').empty();
+            $('#product_id').append(
+                `<option value="">Pilih Produk</option>`
+            );
+            $.each(products, function(index, product) {
+                $('#product_id').append(
+                    `<option value="${product.id}">${product.product_name} (${product.buyer_sku_code})</option>`
+                );
+            });
+        });
+
+
         $(document).on('click', '.delete-customer', function() {
             $('#deleteModal').modal('show')
             const id = $(this).attr('data-id');

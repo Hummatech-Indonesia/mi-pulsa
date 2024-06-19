@@ -3,29 +3,35 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\Dashboard\CustomerInterface;
+use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CustomerRequest;
+use App\Imports\CustomersImport;
 use App\Models\Customer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
     private CustomerInterface $customer;
-    public function __construct(CustomerInterface $customer)
+    private ProductInterface $product;
+    public function __construct(CustomerInterface $customer, ProductInterface $product)
     {
         $this->customer = $customer;
+        $this->product = $product;
     }
     /**
      * Method index
      *
      * @return View
      */
-    public function index(Request $request):View
+    public function index(Request $request): View
     {
         $customers = $this->customer->search($request);
-        return view('dashboard.pages.customers.index', compact('customers'));
+        $products = $this->product->get();
+        return view('dashboard.pages.customers.index', compact('customers', 'products'));
     }
     /**
      * Method store
@@ -63,5 +69,12 @@ class CustomerController extends Controller
     {
         $this->customer->delete($customer->id);
         return back()->with('success', 'Berhasil menghapus data');
+    }
+    public function import(Request $request)
+    {
+        // dd($request->file);
+        $wkwk = Excel::import(new CustomersImport, $request->file('file'));
+        
+        return back()->with('success', 'Berhasil melakukan import Pelanggan');
     }
 }

@@ -14,14 +14,9 @@
                             value="{{ old('name') }}" placeholder="Masukkan nama pelanggan">
                     </div>
                     <div class="form-group">
-                        <label for="provider" class="form-label">Provider</label>
-                        <input type="text" name="provider" id="provider" class="form-control"
-                            value="{{ old('provider') }}" placeholder="Masukkan provider">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone_number" class="form-label">Nomor Telepon</label>
-                        <input type="number" name="phone_number" id="phone_number" class="form-control"
-                            value="{{ old('phone_number') }}" placeholder="Masukkan nomor telepon">
+                        <label for="product" class="form-label">Produk</label>
+                        <select name="product_id" class="form-control" id="product_id">
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

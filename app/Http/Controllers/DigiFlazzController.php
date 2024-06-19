@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\Dashboard\DepositInterface;
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
+use App\Helpers\FormatedHelper;
+use App\Helpers\ResponseHelper;
 use App\Http\Requests\DepositRequest;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
 class DigiFlazzController extends Controller
 {
     private ProductInterface $product;
+    private DepositInterface $deposit;
 
-    public function __construct(ProductInterface $product)
+    public function __construct(ProductInterface $product, DepositInterface $deposit)
     {
         $this->product = $product;
+        $this->deposit = $deposit;
     }
 
     /**
@@ -116,7 +120,13 @@ class DigiFlazzController extends Controller
         ];
 
         $response = Http::post('https://api.digiflazz.com/v1/deposit', $postData);
-        dd($response->json());
-        return $response->json();
+        $data = $response->json()['data'];
+
+        $this->deposit->store([
+            'rc' => $data['rc'],
+            'amount' => $data['amount'],
+            'notes' => $data['notes']
+        ]);
+        return ResponseHelper::success(null,  'Total saldo yang harus anda bayarkan adalah Rp. <b>' . FormatedHelper::rupiahCurrency($data['amount']) . '</b> Dan masukkan catatan <b>' . $data['notes'] . '</b> Ketika anda melakukan transaksi');
     }
 }

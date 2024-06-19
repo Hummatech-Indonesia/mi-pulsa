@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Base\Interfaces\HasProduct;
+use App\Base\Interfaces\HasUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Customer extends Model
+class Customer extends Model implements HasUser, HasProduct
 {
     use HasFactory;
-    protected $fillable = ['id','name', 'provider', 'user_id', 'phone_number'];
+    protected $fillable = ['id', 'name', 'user_id', 'product_id','phone_number'];
 
     public $incrementing = false;
     public $keyType = 'char';
@@ -22,5 +24,15 @@ class Customer extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * product
+     *
+     * @return BelongsTo
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
     }
 }

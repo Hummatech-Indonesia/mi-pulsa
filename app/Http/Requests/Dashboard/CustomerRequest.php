@@ -7,14 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class CustomerRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -23,8 +15,7 @@ class CustomerRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'phone_number' => 'required',
-            'provider' => 'required',
+            'product_id' => 'required|exists:products,id',
         ];
     }
     /**
@@ -34,10 +25,10 @@ class CustomerRequest extends FormRequest
      */
     public function messages(): array
     {
-    return [
+        return [
             'name.required' => 'Kolom nama tidak boleh kosong',
-            'phone_number' => 'Kolom nomor telepon tidak boleh kosong',
-            'provider' => 'Kolom provider tidak boleh kosong',
+            'product.required' => 'Kolom produk tidak boleh kosong',
+            'product.exists' => 'Kolom produk yang anda pilih tidak valid',
         ];
     }
 }
