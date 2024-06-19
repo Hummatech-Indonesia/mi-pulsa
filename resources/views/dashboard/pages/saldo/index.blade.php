@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="alert alert-warning" role="alert">
             <strong>Pemberitahuan</strong>
-            <p>Nomor Rekening Digiflazz :</p> 
+            <p>Nomor Rekening Digiflazz :</p>
             <ul>
                 <li>BCA : 6042888890</li>
                 <li>Mandiri : 1550009910111</li>
@@ -16,11 +16,9 @@
             <p class="py-0 my-0">Notes dimasukkan ketika melakukan transfer.</p>
         </div>
 
-        @if (session('success'))
-            <x-alert-success></x-alert-success>
-        @elseif(session('error'))
-            <x-alert-failed></x-alert-failed>
-        @endif
+        <div class="" id="alert_success">
+
+        </div>
 
         <form id="digiFlazz">
             <div class="row">
@@ -41,7 +39,7 @@
                         </div>
                         <div class="col">
                             <select name="bank" id="bank" class="form-control balance-input"
-                            placeholder="Bank Tujuan">
+                                placeholder="Bank Tujuan">
                                 <option value="BCA">BCA</option>
                                 <option value="BRI">BRI</option>
                                 <option value="BNI">BNI</option>
@@ -78,6 +76,11 @@
                 }),
                 success: function(response) {
                     console.log(response);
+                    $('#alert_success').html(
+                        ` <div class="alert alert-success" role="alert">
+                            ${response.meta.message}
+                        </div>`
+                    );
                 }
             });
         });
