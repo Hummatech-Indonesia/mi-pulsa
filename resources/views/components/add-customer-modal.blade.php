@@ -14,11 +14,8 @@
                             value="{{ old('name') }}" placeholder="Masukkan nama pelanggan">
                     </div>
                     <div class="form-group">
-                        <label for="provider" class="form-label">Provider</label>
-                        <select name="product_id" id="product_id">
-                            {{-- @foreach ($products as $product)
-                                <option value="{{ $product->id }}">{{ $product->product_name }}</option>
-                            @endforeach --}}
+                        <label for="product" class="form-label">Produk</label>
+                        <select name="product_id" class="form-control" id="product_id">
                         </select>
                     </div>
                 </div>

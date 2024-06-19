@@ -49,8 +49,8 @@
                         </form>
                     </div>
                     <div class="col-6 col-md-3 text-md-end mb-3 mb-md-0">
-                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
-                            data-bs-target="#addCustomerModal">
+                        <button type="button" class="btn btn-add btn-primary w-100" data-bs-toggle="modal"
+                            data-bs-target="#addCustomerModal" data-product="{{ $products }}">
                             <i class="fs-4 ti ti-plus"></i> Tambah Pengguna
                         </button>
                     </div>
@@ -63,11 +63,9 @@
                 </div>
             </div>
 
-
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
-
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th>
@@ -86,7 +84,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             @foreach ($customers as $customer)
                                 <tr>
                                     <td>
@@ -107,17 +104,14 @@
                                     <td>
                                         <p class="mb-0 fw-normal">{{ $customer->phone_number }}</p>
                                     </td>
-
                                     <td>
                                         <ul class="d-flex" aria-labelledby="dropdownMenuButton">
-
                                             <li>
                                                 <button type="button"
                                                     class="btn d-flex align-items-center gap-3 edit-customer"
                                                     data-bs-toggle="modal" data-bs-target="#updateCustomer"
                                                     data-id="{{ $customer->id }}" data-name="{{ $customer->name }}"
                                                     data-provider="{{ $customer->provider }}"
-                                                    data-product="{{ $products }}"
                                                     data-phone-number="{{ $customer->phone_number }}">
                                                     <i class="fs-4 ti ti-pencil"></i>Edit
                                                 </button>
@@ -163,6 +157,20 @@
             let url = `{{ route('customers.update', ':id') }}`.replace(':id', id);
             $('#editCustomerForm').attr('action', url);
         });
+        $(document).on('click', '.btn-add', function() {
+            let products = JSON.parse($(this).attr('data-product'));
+
+            $('#product_id').empty();
+            $('#product_id').append(
+                `<option value="">Pilih Produk</option>`
+            );
+            $.each(products, function(index, product) {
+                $('#product_id').append(
+                    `<option value="${product.id}">${product.product_name} (${product.buyer_sku_code})</option>`
+                );
+            });
+        });
+
 
         $(document).on('click', '.delete-customer', function() {
             $('#deleteModal').modal('show')
