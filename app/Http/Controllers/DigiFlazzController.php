@@ -127,6 +127,6 @@ class DigiFlazzController extends Controller
             'amount' => $data['amount'],
             'notes' => $data['notes']
         ]);
-        return ResponseHelper::success(null,  'Total saldo yang harus anda bayarkan adalah Rp. ' . FormatedHelper::rupiahCurrency($data['amount']) . ' Dan masukkan catatan ' . $data['notes'] . ' Ketika anda melakukan transaksi');
+        return ResponseHelper::success(null,  'Total saldo yang harus anda bayarkan adalah Rp. <b>' . FormatedHelper::rupiahCurrency($data['amount']) . '</b> Dan masukkan catatan <b>' . $data['notes'] . '</b> Ketika anda melakukan transaksi');
     }
 }
