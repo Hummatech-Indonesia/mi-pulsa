@@ -2,6 +2,20 @@
 
 @section('content')
     <div class="container-fluid">
+        <div class="alert alert-warning" role="alert">
+            <strong>Pemberitahuan</strong>
+            <p>Nomor Rekening Digiflazz :</p> 
+            <ul>
+                <li>BCA : 6042888890</li>
+                <li>Mandiri : 1550009910111</li>
+                <li>BRI : 213501000291307</li>
+                <li>BNI : 1996888992</li>
+            </ul>
+            <p class="py-0 my-0">Minimal Deposit Rp. 50.000</p>
+            <p class="py-0 my-0">Nominal yang ditransfer, disesuaikan dengan response yang didapatkan nanti.</p>
+            <p class="py-0 my-0">Notes dimasukkan ketika melakukan transfer.</p>
+        </div>
+
         @if (session('success'))
             <x-alert-success></x-alert-success>
         @elseif(session('error'))
@@ -26,8 +40,13 @@
                             <span class="fw-bold">Pilih Bank Tujuan</span>
                         </div>
                         <div class="col">
-                            <input type="text" id="bank" name="bank" class="form-control balance-input"
-                                placeholder="Bank Tujuan">
+                            <select name="bank" id="bank" class="form-control balance-input"
+                            placeholder="Bank Tujuan">
+                                <option value="BCA">BCA</option>
+                                <option value="BRI">BRI</option>
+                                <option value="BNI">BNI</option>
+                                <option value="MANDIRI">MANDIRI</option>
+                            </select>
                         </div>
                         <div class="col mt-4">
                             <button type="submit" class="btn btn-primary">Kirim</button>
