@@ -40,7 +40,8 @@
                         <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
                             @csrf
                             <div class="col-12 col-sm-8 col-md-9">
-                                <input type="text" name="search" id="search" placeholder="cari.." class="form-control">
+                                <input type="text" name="search" id="search" placeholder="cari.."
+                                    class="form-control">
                             </div>
                             <div class="col-12 col-sm-4 col-md-3">
                                 <button class="btn btn-primary w-100">Cari</button>
@@ -48,7 +49,8 @@
                         </form>
                     </div>
                     <div class="col-12 col-md-3 text-md-end">
-                        <button type="button" class="btn btn-primary w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                        <button type="button" class="btn btn-primary w-100 w-md-auto" data-bs-toggle="modal"
+                            data-bs-target="#addCustomerModal">
                             <i class="fs-4 ti ti-plus"></i> Add
                         </button>
                     </div>
@@ -68,13 +70,7 @@
                                     <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Provider</h6>
-                                </th>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Nomor Telepon</h6>
-                                </th>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Aksi</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Produk</h6>
                                 </th>
                                 <th></th>
                             </tr>
@@ -111,6 +107,7 @@
                                                     data-bs-toggle="modal" data-bs-target="#updateCustomer"
                                                     data-id="{{ $customer->id }}" data-name="{{ $customer->name }}"
                                                     data-provider="{{ $customer->provider }}"
+                                                    data-product="{{ $products }}"
                                                     data-phone-number="{{ $customer->phone_number }}">
                                                     <i class="fs-4 ti ti-pencil"></i>Edit
                                                 </button>
@@ -128,7 +125,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                     <div class="mt-3">
@@ -137,9 +133,6 @@
                 </div>
             </div>
         </div>
-        <!-- --------------------------------------------------- -->
-        <!--  Form Basic End -->
-        <!-- --------------------------------------------------- -->
     </div>
 @endsection
 @section('script')
@@ -159,6 +152,7 @@
             let url = `{{ route('customers.update', ':id') }}`.replace(':id', id);
             $('#editCustomerForm').attr('action', url);
         });
+
         $(document).on('click', '.delete-customer', function() {
             $('#deleteModal').modal('show')
             const id = $(this).attr('data-id');

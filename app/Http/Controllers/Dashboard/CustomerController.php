@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\Dashboard\CustomerInterface;
+use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CustomerRequest;
 use App\Models\Customer;
@@ -13,19 +14,22 @@ use Illuminate\View\View;
 class CustomerController extends Controller
 {
     private CustomerInterface $customer;
-    public function __construct(CustomerInterface $customer)
+    private ProductInterface $product;
+    public function __construct(CustomerInterface $customer, ProductInterface $product)
     {
         $this->customer = $customer;
+        $this->product = $product;
     }
     /**
      * Method index
      *
      * @return View
      */
-    public function index(Request $request):View
+    public function index(Request $request): View
     {
         $customers = $this->customer->search($request);
-        return view('dashboard.pages.customers.index', compact('customers'));
+        $products = $this->product->get();
+        return view('dashboard.pages.customers.index', compact('customers', 'products'));
     }
     /**
      * Method store

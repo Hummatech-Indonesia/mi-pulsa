@@ -19,9 +19,7 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Home</span>
                 </li>
-                <!-- =================== -->
-                <!-- Dashboard -->
-                <!-- =================== -->
+
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ request()->routeIs('dashboard.*') ? 'active' : '' }}"
                         href="{{ route('dashboard.index') }}" aria-expanded="false">
@@ -151,14 +149,16 @@
                                 </a>
                             </li>
                         @endrole
-                        <li class="sidebar-item">
-                            <a href="{{ route('customers.index') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Pelanggan</span>
-                            </a>
-                        </li>
+                        @role('agen')
+                            <li class="sidebar-item">
+                                <a href="{{ route('customers.index') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Pelanggan</span>
+                                </a>
+                            </li>
+                        @endrole
                     </ul>
                 </li>
                 <li class="sidebar-item">

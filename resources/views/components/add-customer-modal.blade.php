@@ -15,13 +15,11 @@
                     </div>
                     <div class="form-group">
                         <label for="provider" class="form-label">Provider</label>
-                        <input type="text" name="provider" id="provider" class="form-control"
-                            value="{{ old('provider') }}" placeholder="Masukkan provider">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone_number" class="form-label">Nomor Telepon</label>
-                        <input type="number" name="phone_number" id="phone_number" class="form-control"
-                            value="{{ old('phone_number') }}" placeholder="Masukkan nomor telepon">
+                        <select name="product_id" id="product_id">
+                            {{-- @foreach ($products as $product)
+                                <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                            @endforeach --}}
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\Dashboard\DepositInterface;
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Http\Requests\DepositRequest;
+use App\Models\Deposit;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
 class DigiFlazzController extends Controller
 {
     private ProductInterface $product;
+    private DepositInterface $deposit;
 
-    public function __construct(ProductInterface $product)
+    public function __construct(ProductInterface $product, DepositInterface $deposit)
     {
         $this->product = $product;
+        $this->deposit = $deposit;
     }
 
     /**
@@ -116,7 +120,13 @@ class DigiFlazzController extends Controller
         ];
 
         $response = Http::post('https://api.digiflazz.com/v1/deposit', $postData);
-        dd($response->json());
+        $data = $response->json()['data'];
+
+        $this->deposit->store([
+            'rc' => $data['rc'],
+            'amount' => $data['amount'],
+            'notes' => $data['notes']
+        ]);
         return $response->json();
     }
 }
