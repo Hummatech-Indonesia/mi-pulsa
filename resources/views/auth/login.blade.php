@@ -69,7 +69,7 @@
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp" name="email" placeholder="mipulsa@gmail.com">
+                                            aria-describedby="emailHelp" name="email" placeholder="mipulsa@gmail.com" value="{{old('email')}}">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>

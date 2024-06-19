@@ -6,10 +6,12 @@ use App\Contracts\Interfaces\Dashboard\CustomerInterface;
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CustomerRequest;
+use App\Imports\CustomersImport;
 use App\Models\Customer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -67,5 +69,12 @@ class CustomerController extends Controller
     {
         $this->customer->delete($customer->id);
         return back()->with('success', 'Berhasil menghapus data');
+    }
+    public function import(Request $request)
+    {
+        // dd($request->file);
+        $wkwk = Excel::import(new CustomersImport, $request->file('file'));
+        
+        return back()->with('success', 'Berhasil melakukan import Pelanggan');
     }
 }

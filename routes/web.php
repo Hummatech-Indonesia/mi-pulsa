@@ -72,6 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::resource('customers', CustomerController::class);
+    ROute::post('customers-import',[CustomerController::class,'import'])->name('customers.import');
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::patch('product-selling-price/{product}', [ProductController::class, 'sellingPrice'])->name('product.selling.price');
     Route::resource('users', UserController::class)->except('index');

@@ -36,7 +36,7 @@
         <div class="card w-100 position-relative overflow-hidden">
             <div class="container">
                 <div class="row align-items-center py-3 border-bottom">
-                    <div class="col-12 col-md-9 mb-3 mb-md-0">
+                    <div class="col-12 col-md-7 mb-3 mb-md-0">
                         <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
                             @csrf
                             <div class="col-12 col-sm-8 col-md-9">
@@ -48,14 +48,21 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-12 col-md-3 text-md-end">
-                        <button type="button" class="btn btn-primary w-100 w-md-auto" data-bs-toggle="modal"
+                    <div class="col-6 col-md-3 text-md-end mb-3 mb-md-0">
+                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
                             data-bs-target="#addCustomerModal">
-                            <i class="fs-4 ti ti-plus"></i> Add
+                            <i class="fs-4 ti ti-plus"></i> Tambah Pengguna
+                        </button>
+                    </div>
+                    <div class="col-6 col-md-2 text-md-end">
+                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                            data-bs-target="#importCustomerModal">
+                            <i class="fs-4 ti ti-plus"></i> Import
                         </button>
                     </div>
                 </div>
             </div>
+
 
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
@@ -71,6 +78,9 @@
                                 </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Produk</h6>
+                                </th>
+                                <th>
+                                    <h6 class="fs-4 fw-semibold mb-0">Nomor Telepon</h6>
                                 </th>
                                 <th></th>
                             </tr>
@@ -92,7 +102,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">{{ $customer->provider }}</p>
+                                        <p class="mb-0 fw-normal">{{ $customer->product->product_name }}</p>
                                     </td>
                                     <td>
                                         <p class="mb-0 fw-normal">{{ $customer->phone_number }}</p>
@@ -136,6 +146,7 @@
     </div>
 @endsection
 @section('script')
+    <x-import-customer-modal></x-import-customer-modal>
     <x-delete-modal></x-delete-modal>
     <x-edit-customer-modal></x-edit-customer-modal>
     <x-add-customer-modal></x-add-customer-modal>
