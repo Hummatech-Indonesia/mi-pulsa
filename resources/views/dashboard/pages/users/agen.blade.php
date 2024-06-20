@@ -168,7 +168,7 @@
             $('#deleteForm').attr('action', url);
         });
         $(document).on('click', '.add-user', function() {
-            $('#addUserModal').modal('show')
+            $('#addProvider').modal('show')
             let url = `{{ route('users.store.agen') }}`;
             $('#addUserForm').attr('action', url);
         });

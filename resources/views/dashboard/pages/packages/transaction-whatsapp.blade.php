@@ -196,16 +196,45 @@
 @endsection
 
 @section('script')
+    <x-add-user-modal></x-add-user-modal>
     <script>
         $(document).ready(function() {
+            // Inisialisasi Select2 dengan opsi untuk menambahkan tag baru
             $('#agent-select').select2({
                 placeholder: "Pilih Agen",
-                allowClear: true
+                allowClear: true,
+                tags: true, // Memungkinkan penambahan tag baru
+                createTag: function(params) {
+                    return {
+                        id: params.term,
+                        text: params.term,
+                        newOption: true
+                    }
+                },
+                templateResult: function(data) {
+                    var $result = $("<span></span>");
+
+                    $result.text(data.text);
+
+                    if (data.newOption) {
+                        $result.append(" <em>(tambahkan baru)</em>");
+                    }
+
+                    return $result;
+                }
+            }).on("select2:select", function(e) {
+                var data = e.params.data;
+                if (data.newOption) {
+                    $('#addProvider').modal('show'); // Menampilkan modal untuk menambahkan agen baru
+                    $('#addUserForm').find('#name').val(data.text); // Mengisi nama pada form modal
+                    let url = `{{ route('users.store.agen') }}`;
+                    $('#addUserForm').attr('action', url);
+                }
             });
 
             $('input[name="balance"], input[name="method"]').on('change', function() {
                 const selectedBalance = $('input[name="balance"]:checked').val() || $('#balanceInput')
-            .val();
+                    .val();
                 const selectedMethod = $('input[name="method"]:checked');
                 const methodName = selectedMethod.data('name') || '-';
                 const fee = selectedMethod.data('fee') || 0;
