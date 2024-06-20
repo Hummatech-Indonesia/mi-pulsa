@@ -14,8 +14,10 @@
                         <input type="text" name="name" id="name" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="" class="form-label">Provider</label>
-                        <input type="text" name="provider" id="provider" class="form-control">
+                        <label for="product_id" class="form-label">Produk</label>
+                        <select name="product_id" id="product_id" class="form-control">
+
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="" class="form-label">Nomor Telepon</label>
