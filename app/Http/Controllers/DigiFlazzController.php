@@ -132,8 +132,10 @@ class DigiFlazzController extends Controller
                 'amount' => $data['amount'],
                 'notes' => $data['notes']
             ]);
-            return to_route('dashboard.topup.digiflazz')->with('success', 'Total saldo yang harus anda bayarkan adalah Rp. <b>' . FormatedHelper::rupiahCurrency($data['amount']) . '</b> Dan masukkan catatan <b>' . $data['notes'] . '</b> Ketika anda melakukan transaksi');
+
+            return to_route('dashboard.topup.digiflazz')->with('success', 'Total saldo yang harus anda bayarkan adalah Rp. ' . FormatedHelper::rupiahCurrency($data['amount']) . ' Dan masukkan catatan ' . $data['notes'] . ' Ketika anda melakukan transaksi');
         } catch (\Throwable $th) {
+            dd($th);
             return to_route('dashboard.topup.digiflazz')->with('error', 'Terjadi kesalahan saat melakukan deposit');
         }
     }
