@@ -9,11 +9,11 @@
 <script src="{{ asset('dashboard_assets/dist/js/sidebarmenu.js') }}"></script>
 <script src="{{ asset('dashboard_assets/dist/js/custom.js') }}"></script>
 <!--  current page js files -->
-<script src="{{ asset('dashboard_assets/dist/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('dashboard_assets/dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
-<script src="{{ asset('dashboard_assets/dist/js/dashboard.js') }}"></script>
+<!-- <script src="{{ asset('dashboard_assets/dist/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script> -->
+<!-- <script src="{{ asset('dashboard_assets/dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script> -->
+<!-- <script src="{{ asset('dashboard_assets/dist/js/dashboard.js') }}"></script> -->
 
-{{-- cdn --}}
+<!-- {{-- cdn --}} -->
 <script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

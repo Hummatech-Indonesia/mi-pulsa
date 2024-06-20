@@ -9,14 +9,13 @@ use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class CustomersImport implements ToCollection, WithHeadingRow
+class CustomersImport implements ToCollection, WithHeadingRow, WithValidation
 {
 
     public function collection(Collection $rows)
     {
-
-
         foreach ($rows as $row) {
             $product = Product::where('product_name', $row['product'])->first();
             if ($product != null) {
@@ -32,13 +31,13 @@ class CustomersImport implements ToCollection, WithHeadingRow
     public function rules(): array
     {
         return [
-            'product_id' => Rule::exists('products', 'id') 
+            'product' => 'required|exists:products,product_name'
         ];
     }
-    public function messages(): array
+    public function customValidationMessages(): array
     {
         return [
-            'product_id.exists' => 'ID produk yang diberikan tidak valid.'
+            'product.exists' => 'Produk yang diberikan tidak valid',
         ];
     }
 }

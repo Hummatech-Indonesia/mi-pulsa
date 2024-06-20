@@ -121,15 +121,25 @@ class DigiFlazzController extends Controller
             "sign" => $hash
         ];
 
-        $response = Http::post('https://api.digiflazz.com/v1/deposit', $postData);
-        $data = $response->json()['data'];
+        try {
+            $response = Http::post('https://api.digiflazz.com/v1/deposit', $postData);
+            $data = $response->json()['data'];
 
-        $this->deposit->store([
-            'rc' => $data['rc'],
-            'amount' => $data['amount'],
-            'notes' => $data['notes']
-        ]);
-        return ResponseHelper::success(null,  'Total saldo yang harus anda bayarkan adalah Rp. <b>' . FormatedHelper::rupiahCurrency($data['amount']) . '</b> Dan masukkan catatan <b>' . $data['notes'] . '</b> Ketika anda melakukan transaksi');
+            if ($data['rc'] != '00') {
+                return to_route('dashboard.topup.digiflazz')->with('error', $data['message']);
+            }
+
+            $this->deposit->store([
+                'rc' => $data['rc'],
+                'amount' => $data['amount'],
+                'notes' => $data['notes']
+            ]);
+
+            return to_route('dashboard.topup.digiflazz')->with('success', 'Total saldo yang harus anda bayarkan adalah Rp. ' . FormatedHelper::rupiahCurrency($data['amount']) . ' Dan masukkan catatan ' . $data['notes'] . ' Ketika anda melakukan transaksi');
+        } catch (\Throwable $th) {
+            dd($th);
+            return to_route('dashboard.topup.digiflazz')->with('error', 'Terjadi kesalahan saat melakukan deposit');
+        }
     }
 
     /**

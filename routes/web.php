@@ -35,9 +35,9 @@ Auth::routes([
 ]);
 
 Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
-    Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo']);
-    Route::post('price-list', [DigiFlazzController::class, 'priceList']);
-    Route::post('deposit', [DigiFlazzController::class, 'deposit']);
+    Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo'])->name('ceksaldo');
+    Route::post('price-list', [DigiFlazzController::class, 'priceList'])->name('pricelist');
+    Route::post('deposit', [DigiFlazzController::class, 'deposit'])->name('deposit');
 });
 
 Route::prefix('tripay')->group(function () {

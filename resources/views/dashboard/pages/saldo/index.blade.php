@@ -16,16 +16,22 @@
             <p class="py-0 my-0">Notes dimasukkan ketika melakukan transfer.</p>
         </div>
 
-        <div class="" id="alert_success">
+        <!-- <div class="" id="alert_success">
 
-        </div>
+        </div> -->
+        @if (session('error'))
+            <x-alert-failed />
+        @endif
+        @if (session('success'))
+            <x-alert-success />
+        @endif
 
-        <form id="digiFlazz">
+        <form id="" action="{{ route('digi-flazz.deposit') }}" method="POST">
+            @csrf
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card p-3">
                         <div class="d-flex gap-3 align-items-center mb-3">
-                            <div class="bg-primary rounded-circle p-3"></div>
                             <span class="fw-bold">Pilih Nominal</span>
                         </div>
                         <div class="col">
@@ -34,7 +40,6 @@
                             <span class="fw-light fs-2">Minimal Rp. 200.000</span>
                         </div>
                         <div class="d-flex gap-3 align-items-center mb-3" style="margin-top: 1rem;">
-                            <div class="bg-primary rounded-circle p-3"></div>
                             <span class="fw-bold">Pilih Bank Tujuan</span>
                         </div>
                         <div class="col">
