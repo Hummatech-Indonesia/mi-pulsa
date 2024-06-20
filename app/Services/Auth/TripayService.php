@@ -172,7 +172,7 @@ class TripayService
     }
 
 
-    public function handle(Request $request)
+    public function callback(Request $request)
     {
         $privateKey = "fh5Nm-awLil-GXCuC-v5juf-0T4Lm";
 
@@ -207,8 +207,8 @@ class TripayService
         $tripayReference = $data->reference;
         $status = strtoupper((string) $data->status);
 
+        dd($data);
         if ($data->is_closed_payment === 1) {
-            dd($data);
             switch ($status) {
                     // case 'PAID':
                     //     $invoice->update(['status' => 'PAID']);
