@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Observers\Dashboard;
+namespace App\Observers;
 
 use App\Models\TopupAgen;
 use Faker\Provider\Uuid;
@@ -8,11 +8,7 @@ use Faker\Provider\Uuid;
 class TopupAgenObserver
 {
     /**
-     * Method creating
-     *
-     * @param TopupAgen $TopupAgen [explicite description]
-     *
-     * @return void
+     * Handle the TopupAgen "created" event.
      */
     public function creating(TopupAgen $topupAgen): void
     {

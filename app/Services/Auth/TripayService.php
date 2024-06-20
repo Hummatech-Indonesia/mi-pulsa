@@ -5,6 +5,7 @@ namespace App\Services\Auth;
 use App\Contracts\Interfaces\Dashboard\TopupAgenInterface;
 use App\Enums\StatusTransactionEnum;
 use App\Enums\TopupViaEnum;
+use App\Helpers\ResponseHelper;
 use Carbon\Carbon;
 use App\Http\Requests\Tripay\RequestTransactionRequest;
 use App\Models\TopupAgen;
@@ -152,10 +153,8 @@ class TripayService
         // $invoiceId = $data->merchant_ref;
         $tripayReference = $data->reference;
         $status = strtoupper((string) $data->status);
-
         if ($data->is_closed_payment === 1) {
-            $topupAgen = TopupAgen::query()->get();
-            dd($topupAgen, $tripayReference);
+            $topupAgen = TopupAgen::query()->where('invoice_id', $tripayReference)->first();
             $user = User::query()->where('id', $topupAgen->user_id)->first();
             switch ($status) {
                 case 'PAID':
@@ -178,7 +177,7 @@ class TripayService
                     //     ]);
             }
 
-            return Response::json(['success' => true]);
+            return ResponseHelper::success('success');
         }
     }
 

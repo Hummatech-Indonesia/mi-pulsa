@@ -20,10 +20,21 @@ class TopupAgenRepository extends BaseRepository implements TopupAgenInterface
     {
         $this->model = $topupAgen;
     }
+    /**
+     * get
+     *
+     * @return mixed
+     */
     public function get(): mixed
     {
         return $this->model->query()->latest()->get();
     }
+    /**
+     * search
+     *
+     * @param  mixed $request
+     * @return mixed
+     */
     public function search(Request $request): mixed
     {
         return $this->model->query()
@@ -40,6 +51,12 @@ class TopupAgenRepository extends BaseRepository implements TopupAgenInterface
             })
             ->fastPaginate(10);
     }
+    /**
+     * store
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
     public function store(array $data): mixed
     {
         return $this->model->query()->create($data);
