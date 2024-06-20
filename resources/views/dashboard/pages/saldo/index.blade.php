@@ -77,7 +77,7 @@
         });
 
         $('#kirim').click(function(e) {
-            let amount = $('#amount').val().replace(",", "");
+            let amount = $('#amount').val().replace(/,/g, '');
             $('#amount').val(amount);
 
             $('#deposit').submit();

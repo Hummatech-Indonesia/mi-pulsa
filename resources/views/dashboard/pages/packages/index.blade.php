@@ -140,14 +140,14 @@
             });
 
             $('#kirim').click(function(e) {
-                let balanceInput = $('#balanceInput').val().replace(",", "");
+                let balanceInput = $('#balanceInput').val().replace(/,/g, '');
                 $('#balanceInput').val(balanceInput);
 
                 $('#topup').submit();
             })
 
             function updateOrderDetails() {
-                const selectedBalance = $('.balance-radio:checked').val() || $('.balance-input').val().replace(",", "");
+                const selectedBalance = $('.balance-radio:checked').val() || $('.balance-input').val().replace(/,/g, '');
                 const selectedMethod = $('input[name="method"]:checked');
                 const methodName = selectedMethod.data('name') || '-';
                 const fee = selectedMethod.data('fee') || 0;
