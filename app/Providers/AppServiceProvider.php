@@ -9,6 +9,7 @@ use App\Contracts\Interfaces\Dashboard\DepositInterface;
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Contracts\Interfaces\Dashboard\ProviderInterface;
 use App\Contracts\Interfaces\Dashboard\TopupAgenInterface;
+use App\Contracts\Interfaces\Dashboard\TransactionInterface;
 use App\Contracts\Interfaces\FcmTokenInterface;
 use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\RegisterInterface;
@@ -20,6 +21,7 @@ use App\Contracts\Repositories\Dashboard\DepositRepository;
 use App\Contracts\Repositories\Dashboard\ProductRepository;
 use App\Contracts\Repositories\Dashboard\ProviderRepository;
 use App\Contracts\Repositories\Dashboard\TopupAgenRepository;
+use App\Contracts\Repositories\Dashboard\TransactionRepository;
 use App\Contracts\Repositories\FcmTokenRepository;
 use App\Contracts\Repositories\ProfileRepository;
 use App\Contracts\Repositories\RegisterRepository;
@@ -39,7 +41,8 @@ class AppServiceProvider extends ServiceProvider
         ContactInterface::class => ContactRepository::class,
         TopupAgenInterface::class => TopupAgenRepository::class,
         ProviderInterface::class => ProviderRepository::class,
-        DepositInterface::class => DepositRepository::class
+        DepositInterface::class => DepositRepository::class,
+        TransactionInterface::class => TransactionRepository::class
     ];
     /**
      * Register any application services.

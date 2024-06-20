@@ -8,6 +8,7 @@ use App\Enums\TopupViaEnum;
 use App\Http\Requests\RequestTransactionWhatsappRequest;
 use App\Http\Requests\Tripay\RequestTransactionRequest;
 use App\Models\TopupAgen;
+use Illuminate\Http\Request;
 
 class TripayService
 {
@@ -19,13 +20,13 @@ class TripayService
 
     public function paymentChannel()
     {
-        $apiKey = "DEV-90fiDvHFgfI2jPBmCGUYWTv85K1G9Q0XozJF4lVR";
+        $apiKey = env('TRIPAY_API_KEY');
         $curl = curl_init();
         curl_setopt_array(
             $curl,
             array(
                 CURLOPT_FRESH_CONNECT => true,
-                CURLOPT_URL => 'https://tripay.co.id/api-sandbox/merchant/payment-channel',
+                CURLOPT_URL => env('TRIPAY_API_URL') . '/merchant/payment-channel',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_HEADER => false,
                 CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $apiKey],
@@ -82,7 +83,7 @@ class TripayService
 
         curl_setopt_array($curl, [
             CURLOPT_FRESH_CONNECT => true,
-            CURLOPT_URL => 'https://tripay.co.id/api-sandbox/transaction/create',
+            CURLOPT_URL => env('TRIPAY_API_URL') . '/transaction/create',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => false,
             CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $apiKey],
@@ -98,18 +99,16 @@ class TripayService
 
         return $responseSuccess ? $responseSuccess : $error;
     }
+
+
     public function requestTransactionWhatsapp(RequestTransactionWhatsappRequest $request)
     {
         $data = $request->validated();
-        $apiKey = "DEV-OJFjNqtkh6VZA3zeuGNSTPvTYMUQaRlPGXCYwrWN";
-        $privateKey = "jziBk-uZV3P-xg2ab-80KHX-NwAhc";
-        $merchantCode = "T32182";
+        $apiKey = env('TRIPAY_API_KEY');
+        $privateKey = env('TRIPAY_PRIVATE_KEY');
+        $merchantCode = env('TRIPAY_MERCHANT_CODE');
         $merchantRef = 'MPLS' . substr(time(), -6);
         $balance = intval($data['balance']);
-
-
-
-
 
         $data = [
             'method' => $data['method'],
@@ -133,7 +132,7 @@ class TripayService
 
         curl_setopt_array($curl, [
             CURLOPT_FRESH_CONNECT => true,
-            CURLOPT_URL => 'https://tripay.co.id/api-sandbox/transaction/create',
+            CURLOPT_URL => env('TRIPAY_API_URL') . '/transaction/create',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => false,
             CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $apiKey],
@@ -147,16 +146,12 @@ class TripayService
         $error = json_decode(curl_error($curl));
         $responseSuccess = json_decode($response);
 
-        // Mendapatkan tahun saat ini dalam format dua digit terakhir
         $getYear = substr(now()->format('Y'), -2);
 
-        // Menghitung jumlah record di tabel TopupAgen untuk menentukan nomor berikutnya
         $count = TopupAgen::count() + 1;
 
-        // Membuat external_id dengan format MPLSYYXXXX, di mana YY adalah tahun dan XXXX adalah nomor urut
         $external_id = "MPLS" . $getYear . str_pad($count, 4, '0', STR_PAD_LEFT);
 
-        // dd($responseSuccess);
         TopupAgen::create([
             'user_id' => $request->input('user_id'),
             'invoice_id' => $external_id,
@@ -173,5 +168,32 @@ class TripayService
 
 
         return $responseSuccess ? $responseSuccess : $error;
+    }
+
+    /**
+     * callback
+     *
+     * @param  mixed $request
+     * @return void
+     */
+    public function callback(Request $request)
+    {
+        $privateKey = env('TRIPAY_API_KEY');
+        $json = $request->getContent();
+        $signature = hash_hmac('sha256', $json, $privateKey);
+        dd($signature);
+    }
+
+    /**
+     * handleGenerateCallbackSignature
+     *
+     * @param  mixed $request
+     * @return string
+     */
+    public static function handleGenerateCallbackSignature(Request $request): string
+    {
+        $privateKey = env('TRIPAY_API_KEY');
+
+        return hash_hmac('sha256', $request->getContent(), $privateKey);
     }
 }

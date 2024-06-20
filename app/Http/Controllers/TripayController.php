@@ -7,6 +7,7 @@ use App\Http\Requests\RequestTransactionWhatsappRequest;
 use App\Http\Requests\Tripay\RequestTransactionRequest;
 use App\Services\Auth\TripayService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class TripayController extends Controller
@@ -62,4 +63,14 @@ class TripayController extends Controller
         return to_route('transactions.history');
     }
 
+    /**
+     * callback
+     *
+     * @return void
+     */
+    public function callback(Request $request)
+    {
+        $service = $this->service->callback($request);
+        dd($service);
+    }
 }
