@@ -8,7 +8,7 @@
             <x-alert-failed></x-alert-failed>
         @endif
 
-        <form action="{{ route('tripay.request.transaction') }}" method="POST">
+        <form action="{{ route('tripay.request.transaction') }}" method="POST" id="topup">
             @csrf
             <div class="row">
                 <div class="col-lg-7">
@@ -18,8 +18,11 @@
                             <span class="fw-bold">Pilih Pulsa</span>
                         </div>
                         <div class="col">
-                            <input type="text" name="balance" id="balanceInput" class="form-control balance-input"
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                                <input type="text" name="balance" id="balanceInput" class="form-control balance-input"
                                 placeholder="Ketik Nominal">
+                              </div>
                             <span class="fw-light fs-2">Minimal Rp. 50.000</span>
                         </div>
                         <div class="col-12 my-2">
@@ -112,7 +115,7 @@
                                 <p id="total-order">Rp. -</p>
                             </div>
                             <div class="card-footer p-0">
-                                <button class="btn btn-warning w-100" type="submit">Buat Pesanan</button>
+                                <button id="kirim" class="btn btn-warning w-100" type="submit">Buat Pesanan</button>
                             </div>
                         </div>
                     </div>
@@ -123,8 +126,26 @@
 @endsection
 
 @section('script')
+    @include('widgets.currency-format')
     <script>
         $(document).ready(function() {
+
+            // format uang 
+            $('#balanceInput').on('input', function(){
+                let balanceInput = $(this).val();
+                let formattedValue = formatCurrency(balanceInput);
+
+                // Set nilai input ke nilai yang sudah diformat
+                $(this).val(formattedValue);
+            });
+
+            $('#kirim').click(function(e) {
+                let balanceInput = $('#balanceInput').val().replace(",", "");
+                $('#balanceInput').val(balanceInput);
+
+                $('#topup').submit();
+            })
+
             function updateOrderDetails() {
                 const selectedBalance = $('.balance-radio:checked').val() || $('.balance-input').val();
                 const selectedMethod = $('input[name="method"]:checked');
