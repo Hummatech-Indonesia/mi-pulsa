@@ -11,6 +11,7 @@ use App\Observers\Dashboard\CustomerObserver;
 use App\Observers\Dashboard\ProductObserver;
 use App\Observers\Dashboard\TopupAgenObserver;
 use App\Observers\Dashboard\TopupObserver;
+use App\Observers\TopupAgenObserver as ObserversTopupAgenObserver;
 use App\Observers\TransactionObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
@@ -39,8 +40,8 @@ class EventServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Customer::observe(CustomerObserver::class);
         Product::observe(ProductObserver::class);
-        TopupAgen::observe(TopupAgenObserver::class);
         Transaction::observe(TransactionObserver::class);
+        TopupAgen::observe(ObserversTopupAgenObserver::class);
     }
 
     /**
