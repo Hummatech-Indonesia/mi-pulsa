@@ -5,6 +5,7 @@ namespace App\Services\Auth;
 use App\Contracts\Interfaces\Dashboard\TopupAgenInterface;
 use App\Enums\StatusTransactionEnum;
 use App\Enums\TopupViaEnum;
+use App\Helpers\ResponseHelper;
 use Carbon\Carbon;
 use App\Http\Requests\Tripay\RequestTransactionRequest;
 use App\Models\TopupAgen;
@@ -176,7 +177,7 @@ class TripayService
                     //     ]);
             }
 
-            return Response::json(['success' => true]);
+            return ResponseHelper::success('success');
         }
     }
 
