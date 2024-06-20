@@ -11,7 +11,9 @@ use App\Http\Requests\DepositRequest;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Customer;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class DigiFlazzController extends Controller
 {
@@ -196,5 +198,25 @@ class DigiFlazzController extends Controller
             'wa' => $data['wa']
         ]);
         return redirect()->back()->with('success', 'Berhasil Mengirim Saldo');
+    }
+
+    /**
+     * callback
+     * 
+     * @param  mixed $request
+     * @return void
+     */
+    public function callback(Request $request)
+    {
+        $secret = 'testing';
+
+        $post_data = file_get_contents('php://input');
+        $signature = hash_hmac('sha1', $post_data, $secret);
+        Log::info($signature);
+
+        if ($request->header('X-Hub-Signature') == 'sha1=' . $signature) {
+            Log::info(json_decode($request->getContent(), true));
+            dd(json_decode($request->getContent(), true));
+        }
     }
 }

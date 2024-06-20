@@ -39,6 +39,8 @@ Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
     Route::post('price-list', [DigiFlazzController::class, 'priceList'])->name('pricelist');
     Route::post('deposit', [DigiFlazzController::class, 'deposit'])->name('deposit');
     Route::post('transaction/{customer}', [DigiFlazzController::class, 'transaction'])->name('transaction');
+
+    Route::post('callback', [DigiFlazzController::class, 'callback'])->name('callback');
 });
 
 Route::prefix('tripay')->group(function () {
