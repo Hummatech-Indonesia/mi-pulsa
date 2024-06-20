@@ -9,6 +9,7 @@ use App\Http\Requests\RequestTransactionWhatsappRequest;
 use App\Http\Requests\Tripay\RequestTransactionRequest;
 use App\Models\TopupAgen;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TripayService
 {
@@ -170,17 +171,66 @@ class TripayService
         return $responseSuccess ? $responseSuccess : $error;
     }
 
-    /**
-     * callback
-     *
-     * @param  mixed $request
-     * @return void
-     */
-    public function callback(Request $request)
+
+    public function handle(Request $request)
     {
         $privateKey = "fh5Nm-awLil-GXCuC-v5juf-0T4Lm";
+
+        $callbackSignature = $request->server('HTTP_X_CALLBACK_SIGNATURE');
         $json = $request->getContent();
         $signature = hash_hmac('sha256', $json, $privateKey);
+
+        if ($signature !== (string) $callbackSignature) {
+            return Response::json([
+                'success' => false,
+                'message' => 'Invalid signature',
+            ]);
+        }
+
+        if ('payment_status' !== (string) $request->server('HTTP_X_CALLBACK_EVENT')) {
+            return Response::json([
+                'success' => false,
+                'message' => 'Unrecognized callback event, no action was taken',
+            ]);
+        }
+
+        $data = json_decode($json);
+
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            return Response::json([
+                'success' => false,
+                'message' => 'Invalid data sent by tripay',
+            ]);
+        }
+
+        $invoiceId = $data->merchant_ref;
+        $tripayReference = $data->reference;
+        $status = strtoupper((string) $data->status);
+
+        if ($data->is_closed_payment === 1) {
+            dd($data);
+            switch ($status) {
+                    // case 'PAID':
+                    //     $invoice->update(['status' => 'PAID']);
+                    //     break;
+
+                    // case 'EXPIRED':
+                    //     $invoice->update(['status' => 'EXPIRED']);
+                    //     break;
+
+                    // case 'FAILED':
+                    //     $invoice->update(['status' => 'FAILED']);
+                    //     break;
+
+                    // default:
+                    //     return Response::json([
+                    //         'success' => false,
+                    //         'message' => 'Unrecognized payment status',
+                    //     ]);
+            }
+
+            return Response::json(['success' => true]);
+        }
     }
 
     /**
