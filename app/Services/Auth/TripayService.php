@@ -179,9 +179,9 @@ class TripayService
     public function callback(Request $request)
     {
         $privateKey = env('TRIPAY_API_KEY');
-        $callbackSignature = $request->server('HTTP_X_CALLBACK_SIGNATURE');
         $json = $request->getContent();
         $signature = hash_hmac('sha256', $json, $privateKey);
+        dd($signature);
     }
 
     /**
