@@ -28,9 +28,9 @@ class DigiFlazzController extends Controller
     public function cekSaldo()
     {
         $username = env('DIGIFLAZZ_USERNAME');
-        $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
+        $devKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
 
-        $message = $username . $developmentKey . 'depo';
+        $message = $username . $devKey . 'depo';
         $hash = md5($message);
 
         $postData = [
@@ -52,9 +52,9 @@ class DigiFlazzController extends Controller
     public function priceList()
     {
         $username = env('DIGIFLAZZ_USERNAME');
-        $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
+        $devKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
 
-        $message = $username . $developmentKey . 'pricelist';
+        $message = $username . $devKey . 'pricelist';
         $hash = md5($message);
 
         $postData = [
@@ -106,9 +106,9 @@ class DigiFlazzController extends Controller
     {
         $data = $request->validated();
         $username = env('DIGIFLAZZ_USERNAME');
-        $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
+        $devKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
 
-        $message = $username . $developmentKey . 'deposit';
+        $message = $username . $devKey . 'deposit';
         $hash = md5($message);
 
         // $postData = [
