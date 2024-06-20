@@ -17,27 +17,34 @@ class CustomersImport implements ToCollection, WithHeadingRow, WithValidation
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            $product = Product::where('product_name', $row['product'])->first();
-            if ($product != null) {
+            try {
+                $product = Product::where('product_name', $row['produk'])->firstOrFail();
                 Customer::create([
-                    'name' => $row['name'],
-                    'phone_number' => $row['phone_number'],
-                    'product_id' => $product['id'],
+                    'name' => $row['nama'],
+                    'phone_number' => $row['nomor_telepon'],
+                    'product_id' => $product->id,
                     'user_id' => auth()->user()->id,
                 ]);
+            } catch (\Exception $e) {
+                // Log error atau handle error sesuai kebutuhan
+                continue; // Lanjutkan ke baris berikutnya meskipun ada error
             }
         }
     }
     public function rules(): array
     {
         return [
-            'product' => 'required|exists:products,product_name'
+            'nama' => 'required',
+            'produk' => 'required|exists:products,product_name',
+            'nomor_telepon' => 'required'
         ];
     }
     public function customValidationMessages(): array
     {
         return [
-            'product.exists' => 'Produk yang diberikan tidak valid',
+            'nama.required' => 'Nama Kosong',
+            'produk.exists' => 'Produk yang diberikan tidak valid',
+            'nomor_telepon.required' => 'Nomor telepon kosong',
         ];
     }
 }

@@ -59,26 +59,24 @@
                                 <form action="{{ route('register') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Nama</label>
-                                        <input type="text" class="form-control" id="exampleInputtext"
-                                            aria-describedby="textHelp" name="name">
+                                        <label for="exampleInputtext" class="form-label">Nama</label>
+                                        <input type="text" class="form-control" id="exampleInputtext" aria-describedby="textHelp" name="name" placeholder="Masukkan nama">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Alamat Email</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp" name="email">
+                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Masukkan alamat email">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Masukkan password">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Konfirmasi Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password_confirmation">
+                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password_confirmation" placeholder="Konfirmasi password">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Nomor Telepon</label>
-                                        <input type="number" class="form-control" id="exampleInputPassword1" name="phone_number">
+                                        <input type="number" class="form-control" id="exampleInputPassword1" name="phone_number" placeholder="Masukkan nomor telepon">
                                     </div>
                                     <button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Daftar</button>
                                     <div class="d-flex align-items-center">
