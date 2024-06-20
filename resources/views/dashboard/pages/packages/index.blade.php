@@ -147,7 +147,7 @@
             })
 
             function updateOrderDetails() {
-                const selectedBalance = $('.balance-radio:checked').val() || $('.balance-input').val();
+                const selectedBalance = $('.balance-radio:checked').val() || $('.balance-input').val().replace(",", "");
                 const selectedMethod = $('input[name="method"]:checked');
                 const methodName = selectedMethod.data('name') || '-';
                 const fee = selectedMethod.data('fee') || 0;
