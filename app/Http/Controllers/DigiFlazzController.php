@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\Dashboard\DepositInterface;
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
+use App\Contracts\Interfaces\Dashboard\TransactionInterface;
 use App\Helpers\FormatedHelper;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\DepositRequest;
@@ -16,10 +17,12 @@ class DigiFlazzController extends Controller
 {
     private ProductInterface $product;
     private DepositInterface $deposit;
+    private TransactionInterface $transaction;
 
-    public function __construct(ProductInterface $product, DepositInterface $deposit)
+    public function __construct(ProductInterface $product, DepositInterface $deposit, TransactionInterface $transaction)
     {
         $this->product = $product;
+        $this->transaction = $transaction;
         $this->deposit = $deposit;
     }
 
@@ -31,9 +34,9 @@ class DigiFlazzController extends Controller
     public function cekSaldo()
     {
         $username = env('DIGIFLAZZ_USERNAME');
-        $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
+        $devKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
 
-        $message = $username . $developmentKey . 'depo';
+        $message = $username . $devKey . 'depo';
         $hash = md5($message);
 
         $postData = [
@@ -55,9 +58,9 @@ class DigiFlazzController extends Controller
     public function priceList()
     {
         $username = env('DIGIFLAZZ_USERNAME');
-        $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
+        $devKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
 
-        $message = $username . $developmentKey . 'pricelist';
+        $message = $username . $devKey . 'pricelist';
         $hash = md5($message);
 
         $postData = [
@@ -109,9 +112,9 @@ class DigiFlazzController extends Controller
     {
         $data = $request->validated();
         $username = env('DIGIFLAZZ_USERNAME');
-        $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
+        $devKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
 
-        $message = $username . $developmentKey . 'deposit';
+        $message = $username . $devKey . 'deposit';
         $hash = md5($message);
 
 
@@ -161,13 +164,15 @@ class DigiFlazzController extends Controller
      * @param  mixed $customer
      * @return JsonResponse
      */
-    public function transaction(Customer $customer, TransactionRequest $request): JsonResponse
+    public function transaction(Customer $customer, TransactionRequest $request)
     {
         $username = env('DIGIFLAZZ_USERNAME');
         $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
 
         $message = $username . $developmentKey . 'some3d';
         $hash = md5($message);
+
+        $product = $this->product->getProduct(['buyer_sku_code' => $request->product_id]);
 
         $postData = [
             "username" => $username,
@@ -179,8 +184,17 @@ class DigiFlazzController extends Controller
         ];
 
         $response = Http::post('https://api.digiflazz.com/v1/transaction', $postData);
-        $data = $response->json();
-        dd($data);
-        return ResponseHelper::success(null,  'Total saldo yang harus anda bayarkan adalah Rp. <b>' . FormatedHelper::rupiahCurrency($data['amount']) . '</b> Dan masukkan catatan <b>' . $data['notes'] . '</b> Ketika anda melakukan transaksi');
+        $data = $response->json()['data'];
+        $this->transaction->store([
+            'customer_id' => $customer->id,
+            'product_id' => $product->id,
+            'ref_id' => $data['ref_id'],
+            'customer_no' => $data['customer_no'],
+            'buyer_last_saldo' => $data['buyer_last_saldo'],
+            'price' => $data['price'],
+            'tele' => $data['tele'],
+            'wa' => $data['wa']
+        ]);
+        return redirect()->back()->with('success', 'Berhasil Mengirim Saldo');
     }
 }

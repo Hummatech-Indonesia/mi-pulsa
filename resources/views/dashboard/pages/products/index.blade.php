@@ -91,12 +91,13 @@
                                                 </td>
                                                 <td>
                                                     <form action="{{ route('product.selling.price', $product->id) }}"
-                                                        method="post">
+                                                        class="d-flex" method="post">
                                                         @csrf
                                                         @method('PATCH')
                                                         <input type="number" name="selling_price" class="form-control"
                                                             value="{{ $product->selling_price }}" id="">
-                                                        <button style="display: none" type="submit"></button>
+                                                        <button class="btn btn-primary" style="margin-left: 3rem;"
+                                                            type="submit">Simpan</button>
                                                     </form>
                                                 </td>
                                             </tr>
