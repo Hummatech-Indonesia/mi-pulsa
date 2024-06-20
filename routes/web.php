@@ -35,9 +35,9 @@ Auth::routes([
 ]);
 
 Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
-    Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo']);
-    Route::post('price-list', [DigiFlazzController::class, 'priceList']);
-    Route::post('deposit', [DigiFlazzController::class, 'deposit']);
+    Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo'])->name('ceksaldo');
+    Route::post('price-list', [DigiFlazzController::class, 'priceList'])->name('pricelist');
+    Route::post('deposit', [DigiFlazzController::class, 'deposit'])->name('deposit');
 });
 
 Route::prefix('tripay')->group(function () {
@@ -72,7 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::resource('customers', CustomerController::class);
-    ROute::post('customers-import',[CustomerController::class,'import'])->name('customers.import');
+    ROute::post('customers-import', [CustomerController::class, 'import'])->name('customers.import');
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::patch('product-selling-price/{product}', [ProductController::class, 'sellingPrice'])->name('product.selling.price');
     Route::resource('users', UserController::class)->except('index');
