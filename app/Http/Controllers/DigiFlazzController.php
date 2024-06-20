@@ -7,6 +7,9 @@ use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Helpers\FormatedHelper;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\DepositRequest;
+use App\Http\Requests\TransactionRequest;
+use App\Models\Customer;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
 class DigiFlazzController extends Controller
@@ -111,13 +114,7 @@ class DigiFlazzController extends Controller
         $message = $username . $devKey . 'deposit';
         $hash = md5($message);
 
-        // $postData = [
-        //     "username" => $username,
-        //     "amount" => intval($data['amount']),
-        //     "Bank" => $data['bank'],
-        //     "owner_name" => auth()->user()->name,
-        //     "sign" => $hash
-        // ];
+
         $postData = json_encode([
             "username" => $username,
             "amount" => intval($data['amount']),
@@ -127,9 +124,6 @@ class DigiFlazzController extends Controller
         ]);
 
         try {
-            // $response = Http::post('https://api.digiflazz.com/v1/deposit', $postData);
-            // $data = $response->json()['data'];
-
             $header = array(
                 'Content-Type: application/json',
             );
@@ -157,8 +151,36 @@ class DigiFlazzController extends Controller
 
             return to_route('dashboard.topup.digiflazz')->with('success', 'Total saldo yang harus anda bayarkan adalah Rp. ' . FormatedHelper::rupiahCurrency($data->amount) . ' Dan masukkan catatan ' . $data->notes . ' Ketika anda melakukan transaksi');
         } catch (\Throwable $th) {
-            dd($th);
             return to_route('dashboard.topup.digiflazz')->with('error', 'Terjadi kesalahan saat melakukan deposit');
         }
+    }
+
+    /**
+     * transaction
+     *
+     * @param  mixed $customer
+     * @return JsonResponse
+     */
+    public function transaction(Customer $customer, TransactionRequest $request): JsonResponse
+    {
+        $username = env('DIGIFLAZZ_USERNAME');
+        $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
+
+        $message = $username . $developmentKey . 'some3d';
+        $hash = md5($message);
+
+        $postData = [
+            "username" => $username,
+            "buyer_sku_code" => $request->product_id,
+            "customer_no" => $customer->phone_number,
+            "ref_id" => "some3d",
+            "sign" => $hash,
+            "testing" => true
+        ];
+
+        $response = Http::post('https://api.digiflazz.com/v1/transaction', $postData);
+        $data = $response->json();
+        dd($data);
+        return ResponseHelper::success(null,  'Total saldo yang harus anda bayarkan adalah Rp. <b>' . FormatedHelper::rupiahCurrency($data['amount']) . '</b> Dan masukkan catatan <b>' . $data['notes'] . '</b> Ketika anda melakukan transaksi');
     }
 }

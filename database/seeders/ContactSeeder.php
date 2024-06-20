@@ -15,7 +15,7 @@ class ContactSeeder extends Seeder
     {
         Contact::create([
             'phone_number'=>'1234567890',
-            'email'=>'frsnaifla@gmail.com',
+            'email'=>'info@hummatech.com',
             'address'=>'Malang'
         ]);
     }

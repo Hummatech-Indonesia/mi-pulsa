@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Customer extends Model implements HasUser, HasProduct
 {
     use HasFactory;
-    protected $fillable = ['id', 'name', 'user_id', 'product_id','phone_number'];
+    protected $fillable = ['id', 'name', 'user_id', 'product_id', 'phone_number'];
 
     public $incrementing = false;
     public $keyType = 'char';

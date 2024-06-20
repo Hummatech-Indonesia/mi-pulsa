@@ -11,6 +11,7 @@ use App\Models\Customer;
 use App\Models\User;
 use App\Traits\Datatables\UserDatatable;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CustomerRepository extends BaseRepository implements CustomerInterface
 {
@@ -87,5 +88,21 @@ class CustomerRepository extends BaseRepository implements CustomerInterface
     public function delete(mixed $id): mixed
     {
         return $this->show($id)->delete();
+    }
+
+    /**
+     * customPaginate
+     *
+     * @param  mixed $request
+     * @param  mixed $pagination
+     * @return LengthAwarePaginator
+     */
+    public function customPaginate(Request $request, int $pagination = 10): LengthAwarePaginator
+    {
+        return $this->model->query()
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->name . '%');
+            })
+            ->fastPaginate($pagination);
     }
 }

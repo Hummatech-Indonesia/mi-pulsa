@@ -38,6 +38,7 @@ Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
     Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo'])->name('ceksaldo');
     Route::post('price-list', [DigiFlazzController::class, 'priceList'])->name('pricelist');
     Route::post('deposit', [DigiFlazzController::class, 'deposit'])->name('deposit');
+    Route::post('transaction/{customer}', [DigiFlazzController::class, 'transaction'])->name('transaction');
 });
 
 Route::prefix('tripay')->group(function () {
@@ -63,7 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::get('topup-digiflazz', [DashboardController::class, 'index'])->name('topup.digiflazz');
-        Route::get('topup-customer', [DashboardController::class, 'index'])->name('topup.customer');
+        Route::get('topup-customer', [TransactionController::class, 'index'])->name('topup.customer');
         Route::get('history-digiflazz', [DashboardController::class, 'index'])->name('history.digiflazz');
 
         Route::resources([
