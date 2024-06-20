@@ -152,10 +152,8 @@ class TripayService
         // $invoiceId = $data->merchant_ref;
         $tripayReference = $data->reference;
         $status = strtoupper((string) $data->status);
-
         if ($data->is_closed_payment === 1) {
-            $topupAgen = $this->topup->get();
-            dd($topupAgen, $tripayReference, 'h');
+            $topupAgen = TopupAgen::query()->where('invoice_id', $tripayReference)->first();
             $user = User::query()->where('id', $topupAgen->user_id)->first();
             switch ($status) {
                 case 'PAID':
