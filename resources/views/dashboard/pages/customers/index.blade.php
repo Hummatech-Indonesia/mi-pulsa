@@ -172,12 +172,13 @@
         $(document).on('click', '.btn-add', function() {
             let products = JSON.parse($(this).attr('data-product'));
 
-            $('#product_id').empty();
-            $('#product_id').append(
+
+            $('#add_product_id').empty();
+            $('#add_product_id').append(
                 `<option value="">Pilih Produk</option>`
             );
             $.each(products, function(index, product) {
-                $('#product_id').append(
+                $('#add_product_id').append(
                     `<option value="${product.id}">${product.product_name} (${product.buyer_sku_code})</option>`
                 );
             });
