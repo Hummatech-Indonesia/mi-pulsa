@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Base\Interfaces\HasUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class TopupAgen extends Model
+class TopupAgen extends Model implements HasUser
 {
     use HasFactory;
     public $keyType = 'char';
