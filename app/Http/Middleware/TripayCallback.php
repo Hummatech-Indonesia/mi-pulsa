@@ -3,8 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Helpers\ResponseHelper;
-use App\Services\Auth\TripayService as AuthTripayService;
-use App\Services\Tripay\TripayService;
+use App\Services\Auth\TripayService;
 use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -24,7 +23,8 @@ class TripayCallback
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse|JsonResponse
     {
-        if (AuthTripayService::handleGenerateCallbackSignature($request) !== $request->header('X-Callback-Signature')) {
+        dd($request->header('X-Callback-Signature'));
+        if (TripayService::handleGenerateCallbackSignature($request) !== $request->header('X-Callback-Signature')) {
             ResponseHelper::error(null, trans('alert.invalid_callback_signature'), ResponseCode::HTTP_FORBIDDEN);
         }
 
