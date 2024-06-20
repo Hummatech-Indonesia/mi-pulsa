@@ -28,7 +28,7 @@
                 <span class="badge rounded-pill text-bg-primary">Saldo Rp. <span id="saldoDigiFlazz"></span></span>
             @endrole
             @role('agen')
-                <span class="badge rounded-pill text-bg-primary">Saldo Rp. <span
+                <span class="badge rounded-pill text-bg-primary">Saldo <span
                         id="">{{ FormatedHelper::rupiahCurrency(auth()->user()->saldo) }}</span></span>
             @endrole
         </div>
