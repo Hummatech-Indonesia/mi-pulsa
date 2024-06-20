@@ -216,7 +216,9 @@ class DigiFlazzController extends Controller
 
         if ($request->header('X-Hub-Signature') == 'sha1=' . $signature) {
             Log::info(json_decode($request->getContent(), true));
-            dd(json_decode($request->getContent(), true));
+            // dd(json_decode($request->getContent(), true));
+        } else {
+            Log::info('Signature not match');
         }
     }
 }
