@@ -1,5 +1,6 @@
 @php
     use App\Helpers\UserHelper;
+    use App\Helpers\FormatedHelper;
 @endphp
 <header class="app-header">
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -27,8 +28,8 @@
                 <span class="badge rounded-pill text-bg-primary">Saldo Rp. <span id="saldoDigiFlazz"></span></span>
             @endrole
             @role('agen')
-                <span class="badge rounded-pill text-bg-primary">Saldo Rp. <span
-                        id="">{{ auth()->user()->saldo }}</span></span>
+                <span class="badge rounded-pill text-bg-primary">Saldo <span
+                        id="">{{ FormatedHelper::rupiahCurrency(auth()->user()->saldo) }}</span></span>
             @endrole
         </div>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
