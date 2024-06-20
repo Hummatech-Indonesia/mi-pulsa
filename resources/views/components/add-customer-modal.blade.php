@@ -14,8 +14,8 @@
                             value="{{ old('name') }}" placeholder="Masukkan nama pelanggan">
                     </div>
                     <div class="form-group">
-                        <label for="product_id" class="form-label">Produk</label>
-                        <select name="product_id" class="form-control" id="product_id">
+                        <label for="product_id" id="" class="form-label">Produk</label>
+                        <select name="product_id" class="form-control" id="add_product_id">
 
                         </select>
                     </div>
