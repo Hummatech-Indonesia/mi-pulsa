@@ -14,8 +14,8 @@ class TopupAgenObserver
      *
      * @return void
      */
-    public function creating(TopupAgen $TopupAgen): void
+    public function creating(TopupAgen $topupAgen): void
     {
-        $TopupAgen->id = Uuid::uuid();
+        $topupAgen->id = Uuid::uuid();
     }
 }

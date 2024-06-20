@@ -16,6 +16,7 @@ class CustomerRequest extends FormRequest
         return [
             'name' => 'required',
             'product_id' => 'required|exists:products,id',
+            'phone_number' => 'required',
         ];
     }
     /**
@@ -29,6 +30,7 @@ class CustomerRequest extends FormRequest
             'name.required' => 'Kolom nama tidak boleh kosong',
             'product.required' => 'Kolom produk tidak boleh kosong',
             'product.exists' => 'Kolom produk yang anda pilih tidak valid',
+            'phone_number'=>'Kolom nomor telepon tidak boleh kosong',
         ];
     }
 }

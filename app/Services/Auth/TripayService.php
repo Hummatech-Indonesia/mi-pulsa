@@ -5,10 +5,12 @@ namespace App\Services\Auth;
 use App\Contracts\Interfaces\Dashboard\TopupAgenInterface;
 use App\Enums\StatusTransactionEnum;
 use App\Enums\TopupViaEnum;
-use App\Http\Requests\RequestTransactionWhatsappRequest;
+use Carbon\Carbon;
 use App\Http\Requests\Tripay\RequestTransactionRequest;
 use App\Models\TopupAgen;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TripayService
 {
@@ -97,90 +99,87 @@ class TripayService
         $error = json_decode(curl_error($curl));
         $responseSuccess = json_decode($response);
 
-        return $responseSuccess ? $responseSuccess : $error;
-    }
-
-
-    public function requestTransactionWhatsapp(RequestTransactionWhatsappRequest $request)
-    {
-        $data = $request->validated();
-        $apiKey = env('TRIPAY_API_KEY');
-        $privateKey = env('TRIPAY_PRIVATE_KEY');
-        $merchantCode = env('TRIPAY_MERCHANT_CODE');
-        $merchantRef = 'MPLS' . substr(time(), -6);
-        $balance = intval($data['balance']);
-
-        $data = [
-            'method' => $data['method'],
-            'merchant_ref' => $merchantRef,
-            'amount' => $balance,
-            'customer_name' => auth()->user()->name,
-            'customer_phone' => auth()->user()->phone_number,
-            'customer_email' => auth()->user()->email,
-            'order_items' => [
-                [
-                    'name' => 'Saldo-Rp ' . number_format($balance, 0, ',', '.'),
-                    'price' => $balance,
-                    'quantity' => 1,
-                ],
-            ],
-            'expired_time' => (time() + (24 * 60 * 60)), // 24 jam
-            'signature' => hash_hmac('sha256', $merchantCode . $merchantRef . $balance, $privateKey)
-        ];
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_FRESH_CONNECT => true,
-            CURLOPT_URL => env('TRIPAY_API_URL') . '/transaction/create',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HEADER => false,
-            CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $apiKey],
-            CURLOPT_FAILONERROR => false,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => http_build_query($data),
-            CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4
-        ]);
-
-        $response = curl_exec($curl);
-        $error = json_decode(curl_error($curl));
-        $responseSuccess = json_decode($response);
-
-        $getYear = substr(now()->format('Y'), -2);
-
-        $count = TopupAgen::count() + 1;
-
-        $external_id = "MPLS" . $getYear . str_pad($count, 4, '0', STR_PAD_LEFT);
-
+        $data = $responseSuccess->data;
         TopupAgen::create([
-            'user_id' => $request->input('user_id'),
-            'invoice_id' => $external_id,
-            'invoice_url' => $responseSuccess->data->checkout_url,
-            // 'expiry_date' => $responseSuccess->data->expired_time,
-            'paid_amount' => $responseSuccess->data->amount,
-            'fee_amount' => $responseSuccess->data->total_fee,
-            'payment_channel' => $responseSuccess->data->payment_name,
-            'payment_method' => $responseSuccess->data->payment_method,
-            'amount' => $responseSuccess->data->amount_received,
+            'user_id' => auth()->user()->id,
+            'invoice_id' => $data->reference,
+            'fee_amount' => $data->total_fee,
+            'invoice_url' => $data->checkout_url,
+            'expiry_date' => Carbon::parse($responseSuccess->data->expired_time)->format('Y-m-d'),
+            'amount' => $balance,
+            'paid_amount' => $data->amount,
+            'payment_channel' => $data->payment_name,
+            'payment_method' => $data->payment_method,
             'status' => StatusTransactionEnum::UNPAID->value,
-            'transaction_via' => TopupViaEnum::WHATSAPP->value,
+            'transaction_via' => TopupViaEnum::TRIPAY->value
         ]);
-
 
         return $responseSuccess ? $responseSuccess : $error;
     }
 
-    /**
-     * callback
-     *
-     * @param  mixed $request
-     * @return void
-     */
+
     public function callback(Request $request)
     {
         $privateKey = "fh5Nm-awLil-GXCuC-v5juf-0T4Lm";
+
+        $callbackSignature = $request->server('HTTP_X_CALLBACK_SIGNATURE');
         $json = $request->getContent();
         $signature = hash_hmac('sha256', $json, $privateKey);
+
+        if ($signature !== (string) $callbackSignature) {
+            return Response::json([
+                'success' => false,
+                'message' => 'Invalid signature',
+            ]);
+        }
+
+        if ('payment_status' !== (string) $request->server('HTTP_X_CALLBACK_EVENT')) {
+            return Response::json([
+                'success' => false,
+                'message' => 'Unrecognized callback event, no action was taken',
+            ]);
+        }
+
+        $data = json_decode($json);
+
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            return Response::json([
+                'success' => false,
+                'message' => 'Invalid data sent by tripay',
+            ]);
+        }
+
+        // $invoiceId = $data->merchant_ref;
+        $tripayReference = $data->reference;
+        $status = strtoupper((string) $data->status);
+
+        if ($data->is_closed_payment === 1) {
+            $topupAgen = TopupAgen::query()->get();
+            dd($topupAgen, $tripayReference);
+            $user = User::query()->where('id', $topupAgen->user_id)->first();
+            switch ($status) {
+                case 'PAID':
+                    $topupAgen->update(['status' => StatusTransactionEnum::PAID->value]);
+                    $user->update(['saldo' => $user->saldo + $data->amount_received]);
+                    break;
+
+                    // case 'EXPIRED':
+                    //     $invoice->update(['status' => 'EXPIRED']);
+                    //     break;
+
+                    // case 'FAILED':
+                    //     $invoice->update(['status' => 'FAILED']);
+                    //     break;
+
+                    // default:
+                    //     return Response::json([
+                    //         'success' => false,
+                    //         'message' => 'Unrecognized payment status',
+                    //     ]);
+            }
+
+            return Response::json(['success' => true]);
+        }
     }
 
     /**
