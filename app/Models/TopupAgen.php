@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class TopupAgen extends Model
 {
     use HasFactory;
+    public $keyType = 'char';
+    protected $primaryKey = 'id';
+    protected $table = 'topup_agens';
     protected $fillable = ['user_id', 'invoice_id', 'fee_amount', 'invoice_url', 'expiry_date', 'paid_amount', 'amount', 'paid_at', 'payment_channel', 'payment_method', 'status', 'transaction_via'];
 
 
