@@ -23,7 +23,6 @@ class TripayCallback
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse|JsonResponse
     {
-        dd($request->header('X-Callback-Signature'));
         if (TripayService::handleGenerateCallbackSignature($request) !== $request->header('X-Callback-Signature')) {
             ResponseHelper::error(null, trans('alert.invalid_callback_signature'), ResponseCode::HTTP_FORBIDDEN);
         }
