@@ -178,10 +178,9 @@ class TripayService
      */
     public function callback(Request $request)
     {
-        $privateKey = "DEV-90fiDvHFgfI2jPBmCGUYWTv85K1G9Q0XozJF4lVR";
+        $privateKey = "fh5Nm-awLil-GXCuC-v5juf-0T4Lm";
         $json = $request->getContent();
         $signature = hash_hmac('sha256', $json, $privateKey);
-        dd($signature);
     }
 
     /**

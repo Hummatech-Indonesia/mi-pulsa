@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('enable.cors')->group(function () {
     Route::middleware(['payment.callback', 'throttle:api'])->group(function () {
-        Route::post('callback', [TripayController::class, 'callback']);
+        Route::get('callback', [TripayController::class, 'callback']);
     });
 });
 
