@@ -71,6 +71,6 @@ class TripayController extends Controller
     public function callback(Request $request)
     {
         $service = $this->service->callback($request);
-        dd($service);
+        return $service;
     }
 }
