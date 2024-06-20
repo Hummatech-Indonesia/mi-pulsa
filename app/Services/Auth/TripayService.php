@@ -155,7 +155,7 @@ class TripayService
 
         if ($data->is_closed_payment === 1) {
             $topupAgen = TopupAgen::query()->where('invoice_id', $data->reference);
-            $user = User::query()->where('id', $topupAgen->user_id);
+            $user = User::query()->where('id', $topupAgen->user_id)->first();
             switch ($status) {
                 case 'PAID':
                     $topupAgen->update(['status' => StatusTransactionEnum::PAID->value]);
