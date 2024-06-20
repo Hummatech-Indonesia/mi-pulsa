@@ -122,7 +122,6 @@ class DigiFlazzController extends Controller
         try {
             $response = Http::post('https://api.digiflazz.com/v1/deposit', $postData);
             $data = $response->json()['data'];
-            dd($data);
 
             if ($data['rc'] != '00') {
                 return to_route('dashboard.topup.digiflazz')->with('error', $data['message']);
