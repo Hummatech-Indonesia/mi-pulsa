@@ -26,7 +26,7 @@
             <x-alert-success />
         @endif
 
-        <form id="" action="{{ route('digi-flazz.deposit') }}" method="POST">
+        <form id="deposit" action="{{ route('digi-flazz.deposit') }}" method="POST">
             @csrf
             <div class="row">
                 <div class="col-lg-12">
@@ -35,8 +35,11 @@
                             <span class="fw-bold">Pilih Nominal</span>
                         </div>
                         <div class="col">
-                            <input type="text" name="amount" id="amount" class="form-control balance-input"
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                                <input type="text" name="amount" id="amount" class="form-control balance-input"
                                 placeholder="Ketik Nominal">
+                              </div>
                             <span class="fw-light fs-2">Minimal Rp. 200.000</span>
                         </div>
                         <div class="d-flex gap-3 align-items-center mb-3" style="margin-top: 1rem;">
@@ -52,7 +55,7 @@
                             </select>
                         </div>
                         <div class="col mt-4">
-                            <button type="submit" class="btn btn-primary">Kirim</button>
+                            <button id="kirim" type="submit" class="btn btn-primary">Kirim</button>
                         </div>
                     </div>
                 </div>
@@ -63,31 +66,35 @@
 
 @section('script')
     <script>
-        $('#digiFlazz').submit(function(e) {
-            e.preventDefault();
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            let bank = $('#bank').val();
-            let amount = $('#amount').val();
-            $.ajax({
-                url: "/digi-flazz/deposit",
-                type: "POST",
-                contentType: 'application/json',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                data: JSON.stringify({
-                    bank: bank,
-                    amount: amount,
-                }),
-                success: function(response) {
-                    console.log(response);
-                    $('#alert_success').html(
-                        ` <div class="alert alert-success" role="alert">
-                            ${response.meta.message}
-                        </div>`
-                    );
-                }
-            });
+        function formatCurrency(input) {
+                // Hapus semua karakter yang bukan digit atau titik desimal
+                let value = input.replace(/[^\d.]/g, '');
+
+                // Pisahkan menjadi bagian sebelum dan sesudah titik desimal
+                let parts = value.split('.');
+                let integerPart = parts[0];
+                let decimalPart = parts.length > 1 ? '.' + parts[1].substring(0, 2) : '';
+
+                // Tambahkan koma sebagai pemisah ribuan
+                integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+                // Gabungkan kembali bagian integer dan desimal
+                return integerPart + decimalPart;
+            }
+
+        $('#amount').on('input', function(){
+            let amount = $(this).val();
+            let formattedValue = formatCurrency(amount);
+
+            // Set nilai input ke nilai yang sudah diformat
+            $(this).val(formattedValue);
         });
+
+        $('#kirim').click(function(e) {
+            let amount = $('#amount').val().replace(",", "");
+            $('#amount').val(amount);
+
+            $('#deposit').submit();
+        })
     </script>
 @endsection
