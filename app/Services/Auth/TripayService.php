@@ -154,7 +154,7 @@ class TripayService
         $status = strtoupper((string) $data->status);
 
         if ($data->is_closed_payment === 1) {
-            $topupAgen = TopupAgen::query()->where('invoice_id', $data->reference)->first();
+            $topupAgen = TopupAgen::query()->get();
             dd($topupAgen);
             $user = User::query()->where('id', $topupAgen->user_id)->first();
             switch ($status) {
