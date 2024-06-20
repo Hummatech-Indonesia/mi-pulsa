@@ -111,7 +111,8 @@
                                                     class="btn d-flex align-items-center gap-3 edit-customer"
                                                     data-bs-toggle="modal" data-bs-target="#updateCustomer"
                                                     data-id="{{ $customer->id }}" data-name="{{ $customer->name }}"
-                                                    data-provider="{{ $customer->provider }}"
+                                                    data-product-id="{{ $customer->product_id }}"
+                                                    data-products="{{ $products }}"
                                                     data-phone-number="{{ $customer->phone_number }}">
                                                     <i class="fs-4 ti ti-pencil"></i>Edit
                                                 </button>
@@ -146,14 +147,25 @@
     <x-add-customer-modal></x-add-customer-modal>
     <script>
         $(document).on('click', '.edit-customer', function() {
-            $('#editCustomerModal').modal('show')
+            $('#editCustomerModal').modal('show');
             const id = $(this).data('id');
             const name = $(this).data('name');
-            const provider = $(this).data('provider');
             const phone_number = $(this).data('phone-number');
+            const product_id = $(this).data('product-id');
+            const products = $(this).data('products'); // Pastikan ini mengambil data produk yang benar
+
             $('#name').val(name);
-            $('#provider').val(provider);
             $('#phone_number').val(phone_number);
+
+            // $('#product_id').empty(); // Bersihkan opsi sebelumnya
+            $('#product_id').append(`<option value="">Pilih Produk</option>`);
+            $.each(products, function(index, product) {
+                let isSelected = product.id == product_id ? 'selected' : '';
+                $('#product_id').append(
+                    `<option value="${product.id}" ${isSelected}>${product.product_name} (${product.buyer_sku_code})</option>`
+                );
+            });
+
             let url = `{{ route('customers.update', ':id') }}`.replace(':id', id);
             $('#editCustomerForm').attr('action', url);
         });
