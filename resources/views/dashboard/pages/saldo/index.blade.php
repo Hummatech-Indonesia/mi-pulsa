@@ -16,11 +16,13 @@
             <p class="py-0 my-0">Notes dimasukkan ketika melakukan transfer.</p>
         </div>
 
-        <div class="" id="alert_success">
+        <!-- <div class="" id="alert_success">
 
-        </div>
+        </div> -->
+        <X-alert-success />
 
-        <form id="digiFlazz">
+        <form id="" action="{{ route('digi-flazz.deposit') }}" method="POST">
+            @csrf
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card p-3">
