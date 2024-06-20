@@ -102,4 +102,17 @@ class ProductRepository extends BaseRepository implements ProductInterface
             ->where('product_name', $data['product_name'])
             ->first();
     }
+
+    /**
+     * getProduct
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function getProduct(array $data): mixed
+    {
+        return $this->model->query()
+            ->where('buyer_sku_code', $data['buyer_sku_code'])
+            ->first();
+    }
 }
