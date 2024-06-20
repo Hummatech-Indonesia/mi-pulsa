@@ -122,16 +122,16 @@
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow {{ (request()->routeIs('customers.*') ? 'active' : '' || request()->routeIs('users.*')) ? 'active' : '' }}"
-                        href="#" aria-expanded="false">
-                        <span class="d-flex">
-                            <i class="ti ti-users"></i>
-                        </span>
-                        <span class="hide-menu">Pengguna</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        @role('admin')
+                @role('admin')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow {{ (request()->routeIs('customers.*') ? 'active' : '' || request()->routeIs('users.*')) ? 'active' : '' }}"
+                            href="#" aria-expanded="false">
+                            <span class="d-flex">
+                                <i class="ti ti-users"></i>
+                            </span>
+                            <span class="hide-menu">Pengguna</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
                             <li class="sidebar-item">
                                 <a href="{{ route('users.index') }}" class="sidebar-link ">
                                     <div class="round-16 d-flex align-items-center justify-content-center">
@@ -148,19 +148,19 @@
                                     <span class="hide-menu">Agen</span>
                                 </a>
                             </li>
-                        @endrole
-                        @role('agen')
-                            <li class="sidebar-item">
-                                <a href="{{ route('customers.index') }}" class="sidebar-link">
-                                    <div class="round-16 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-circle"></i>
-                                    </div>
-                                    <span class="hide-menu">Pelanggan</span>
-                                </a>
-                            </li>
-                        @endrole
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
+                @endrole
+                @role('agen')
+                    <li class="sidebar-item">
+                        <a href="{{ route('customers.index') }}" class="sidebar-link">
+                            <div class="round-16 d-flex align-items-center justify-content-center">
+                                <i class="ti ti-users"></i>
+                            </div>
+                            <span class="hide-menu">Pelanggan</span>
+                        </a>
+                    </li>
+                @endrole
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow {{ request()->routeIs('configuration.about.*') ? 'active' : '' }}"
                         href="#" aria-expanded="false">

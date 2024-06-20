@@ -7,6 +7,8 @@ use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Helpers\FormatedHelper;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\DepositRequest;
+use App\Models\Customer;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
 class DigiFlazzController extends Controller
@@ -117,6 +119,40 @@ class DigiFlazzController extends Controller
             "Bank" => $data['bank'],
             "owner_name" => auth()->user()->name,
             "sign" => $hash
+        ];
+
+        $response = Http::post('https://api.digiflazz.com/v1/deposit', $postData);
+        $data = $response->json()['data'];
+
+        $this->deposit->store([
+            'rc' => $data['rc'],
+            'amount' => $data['amount'],
+            'notes' => $data['notes']
+        ]);
+        return ResponseHelper::success(null,  'Total saldo yang harus anda bayarkan adalah Rp. <b>' . FormatedHelper::rupiahCurrency($data['amount']) . '</b> Dan masukkan catatan <b>' . $data['notes'] . '</b> Ketika anda melakukan transaksi');
+    }
+
+    /**
+     * transaction
+     *
+     * @param  mixed $customer
+     * @return JsonResponse
+     */
+    public function transaction(Customer $customer): JsonResponse
+    {
+        $username = env('DIGIFLAZZ_USERNAME');
+        $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
+
+        $message = $username . $developmentKey . 'some3d';
+        $hash = md5($message);
+
+        $postData = [
+            "username" => $username,
+            "buyer_sku_code" => $customer->product->buyer_sku_code,
+            "customer_no" => $customer->phone_number,
+            "ref_id" => "some3d",
+            "sign" => $hash,
+            "testing" => true
         ];
 
         $response = Http::post('https://api.digiflazz.com/v1/deposit', $postData);

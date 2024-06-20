@@ -63,7 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::get('topup-digiflazz', [DashboardController::class, 'index'])->name('topup.digiflazz');
-        Route::get('topup-customer', [DashboardController::class, 'index'])->name('topup.customer');
+        Route::get('topup-customer', [TransactionController::class, 'index'])->name('topup.customer');
         Route::get('history-digiflazz', [DashboardController::class, 'index'])->name('history.digiflazz');
 
         Route::resources([
@@ -72,7 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::resource('customers', CustomerController::class);
-    ROute::post('customers-import',[CustomerController::class,'import'])->name('customers.import');
+    ROute::post('customers-import', [CustomerController::class, 'import'])->name('customers.import');
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::patch('product-selling-price/{product}', [ProductController::class, 'sellingPrice'])->name('product.selling.price');
     Route::resource('users', UserController::class)->except('index');
