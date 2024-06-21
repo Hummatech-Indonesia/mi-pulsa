@@ -35,6 +35,11 @@ class HomeController extends Controller
         $about = $this->about->get();
         return view('pages.index', compact('contact', 'about'));
     }
+    /**
+     * Method product
+     *
+     * @return View
+     */
     public function product(): View
     {
         $contact = $this->contact->get();

@@ -57,11 +57,13 @@ Route::get('checkout', function () {
 });
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::name('home.')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('product', [HomeController::class, 'product'])->name('product');
+    Route::get('about', [HomeController::class, 'about'])->name('about');
+    Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+});
 Route::post('upload_image', [DashboardController::class, 'uploadImage'])->name('upload');
-Route::get('product', [HomeController::class, 'product'])->name('home.product');
-Route::get('about', [HomeController::class, 'about'])->name('about.index');
-ROute::get('contact', [HomeController::class, 'contact'])->name('contact.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
