@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Contracts\Interfaces\Dashboard\CustomerInterface;
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CustomerProductRequest;
 use App\Http\Requests\Dashboard\CustomerRequest;
 use App\Imports\CustomersImport;
 use App\Models\Customer;
@@ -58,6 +59,7 @@ class CustomerController extends Controller
         $this->customer->update($customer->id, $request->validated());
         return back()->with('success', 'Berhasil mengubah data');
     }
+
     /**
      * Method destroy
      *
@@ -70,11 +72,28 @@ class CustomerController extends Controller
         $this->customer->delete($customer->id);
         return back()->with('success', 'Berhasil menghapus data');
     }
+
+    /**
+     * import
+     *
+     * @param  mixed $request
+     * @return void
+     */
     public function import(Request $request)
     {
-        // dd($request->file);
-        $wkwk = Excel::import(new CustomersImport, $request->file('file'));
-        
+        Excel::import(new CustomersImport, $request->file('file'));
+
         return back()->with('success', 'Berhasil melakukan import Pelanggan');
+    }
+
+    /**
+     * customerProduct
+     *
+     * @return RedirectResponse
+     */
+    public function customerProduct(Customer $customer, CustomerProductRequest $request): RedirectResponse
+    {
+        $this->customer->update($customer->id, ['product_id' => $request->product_id]);
+        return redirect()->back()->with('success', 'Berhasil memperbarui produk');
     }
 }

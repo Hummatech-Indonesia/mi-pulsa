@@ -38,6 +38,7 @@ Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
     Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo'])->name('ceksaldo');
     Route::post('price-list', [DigiFlazzController::class, 'priceList'])->name('pricelist');
     Route::post('deposit', [DigiFlazzController::class, 'deposit'])->name('deposit');
+    Route::post('blazz-top-up', [DigiFlazzController::class, 'blazzTopUp'])->name('blazz.topup');
     Route::post('transaction/{customer}', [DigiFlazzController::class, 'transaction'])->name('transaction');
 
     Route::post('callback', [DigiFlazzController::class, 'callback'])->name('callback');
@@ -54,7 +55,6 @@ Route::prefix('tripay')->group(function () {
 Route::get('checkout', function () {
     return view('dashboard.pages.packages.checkout');
 });
-
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -77,7 +77,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::resource('customers', CustomerController::class);
-    ROute::post('customers-import', [CustomerController::class, 'import'])->name('customers.import');
+    Route::patch('update-product-customer/{customer}', [CustomerController::class, 'customerProduct'])->name('update.product.customer');
+    Route::post('customers-import', [CustomerController::class, 'import'])->name('customers.import');
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::patch('product-selling-price/{product}', [ProductController::class, 'sellingPrice'])->name('product.selling.price');
     Route::resource('users', UserController::class)->except('index');

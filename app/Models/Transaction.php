@@ -22,6 +22,8 @@ class Transaction extends Model
         'price',
         'tele',
         'wa',
-        'message'
+        'message',
+        'status',
+        'blazz_id'
     ];
 }
