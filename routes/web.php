@@ -68,6 +68,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::get('topup-digiflazz', [DashboardController::class, 'index'])->name('topup.digiflazz');
         Route::get('topup-customer', [TransactionController::class, 'index'])->name('topup.customer');
+        Route::get('history-topup-customer', [TransactionController::class, 'historyTopupCustomer'])->name('topup.history');
         Route::get('history-digiflazz', [DashboardController::class, 'index'])->name('history.digiflazz');
 
         Route::resources([

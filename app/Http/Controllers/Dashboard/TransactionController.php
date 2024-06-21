@@ -33,7 +33,7 @@ class TransactionController extends Controller
      *
      * @return RedirectResponse
      */
-    public function store(RequestTransactionWhatsappRequest $request) :RedirectResponse
+    public function store(RequestTransactionWhatsappRequest $request): RedirectResponse
     {
         if (intval($request['balance']) < 50000) {
             return back()->with('error', 'Nominal penarikan minimal adalah Rp.50.000');
@@ -64,5 +64,17 @@ class TransactionController extends Controller
         $customers = $this->customer->customPaginate($request);
         $products = $this->product->get();
         return view('dashboard.pages.customers.topup-pulsa', compact('customers', 'products'));
+    }
+
+    /**
+     * historyTopupCustomer
+     *
+     * @param  mixed $request
+     * @return View
+     */
+    public function historyTopupCustomer(Request $request)
+    {
+        // $topups = $this->topup->search($request);
+        return view('dashboard.pages.customers.history');
     }
 }

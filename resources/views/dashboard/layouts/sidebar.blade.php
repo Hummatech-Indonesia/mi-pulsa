@@ -85,11 +85,11 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">
+                                <a href="{{ route('transactions.history') }}" class="sidebar-link">
                                     <div class="round-16 d-flex align-items-center justify-content-center">
                                         <i class="ti ti-circle"></i>
                                     </div>
-                                    <span class="hide-menu">Riwayat Saldo</span>
+                                    <span class="hide-menu">Riwayat TopUp Saldo</span>
                                 </a>
                             </li>
                         @endrole
@@ -113,7 +113,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ route('transactions.history') }}" class="sidebar-link">
+                            <a href="{{ route('dashboard.topup.history') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
