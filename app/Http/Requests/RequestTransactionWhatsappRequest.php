@@ -23,7 +23,7 @@ class RequestTransactionWhatsappRequest extends FormRequest
     {
         return [
             'user_id' => 'required',
-            'balance' => 'required|min:50000',
+            'balance' => 'required',
             'method' => 'required',
         ];
     }
@@ -38,7 +38,6 @@ class RequestTransactionWhatsappRequest extends FormRequest
             'user_id.required' => 'Kolom pengguna wajib diisi',
             'balance.required' => 'Kolom nominal wajib diisi',
             'method.required' => 'Kolom metode pembayaran wajib diisi',
-            'balance.min'=>'Nominal penarikan minimal adalah Rp.50.000'
         ];
     }
 }

@@ -20,10 +20,10 @@
                         <div class="col">
                             <div class="input-group">
                                 <span class="input-group-text" id="basic-addon1">Rp</span>
-                                <input type="text" name="balance" id="balanceInput" class="form-control" width="50px"
+                                <input type="number" name="balance" id="balanceInput" class="form-control" width="50px"
                                 placeholder="Ketik Nominal">
                               </div>
-                            
+
                             <span class="fw-light fs-2">Minimal Rp. 50.000</span>
                         </div>
                         <div class="form-group mb-3">
@@ -204,21 +204,15 @@
     @include('widgets.currency-format')
     <script>
         $(document).ready(function() {
-            // format uang 
+            // format uang
             $('#balanceInput').on('input', function(){
                 let balanceInput = $(this).val();
                 let formattedValue = formatCurrency(balanceInput);
 
                 // Set nilai input ke nilai yang sudah diformat
-                $(this).val(formattedValue);
+                // $(this).val(formattedValue);
             });
 
-            $('#kirim').click(function(e) {
-                let balanceInput = $('#balanceInput').val().replace(/,/g, '');
-                $('#balanceInput').val(balanceInput);
-
-                $('#topup').submit();
-            })
 
             // Inisialisasi Select2 dengan opsi untuk menambahkan tag baru
             $('#agent-select').select2({

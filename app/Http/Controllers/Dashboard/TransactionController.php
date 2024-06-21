@@ -10,6 +10,7 @@ use App\Http\Requests\RequestTransactionWhatsappRequest;
 use App\Models\TopupAgen;
 use App\Services\Dashboard\TransactionService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -26,13 +27,17 @@ class TransactionController extends Controller
         $this->service = $service;
     }
     /**
-     * store
+     * Method store
      *
-     * @param  mixed $request
-     * @return void
+     * @param RequestTransactionWhatsappRequest $request [explicite description]
+     *
+     * @return RedirectResponse
      */
-    public function store(RequestTransactionWhatsappRequest $request)
+    public function store(RequestTransactionWhatsappRequest $request) :RedirectResponse
     {
+        if (intval($request['balance']) < 50000) {
+            return back()->with('error', 'Nominal penarikan minimal adalah Rp.50.000');
+        }
         $this->topup->store($this->service->store($request));
         return to_route('transactions.history');
     }
