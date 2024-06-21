@@ -166,7 +166,7 @@ class DigiFlazzController extends Controller
      * @param  mixed $customer
      * @return JsonResponse
      */
-    public function transaction(Customer $customer, TransactionRequest $request)
+    public function transaction(Customer $customer)
     {
         $username = env('DIGIFLAZZ_USERNAME');
         $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
@@ -174,11 +174,10 @@ class DigiFlazzController extends Controller
         $message = $username . $developmentKey . 'some3d';
         $hash = md5($message);
 
-        $product = $this->product->getProduct(['buyer_sku_code' => $request->product_id]);
 
         $postData = [
             "username" => $username,
-            "buyer_sku_code" => $request->product_id,
+            "buyer_sku_code" => $customer->product->buyer_sku_code,
             "customer_no" => $customer->phone_number,
             "ref_id" => "some3d",
             "sign" => $hash,
@@ -189,7 +188,7 @@ class DigiFlazzController extends Controller
         $data = $response->json()['data'];
         $this->transaction->store([
             'customer_id' => $customer->id,
-            'product_id' => $product->id,
+            'product_id' => $customer->product->id,
             'ref_id' => $data['ref_id'],
             'customer_no' => $data['customer_no'],
             'buyer_last_saldo' => $data['buyer_last_saldo'],
@@ -202,7 +201,7 @@ class DigiFlazzController extends Controller
 
     /**
      * callback
-     * 
+     *
      * @param  mixed $request
      * @return void
      */

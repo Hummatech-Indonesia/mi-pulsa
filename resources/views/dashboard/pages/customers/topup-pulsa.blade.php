@@ -57,6 +57,9 @@
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th>
+                                    <input type="checkbox" name="" class="" id="checkbox-all">
+                                </th>
+                                <th>
                                     <h6 class="fs-4 fw-semibold mb-0">#</h6>
                                 </th>
                                 <th>
@@ -77,6 +80,9 @@
                             @foreach ($customers as $customer)
                                 <tr>
                                     <td>
+                                        <input type="checkbox" class="check" name="" id="">
+                                    </td>
+                                    <td>
                                         <p class="mb-0 fw-normal">{{ $loop->iteration }}</p>
                                     </td>
                                     <td>
@@ -96,8 +102,10 @@
                                     </td>
                                     <td>
                                         <button data-bs-toggle="modal" data-bs-target="#topUpSaldoModal"
-                                            data-product="{{ $products }}" type="button" data-id="{{ $customer->id }}"
-                                            id="topUp" class="btn btn-primary">Top
+                                            data-name="{{ $customer->name }}" data-product="{{ $products }}"
+                                            data-package="{{ $customer->product->product_name }}"
+                                            data-product-id="{{ $customer->product_id }}" type="button"
+                                            data-id="{{ $customer->id }}" id="topUp" class="btn btn-primary">Top
                                             up</button>
                                     </td>
                                 </tr>
@@ -118,20 +126,46 @@
         $(document).on('click', '#topUp', function() {
             $('#topUpSaldoModal').modal('show');
             const id = $(this).data('id');
+            const product_id = $(this).data('product-id');
             const products = $(this).data('product');
-
+            const name = $(this).data('name');
+            const package = $(this).data('package');
+            $('#name').html(name);
+            $('#package').html(package);
             $('#select_product').empty();
             $('#select_product').append(
                 `<option value="">Pilih Produk Yang Dibeli</option>`
             );
             $.each(products, function(index, product) {
-                $('#select_product').append(
-                    `<option value="${product.buyer_sku_code}">${product.product_name}</option>`
-                );
+                if (product.id == product_id) {
+                    $('#select_product').append(
+                        `<option selected value="${product.buyer_sku_code}">${product.product_name}</option>`
+                    );
+                } else {
+                    $('#select_product').append(
+                        `<option value="${product.buyer_sku_code}">${product.product_name}</option>`
+                    );
+                }
             });
 
             let url = `{{ route('digi-flazz.transaction', ':id') }}`.replace(':id', id);
             $('#topUpSaldo').attr('action', url);
+        });
+
+        $(document).ready(function() {
+            $('#checkbox-all').change(function() {
+                if ($(this).prop('checked')) {
+                    $('.check').prop('checked', true);
+                } else {
+                    $('.check').prop('checked', false);
+                }
+            });
+
+            $('.check').change(function() {
+                if (!$(this).prop('checked')) {
+                    $('#checkbox-all').prop('checked', false);
+                }
+            });
         });
     </script>
 @endsection

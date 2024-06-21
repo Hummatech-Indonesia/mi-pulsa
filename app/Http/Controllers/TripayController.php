@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\RequestTransactionWhatsappRequest;
 use App\Http\Requests\Tripay\RequestTransactionRequest;
+use App\Models\TopupAgen;
 use App\Services\Auth\TripayService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -49,19 +51,18 @@ class TripayController extends Controller
         $service = $this->service->requestTransaction($request);
         return view('dashboard.pages.packages.checkout', compact('service'));
     }
-    /**
-     * Method requestTransactionWhatsapp
-     *
-     * @param RequestTransactionWhatsappRequest $request [explicite description]
-     *
-     * @return View
-     */
-    // public function requestTransactionWhatsapp(RequestTransactionWhatsappRequest $request): RedirectResponse
-    // {
-    //     $service = $this->service->requestTransactionWhatsapp($request);
 
-    //     return to_route('transactions.history');
-    // }
+    /**
+     * instructions
+     *
+     * @param  mixed $topupAgen
+     * @return void
+     */
+    public function instructions(TopupAgen $topupAgen): JsonResponse
+    {
+        $service = $this->service->instructions($topupAgen);
+        return ResponseHelper::success(json_decode($service)->data);
+    }
 
     /**
      * callback
