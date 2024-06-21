@@ -79,7 +79,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <a href=""
-                                                class="btn btn-outline-secondary d-flex justify-content-center">
+                                                class="btn btn-outline-primary d-flex justify-content-center">
                                                 <span class="text-hover-light">Lihat Selengkapnya</span>
                                             </a>
                                         </td>
