@@ -17,4 +17,16 @@ class BlazzUpdateProductRequest extends FormRequest
             'checkedValues' => 'required|array'
         ];
     }
+
+    /**
+     * messages
+     *
+     * @return void
+     */
+    public function messages(): array
+    {
+        return [
+            'checkedValues.required' => 'Pilih setidaknya 1 pengguna yang ingin anda lakukan top up'
+        ];
+    }
 }

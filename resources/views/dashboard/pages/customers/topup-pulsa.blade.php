@@ -8,6 +8,8 @@
         @elseif(session('error'))
             <x-alert-failed></x-alert-failed>
         @endif
+        <div id="alert">
+        </div>
         <!-- --------------------------------------------------- -->
         <!--  Form Basic Start -->
         <!-- --------------------------------------------------- -->
@@ -158,6 +160,7 @@
             $('#select_product').append(
                 `<option value="">Pilih Produk Yang Dibeli</option>`
             );
+
             $.each(products, function(index, product) {
                 if (product.id == product_id) {
                     $('#select_product').append(
@@ -198,8 +201,6 @@
                         .val());
                 });
 
-                console.log(checkedValues);
-
                 $.ajax({
                     url: '{{ route('digi-flazz.blazz.topup') }}',
                     type: 'POST',
@@ -207,11 +208,25 @@
                         checkedValues: checkedValues
                     },
                     success: function(response) {
-                        console.log(response);
+                        $('#alert').html(
+                            `<div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <div class="alert-message">
+                                    <strong>Sukses!</strong> ${response.meta.message}
+                                </div>
+                            </div>`
+                        );
                     },
                     error: function(xhr, status, error) {
-                        // Handle error jika terjadi
-                        console.error(error);
+                        let response = JSON.parse(xhr.responseText);
+                        $('#alert').html(
+                            `<div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <div class="alert-message">
+                                    <strong>Terjadi Kesalahan!</strong> ${response.errors.checkedValues}
+                                </div>
+                            </div>`
+                        );
                     }
                 });
             });
