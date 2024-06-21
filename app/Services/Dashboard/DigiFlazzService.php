@@ -66,6 +66,7 @@ class DigiFlazzService
                 ]);
                 return true;
             } else {
+                dd($data);
                 return $data['message'];
             }
         } catch (\Throwable $th) {
