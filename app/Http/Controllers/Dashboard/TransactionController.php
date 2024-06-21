@@ -41,6 +41,7 @@ class TransactionController extends Controller
         $this->topup->store($this->service->store($request));
         return to_route('transactions.history');
     }
+    
     /**
      * historyTransaction
      *

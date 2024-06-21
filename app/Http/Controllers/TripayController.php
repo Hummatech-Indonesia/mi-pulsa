@@ -39,6 +39,7 @@ class TripayController extends Controller
     }
 
 
+
     /**
      * Method requestTransaction
      *
@@ -46,11 +47,26 @@ class TripayController extends Controller
      *
      * @return View
      */
-    public function requestTransaction(RequestTransactionRequest $request): View
+    public function requestTransaction(RequestTransactionRequest $request): View|RedirectResponse
     {
         $service = $this->service->requestTransaction($request);
-        return view('dashboard.pages.packages.checkout', compact('service'));
+        $topupAgen = TopupAgen::where('invoice_id', $service->data->reference)->first();
+        return to_route('tripay.checkout.transaction', $topupAgen->id);
+        // return view('dashboard.pages.packages.checkout', compact('service'));
     }
+    /**
+     * Method checkoutTransaction
+     *
+     * @param TopupAgen $topupAgen [explicite description]
+     *
+     * @return View
+     */
+    public function checkoutTransaction(TopupAgen $topupAgen): View
+    {
+
+        return view('dashboard.pages.packages.checkout', compact('topupAgen'));
+    }
+
 
     /**
      * instructions
