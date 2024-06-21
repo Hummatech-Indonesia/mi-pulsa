@@ -4,6 +4,7 @@ namespace App\Services\Dashboard;
 
 use App\Contracts\Interfaces\Dashboard\TransactionInterface;
 use App\Models\Customer;
+use Faker\Provider\Uuid;
 use Illuminate\Support\Facades\Http;
 
 
@@ -21,7 +22,7 @@ class DigiFlazzService
      * @param  mixed $customer
      * @return void
      */
-    public function topUp(Customer $customer)
+    public function topUp(Customer $customer, $blazz = false)
     {
         $username = env('DIGIFLAZZ_USERNAME');
         $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
@@ -41,8 +42,14 @@ class DigiFlazzService
 
         $response = Http::post('https://api.digiflazz.com/v1/transaction', $postData);
         $data = $response->json()['data'];
+        if ($blazz) {
+            $blazz_id = Uuid::uuid();
+        } else {
+            $blazz_id = null;
+        }
         $this->transaction->store([
             'customer_id' => $customer->id,
+            'blazz_id' => $blazz_id,
             'product_id' => $customer->product->id,
             'ref_id' => $data['ref_id'],
             'customer_no' => $data['customer_no'],
@@ -50,6 +57,7 @@ class DigiFlazzService
             'price' => $data['price'],
             'status' => $data['status'],
             'tele' => $data['tele'],
+            'status' => $data['status'],
             'wa' => $data['wa']
         ]);
     }

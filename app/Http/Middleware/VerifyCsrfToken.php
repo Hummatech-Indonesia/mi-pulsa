@@ -16,5 +16,6 @@ class VerifyCsrfToken extends Middleware
         'digi-flazz/cek-saldo',
         'digi-flazz/deposit',
         'digi-flazz/callback',
+        'digi-flazz/blazz-top-up',
     ];
 }

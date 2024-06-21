@@ -201,13 +201,12 @@
                 console.log(checkedValues);
 
                 $.ajax({
-                    url: '/path/to/your/controller',
+                    url: '{{ route('digi-flazz.blazz.topup') }}',
                     type: 'POST',
                     data: {
                         checkedValues: checkedValues
                     },
                     success: function(response) {
-                        // Handle response dari server jika diperlukan
                         console.log(response);
                     },
                     error: function(xhr, status, error) {

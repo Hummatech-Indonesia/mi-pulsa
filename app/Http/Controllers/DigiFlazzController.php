@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\Dashboard\CustomerInterface;
 use App\Contracts\Interfaces\Dashboard\DepositInterface;
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Contracts\Interfaces\Dashboard\TransactionInterface;
@@ -22,10 +23,12 @@ class DigiFlazzController extends Controller
     private DepositInterface $deposit;
     private TransactionInterface $transaction;
     private DigiFlazzService $service;
+    private CustomerInterface $customer;
 
-    public function __construct(ProductInterface $product, DepositInterface $deposit, TransactionInterface $transaction, DigiFlazzService $service)
+    public function __construct(ProductInterface $product, DepositInterface $deposit, TransactionInterface $transaction, DigiFlazzService $service, CustomerInterface $customer)
     {
         $this->product = $product;
+        $this->customer = $customer;
         $this->service = $service;
         $this->transaction = $transaction;
         $this->deposit = $deposit;
@@ -210,8 +213,9 @@ class DigiFlazzController extends Controller
     {
         $data = $request->validated();
 
-        foreach ($data['checkedValues'] as $customer) {
-            $this->service->topUp($customer);
+        foreach ($data['checkedValues'] as $customer_id) {
+            $customer = $this->customer->show($customer_id);
+            $this->service->topUp($customer, true);
         }
         return ResponseHelper::success(null, 'Berhasil mengirim semua saldo');
     }
