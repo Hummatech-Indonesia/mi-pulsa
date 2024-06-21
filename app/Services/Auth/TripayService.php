@@ -101,6 +101,7 @@ class TripayService
         $responseSuccess = json_decode($response);
 
         $data = $responseSuccess->data;
+        
         TopupAgen::create([
             'user_id' => auth()->user()->id,
             'invoice_id' => $data->reference,

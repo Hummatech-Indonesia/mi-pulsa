@@ -96,32 +96,7 @@
 
                     </ul>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow " href="#" aria-expanded="false">
-                        <span class="d-flex">
-                            <i class="ti ti-exchange"></i>
-                        </span>
-                        <span class="hide-menu">Transaksi</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="{{ route('dashboard.topup.customer') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Kirim Pulsa</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="{{ route('dashboard.topup.history') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Riwayat Transaksi</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
                 @role('admin')
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow {{ (request()->routeIs('customers.*') ? 'active' : '' || request()->routeIs('users.*')) ? 'active' : '' }}"
@@ -152,6 +127,32 @@
                     </li>
                 @endrole
                 @role('agen')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow " href="#" aria-expanded="false">
+                            <span class="d-flex">
+                                <i class="ti ti-exchange"></i>
+                            </span>
+                            <span class="hide-menu">Transaksi</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="{{ route('dashboard.topup.customer') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Kirim Pulsa</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('dashboard.topup.history') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Riwayat Transaksi</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="sidebar-item">
                         <a href="{{ route('customers.index') }}" class="sidebar-link">
                             <div class="round-16 d-flex align-items-center justify-content-center">

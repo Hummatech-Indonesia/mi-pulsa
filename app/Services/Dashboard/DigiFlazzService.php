@@ -49,6 +49,7 @@ class DigiFlazzService
         } else {
             $blazz_id = null;
         }
+        dd($data);
         $this->transaction->store([
             'customer_id' => $customer->id,
             'blazz_id' => $blazz_id,

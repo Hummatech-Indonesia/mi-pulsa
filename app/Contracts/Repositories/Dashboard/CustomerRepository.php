@@ -103,6 +103,7 @@ class CustomerRepository extends BaseRepository implements CustomerInterface
             ->when($request->name, function ($query) use ($request) {
                 $query->where('name', 'like', '%' . $request->name . '%');
             })
+            ->where('user_id', auth()->user()->id)
             ->fastPaginate($pagination);
     }
 }
