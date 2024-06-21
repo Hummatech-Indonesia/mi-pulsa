@@ -24,6 +24,7 @@ class TripayService
     public function paymentChannel()
     {
         $apiKey = env('TRIPAY_API_KEY');
+
         $curl = curl_init();
         curl_setopt_array(
             $curl,
@@ -64,7 +65,7 @@ class TripayService
         $balance = intval($data['balance']);
 
         $data = [
-            'method' => 'BRIVA',
+            'method' => $data['method'],
             'merchant_ref' => $merchantRef,
             'amount' => $balance,
             'customer_name' => auth()->user()->name,

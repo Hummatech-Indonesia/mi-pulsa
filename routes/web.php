@@ -48,8 +48,9 @@ Route::prefix('tripay')->group(function () {
     Route::name('tripay.')->group(function () {
         Route::get('payment-channel', [TripayController::class, 'paymentChannel'])->name('payment.channel');
         Route::post('request-transaction', [TripayController::class, 'requestTransaction'])->name('request.transaction');
+        Route::get('checkout-transaction/{topupAgen}', [TripayController::class, 'checkoutTransaction'])->name('checkout.transaction');
         Route::post('request-transaction-whatsapp', [TripayController::class, 'requestTransactionWhatsapp'])->name('request.transaction.whatsapp');
-        Route::get('instructions/{topupAgen}', [TripayController::class, 'instructions']);
+        Route::get('instructions/{topupAgen}', [TripayController::class, 'instructions'])->name('instructions');
     });
 });
 Route::get('checkout', function () {
