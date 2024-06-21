@@ -50,7 +50,7 @@ class DigiFlazzService
             } else {
                 $blazz_id = null;
             }
-            if ($data['rc'] == "") {
+            if ($data['status'] == "Sukses" || $data['status'] == "Pending") {
                 $this->transaction->store([
                     'customer_id' => $customer->id,
                     'blazz_id' => $blazz_id,
