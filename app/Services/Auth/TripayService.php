@@ -108,6 +108,7 @@ class TripayService
             'invoice_url' => $data->checkout_url,
             'expiry_date' => Carbon::parse($responseSuccess->data->expired_time)->format('Y-m-d'),
             'amount' => $balance,
+            'pay_code' => $data->pay_code,
             'paid_amount' => $data->amount,
             'payment_channel' => $data->payment_name,
             'payment_method' => $data->payment_method,
@@ -191,5 +192,36 @@ class TripayService
     {
         $privateKey = "fh5Nm-awLil-GXCuC-v5juf-0T4Lm";
         return hash_hmac('sha256', $request->getContent(), $privateKey);
+    }
+
+    /**
+     * instructions
+     *
+     * @param  mixed $transaction
+     * @return mixed
+     */
+    public function instructions(TopupAgen $topupAgen): mixed
+    {
+        $apiKey = env('TRIPAY_API_KEY');
+
+        $payload = ['code' => $topupAgen->payment_method, 'allow_html' => 1, 'pay_code' => $topupAgen->pay_code];
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_FRESH_CONNECT  => true,
+            CURLOPT_URL            => env('TRIPAY_API_URL') . '/payment/instruction?' . http_build_query($payload),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HEADER         => false,
+            CURLOPT_HTTPHEADER     => ['Authorization: Bearer ' . $apiKey],
+            CURLOPT_FAILONERROR    => false,
+            CURLOPT_IPRESOLVE      => CURL_IPRESOLVE_V4
+        ]);
+
+        $response = curl_exec($curl);
+        $error = curl_error($curl);
+
+        curl_close($curl);
+
+        return $response ? $response : $error;
     }
 }

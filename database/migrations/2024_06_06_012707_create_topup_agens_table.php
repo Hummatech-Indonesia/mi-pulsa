@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamp('expiry_date')->nullable();
             $table->integer('paid_amount')->nullable();
             $table->integer('amount');
+            $table->string('pay_code')->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->string('payment_channel')->nullable();
             $table->string('payment_method')->nullable();

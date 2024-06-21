@@ -9,9 +9,7 @@
                 </div>
                 <div class="modal-body m-3">
                     <div class="form-group">
-                        <label for="" class="form-label">Nama</label>
-                        <select name="product_id" id="select_product" class="form-control">
-                        </select>
+                        Apakah anda yakin ingin melakukan top up untuk akun <b id="name"></b> dengan paket <b id="package">Telkomsel 5000</b>
                     </div>
                 </div>
                 <div class="modal-footer">
