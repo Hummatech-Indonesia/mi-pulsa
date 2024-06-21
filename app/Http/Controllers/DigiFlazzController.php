@@ -212,10 +212,14 @@ class DigiFlazzController extends Controller
         $post_data = file_get_contents('php://input');
         $signature = hash_hmac('sha1', $post_data, $secret);
         Log::info($signature);
+        Log::info(json_decode($post_data, true));
+        Log::info($request->header('X-Hub-Signature'));
 
         if ($request->header('X-Hub-Signature') == 'sha1=' . $signature) {
             Log::info(json_decode($request->getContent(), true));
-            dd(json_decode($request->getContent(), true));
+            // dd(json_decode($request->getContent(), true));
+        } else {
+            Log::info('Signature not match');
         }
     }
 }
