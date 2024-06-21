@@ -56,7 +56,6 @@ Route::get('checkout', function () {
 });
 
 
-
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::post('upload_image', [DashboardController::class, 'uploadImage'])->name('upload');
 Route::get('product', [HomeController::class, 'product'])->name('home.product');
@@ -76,7 +75,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::resource('customers', CustomerController::class);
-    ROute::post('customers-import', [CustomerController::class, 'import'])->name('customers.import');
+    Route::patch('update-product-customer/{customer}', [CustomerController::class, 'customerProduct'])->name('update.product.customer');
+    Route::post('customers-import', [CustomerController::class, 'import'])->name('customers.import');
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::patch('product-selling-price/{product}', [ProductController::class, 'sellingPrice'])->name('product.selling.price');
     Route::resource('users', UserController::class)->except('index');

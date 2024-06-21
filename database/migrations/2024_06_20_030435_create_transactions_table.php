@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('customer_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('product_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('blazz_id')->unique()->nullable();
             $table->string('ref_id');
             $table->string('customer_no');
             $table->integer('buyer_last_saldo');

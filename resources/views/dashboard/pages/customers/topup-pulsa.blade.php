@@ -40,13 +40,16 @@
                         <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
                             @csrf
                             <div class="col-12 col-sm-8 col-md-9">
-                                <input type="text" name="search" id="search" placeholder="cari.."
+                                <input type="text" name="search" id="search" placeholder="Cari.."
                                     class="form-control">
                             </div>
                             <div class="col-12 col-sm-4 col-md-3">
                                 <button class="btn btn-primary w-100">Cari</button>
                             </div>
                         </form>
+                    </div>
+                    <div class="col-12 col-md-2 text-md-end">
+                        <button id="saveCheckedValues" class="btn btn-primary w-100">Top Up Semua</button>
                     </div>
                 </div>
             </div>
@@ -80,7 +83,8 @@
                             @foreach ($customers as $customer)
                                 <tr>
                                     <td>
-                                        <input type="checkbox" class="check" name="" id="">
+                                        <input type="checkbox" class="check" value="{{ $customer->id }}"
+                                            name="customer_id[]" id="">
                                     </td>
                                     <td>
                                         <p class="mb-0 fw-normal">{{ $loop->iteration }}</p>
@@ -95,7 +99,25 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="mb-0 fw-normal">{{ $customer->product->product_name }}</p>
+                                        <form action="{{ route('update.product.customer', $customer->id) }}" method="post"
+                                            style="display: flex">
+                                            @csrf
+                                            @method('PATCH')
+                                            <select name="product_id" class="form-control" id="">
+                                                @foreach ($products as $product)
+                                                    <option {{ $product->id == $customer->product_id ? 'selected' : '' }}
+                                                        value="{{ $product->id }}">
+                                                        {{ $product->product_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <button style="margin-left: 1rem" class="btn btn-primary" type="submit"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
+                                                    <path d="M11 2H9v3h2z" />
+                                                    <path
+                                                        d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z" />
+                                                </svg></button>
+                                        </form>
                                     </td>
                                     <td>
                                         <p class="mb-0 fw-normal">{{ $customer->phone_number }}</p>
@@ -151,7 +173,6 @@
             let url = `{{ route('digi-flazz.transaction', ':id') }}`.replace(':id', id);
             $('#topUpSaldo').attr('action', url);
         });
-
         $(document).ready(function() {
             $('#checkbox-all').change(function() {
                 if ($(this).prop('checked')) {
@@ -165,6 +186,35 @@
                 if (!$(this).prop('checked')) {
                     $('#checkbox-all').prop('checked', false);
                 }
+            });
+        });
+
+        $(document).ready(function() {
+            $('#saveCheckedValues').click(function() {
+                var checkedValues = [];
+
+                $('.check:checked').each(function() {
+                    checkedValues.push($(this)
+                        .val());
+                });
+
+                console.log(checkedValues);
+
+                $.ajax({
+                    url: '/path/to/your/controller',
+                    type: 'POST',
+                    data: {
+                        checkedValues: checkedValues
+                    },
+                    success: function(response) {
+                        // Handle response dari server jika diperlukan
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error jika terjadi
+                        console.error(error);
+                    }
+                });
             });
         });
     </script>

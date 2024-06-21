@@ -7,9 +7,10 @@ use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Contracts\Interfaces\Dashboard\TransactionInterface;
 use App\Helpers\FormatedHelper;
 use App\Helpers\ResponseHelper;
+use App\Http\Requests\BlazzUpdateProductRequest;
 use App\Http\Requests\DepositRequest;
-use App\Http\Requests\TransactionRequest;
 use App\Models\Customer;
+use App\Services\Dashboard\DigiFlazzService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -20,10 +21,12 @@ class DigiFlazzController extends Controller
     private ProductInterface $product;
     private DepositInterface $deposit;
     private TransactionInterface $transaction;
+    private DigiFlazzService $service;
 
-    public function __construct(ProductInterface $product, DepositInterface $deposit, TransactionInterface $transaction)
+    public function __construct(ProductInterface $product, DepositInterface $deposit, TransactionInterface $transaction, DigiFlazzService $service)
     {
         $this->product = $product;
+        $this->service = $service;
         $this->transaction = $transaction;
         $this->deposit = $deposit;
     }
@@ -168,34 +171,7 @@ class DigiFlazzController extends Controller
      */
     public function transaction(Customer $customer)
     {
-        $username = env('DIGIFLAZZ_USERNAME');
-        $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
-
-        $message = $username . $developmentKey . 'some3d';
-        $hash = md5($message);
-
-
-        $postData = [
-            "username" => $username,
-            "buyer_sku_code" => $customer->product->buyer_sku_code,
-            "customer_no" => $customer->phone_number,
-            "ref_id" => "some3d",
-            "sign" => $hash,
-            "testing" => true
-        ];
-
-        $response = Http::post('https://api.digiflazz.com/v1/transaction', $postData);
-        $data = $response->json()['data'];
-        $this->transaction->store([
-            'customer_id' => $customer->id,
-            'product_id' => $customer->product->id,
-            'ref_id' => $data['ref_id'],
-            'customer_no' => $data['customer_no'],
-            'buyer_last_saldo' => $data['buyer_last_saldo'],
-            'price' => $data['price'],
-            'tele' => $data['tele'],
-            'wa' => $data['wa']
-        ]);
+        $this->service->topUp($customer);
         return redirect()->back()->with('success', 'Berhasil Mengirim Saldo');
     }
 
@@ -218,9 +194,25 @@ class DigiFlazzController extends Controller
 
         if ($request->header('X-Hub-Signature') == 'sha1=' . $signature) {
             Log::info(json_decode($request->getContent(), true));
+
             // dd(json_decode($request->getContent(), true));
         } else {
             Log::info('Signature not match');
         }
+    }
+
+    /**
+     * blazzTopUp
+     *
+     * @return void
+     */
+    public function blazzTopUp(BlazzUpdateProductRequest $request)
+    {
+        $data = $request->validated();
+
+        foreach ($data['checkedValues'] as $customer) {
+            $this->service->topUp($customer);
+        }
+        return ResponseHelper::success(null, 'Berhasil mengirim semua saldo');
     }
 }
