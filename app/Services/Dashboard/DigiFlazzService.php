@@ -70,6 +70,7 @@ class DigiFlazzService
                 return $data['message'];
             }
         } catch (\Throwable $th) {
+            dd('eror');
             return false;
         }
     }
