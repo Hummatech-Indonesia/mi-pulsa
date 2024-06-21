@@ -5,6 +5,7 @@ namespace App\Services\Dashboard;
 use App\Contracts\Interfaces\Dashboard\TransactionInterface;
 use App\Models\Customer;
 use Faker\Provider\Uuid;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 
 
@@ -27,7 +28,8 @@ class DigiFlazzService
         $username = env('DIGIFLAZZ_USERNAME');
         $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
 
-        $message = $username . $developmentKey . 'some3d';
+        $ref_id = Str::random(5);
+        $message = $username . $developmentKey . $ref_id;
         $hash = md5($message);
 
 
@@ -35,7 +37,7 @@ class DigiFlazzService
             "username" => $username,
             "buyer_sku_code" => $customer->product->buyer_sku_code,
             "customer_no" => $customer->phone_number,
-            "ref_id" => "some3d",
+            "ref_id" => $ref_id,
             "sign" => $hash,
             "testing" => true
         ];

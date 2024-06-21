@@ -4,7 +4,7 @@ namespace App\Base\Interfaces;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-interface HasUser
+interface HasCustomer
 {
 
     /**
@@ -13,5 +13,5 @@ interface HasUser
      * @return BelongsTo
      */
 
-    public function user(): BelongsTo;
+    public function customer(): BelongsTo;
 }

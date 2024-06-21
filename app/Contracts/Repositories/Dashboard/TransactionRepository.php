@@ -24,4 +24,17 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
         return $this->model->query()
             ->create($data);
     }
+
+    /**
+     * getWhere
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function getWhere(array $data): mixed
+    {
+        return $this->model->query()
+            ->where('ref_id', $data['ref_id'])
+            ->first();
+    }
 }

@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\Dashboard\CustomerInterface;
 use App\Contracts\Interfaces\Dashboard\DepositInterface;
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Contracts\Interfaces\Dashboard\TransactionInterface;
+use App\Enums\StatusDigiFlazzEnum;
 use App\Helpers\FormatedHelper;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\BlazzUpdateProductRequest;
@@ -174,8 +175,8 @@ class DigiFlazzController extends Controller
      */
     public function transaction(Customer $customer)
     {
-        $this->service->topUp($customer);
-        return redirect()->back()->with('success', 'Berhasil mengirim saldo, Status anda pending');
+        $service = $this->service->topUp($customer);
+        return redirect()->back()->with('success', 'Berhasil mengirim saldo, Status pending');
     }
 
     /**
@@ -197,6 +198,13 @@ class DigiFlazzController extends Controller
 
         if ($request->header('X-Hub-Signature') == 'sha1=' . $signature) {
             Log::info(json_decode($request->getContent(), true));
+            $logContent = json_decode($request->getContent(), true);
+            $logContent['data']['ref_id'];
+            $transaction = $this->transaction->getWhere(['ref_id' => $logContent['data']['ref_id']]);
+            $product = $this->product->getProduct(['buyer_sku_code' => $logContent['data']['buyer_sku_code']]);
+            $agen = $transaction->customer->user;
+            $agen->update(['saldo' => $agen->saldo - $product->selling_price]);
+            $transaction->update(['status' => StatusDigiFlazzEnum::SUCCESS->value]);
 
             // dd(json_decode($request->getContent(), true));
         } else {
