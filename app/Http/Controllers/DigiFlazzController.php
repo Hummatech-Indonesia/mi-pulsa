@@ -214,6 +214,7 @@ class DigiFlazzController extends Controller
         Log::info($signature);
         Log::info($post_data);
         Log::info($request);
+        Log::info($request->header());
 
         if ($request->header('X-Hub-Signature') == 'sha1=' . $signature) {
             Log::info(json_decode($request->getContent(), true));
