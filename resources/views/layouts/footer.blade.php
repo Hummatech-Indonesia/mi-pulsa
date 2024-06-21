@@ -27,7 +27,8 @@
                         </div>
                         <div class="d-flex mb-2">
                             <i class="bi bi-geo-alt me-2"></i>
-                            <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($contact->address) }}" class="text-primary mb-0">{{ $contact->address }}</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($contact->address) }}"
+                                class="text-primary mb-0">{{ $contact->address }}</a>
                         </div>
                         <div class="d-flex mb-2">
                             <i class="bi bi-envelope-open me-2"></i>
@@ -35,9 +36,10 @@
                         </div>
                         <div class="d-flex mb-2">
                             <i class="bi bi-telephone me-2"></i>
-                            <a href="https://wa.me/{{ $contact->phone_number }}" class="text-primary mb-0">{{ $contact->phone_number }}</a>
+                            <a href="https://wa.me/{{ $contact->phone_number }}"
+                                class="text-primary mb-0">{{ $contact->phone_number }}</a>
                         </div>
-                        
+
                         <div class="d-flex mt-4">
                             <a class="btn btn-primary btn-square me-2" href="#"><i
                                     class="fab fa-twitter fw-normal"></i></a>
@@ -56,11 +58,11 @@
                         <div class="link-animated d-flex flex-column justify-content-start">
                             <a class="text-light mb-2" href="{{ Route('home.index') }}"><i
                                     class="bi bi-arrow-right text-primary me-2"></i>Beranda</a>
-                            <a class="text-light mb-2" href=""><i
+                            <a class="text-light mb-2" href="{{ route('home.product') }}"><i
                                     class="bi bi-arrow-right text-primary me-2"></i>Daftar Harga</a>
-                            <a class="text-light mb-2" href="{{ route('about.index') }}"><i
+                            <a class="text-light mb-2" href="{{ route('home.about') }}"><i
                                     class="bi bi-arrow-right text-primary me-2"></i>Tentang Kami</a>
-                            <a class="text-light mb-2" href="{{ route('contact.index') }}"><i
+                            <a class="text-light mb-2" href="{{ route('home.contact') }}"><i
                                     class="bi bi-arrow-right text-primary me-2"></i>Hubungi Kami</a>
                         </div>
                     </div>
@@ -71,11 +73,11 @@
                         <div class="link-animated d-flex flex-column justify-content-start">
                             <a class="text-light mb-2" href="{{ Route('home.index') }}"><i
                                     class="bi bi-arrow-right text-primary me-2"></i>Beranda</a>
-                            <a class="text-light mb-2" href=""><i
+                            <a class="text-light mb-2" href="{{route('home.product')}}"><i
                                     class="bi bi-arrow-right text-primary me-2"></i>Daftar Harga</a>
-                            <a class="text-light mb-2" href="{{ route('about.index') }}"><i
+                            <a class="text-light mb-2" href="{{ route('home.about') }}"><i
                                     class="bi bi-arrow-right text-primary me-2"></i>Tentang Kami</a>
-                            <a class="text-light mb-2" href="{{ route('contact.index') }}"><i
+                            <a class="text-light mb-2" href="{{ route('home.contact') }}"><i
                                     class="bi bi-arrow-right text-primary me-2"></i>Hubungi Kami</a>
                         </div>
                     </div>
