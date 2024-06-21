@@ -176,7 +176,11 @@ class DigiFlazzController extends Controller
     public function transaction(Customer $customer)
     {
         $service = $this->service->topUp($customer);
-        return redirect()->back()->with('success', 'Berhasil mengirim saldo, Status pending');
+        if ($service === true) {
+            return redirect()->back()->with('success', 'Berhasil mengirim saldo, Status pending');
+        } else {
+            return redirect()->back()->withErrors($service);
+        }
     }
 
     /**

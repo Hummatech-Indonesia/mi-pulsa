@@ -42,26 +42,34 @@ class DigiFlazzService
             "testing" => true
         ];
 
-        $response = Http::post('https://api.digiflazz.com/v1/transaction', $postData);
-        $data = $response->json()['data'];
-        if ($blazz) {
-            $blazz_id = Uuid::uuid();
-        } else {
-            $blazz_id = null;
+        try {
+            $response = Http::post('https://api.digiflazz.com/v1/transaction', $postData);
+            $data = $response->json()['data'];
+            if ($blazz) {
+                $blazz_id = Uuid::uuid();
+            } else {
+                $blazz_id = null;
+            }
+            if ($data['rc'] == "") {
+                $this->transaction->store([
+                    'customer_id' => $customer->id,
+                    'blazz_id' => $blazz_id,
+                    'product_id' => $customer->product->id,
+                    'ref_id' => $data['ref_id'],
+                    'customer_no' => $data['customer_no'],
+                    'buyer_last_saldo' => $data['buyer_last_saldo'],
+                    'price' => $data['price'],
+                    'status' => $data['status'],
+                    'tele' => $data['tele'],
+                    'status' => $data['status'],
+                    'wa' => $data['wa']
+                ]);
+                return true;
+            } else {
+                return $data['message'];
+            }
+        } catch (\Throwable $th) {
+            return false;
         }
-        dd($data);
-        $this->transaction->store([
-            'customer_id' => $customer->id,
-            'blazz_id' => $blazz_id,
-            'product_id' => $customer->product->id,
-            'ref_id' => $data['ref_id'],
-            'customer_no' => $data['customer_no'],
-            'buyer_last_saldo' => $data['buyer_last_saldo'],
-            'price' => $data['price'],
-            'status' => $data['status'],
-            'tele' => $data['tele'],
-            'status' => $data['status'],
-            'wa' => $data['wa']
-        ]);
     }
 }
