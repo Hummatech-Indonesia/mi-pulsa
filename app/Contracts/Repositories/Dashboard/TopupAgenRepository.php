@@ -49,7 +49,7 @@ class TopupAgenRepository extends BaseRepository implements TopupAgenInterface
             ->when($request->user_id, function ($query) use ($request) {
                 $query->where('user_id', $request->user_id);
             })
-            ->fastPaginate(10);
+            ->fastPaginate(5);
     }
     /**
      * store
