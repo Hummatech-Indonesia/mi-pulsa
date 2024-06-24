@@ -66,11 +66,12 @@
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Produk</h6>
                                 </th>
-                                @if ($transaction->price != null)
-                                    <th>
-                                        <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
-                                    </th>
-                                @endif
+                                <th>
+                                    <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
+                                </th>
+                                <th>
+                                    <h6 class="fs-4 fw-semibold mb-0">Status</h6>
+                                </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Tanggal Transaksi</h6>
                                 </th>
@@ -92,7 +93,14 @@
                                         <td>
                                             <h6>{{ FormatedHelper::rupiahCurrency($transaction->price) }}</h6>
                                         </td>
+                                    @else
+                                        <td>
+                                            <h6>0</h6>
+                                        </td>
                                     @endif
+                                    <td>
+                                        <h6>{{ $transaction->status }}</h6>
+                                    </td>
                                     <td>
                                         <h6>{{ FormatedHelper::dateTimeFormat($transaction->created_at) }}</h6>
                                     </td>
