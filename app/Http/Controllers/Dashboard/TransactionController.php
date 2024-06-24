@@ -7,7 +7,9 @@ use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Contracts\Interfaces\Dashboard\TopupAgenInterface;
 use App\Contracts\Interfaces\Dashboard\TransactionInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\CustomerRequest;
 use App\Http\Requests\RequestTransactionWhatsappRequest;
+use App\Services\Dashboard\DigiFlazzService;
 use App\Services\Dashboard\TransactionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -20,13 +22,15 @@ class TransactionController extends Controller
     private TransactionService $service;
     private TransactionInterface $transaction;
     private ProductInterface $product;
-    public function __construct(TopupAgenInterface $topup, TransactionService $service, CustomerInterface $customer, ProductInterface $product, TransactionInterface $transaction)
+    private DigiFlazzService $digiFlazzService;
+    public function __construct(TopupAgenInterface $topup, TransactionService $service, CustomerInterface $customer, ProductInterface $product, TransactionInterface $transaction, DigiFlazzService $digiFlazzService)
     {
         $this->customer = $customer;
         $this->transaction = $transaction;
         $this->topup = $topup;
         $this->product = $product;
         $this->service = $service;
+        $this->digiFlazzService = $digiFlazzService;
     }
     /**
      * Method store
@@ -54,6 +58,20 @@ class TransactionController extends Controller
     {
         $topups = $this->topup->search($request);
         return view('dashboard.pages.transactions.history', compact('topups'));
+    }
+    /**
+     * Method topupCustomer
+     *
+     * @param CustomerRequest $request [explicite description]
+     *
+     * @return RedirectResponse
+     */
+    public function topupCustomer(CustomerRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $this->customer->store($data);
+
+        return back()->with('success', 'Berhasil menambah dan topup customer');
     }
 
     /**

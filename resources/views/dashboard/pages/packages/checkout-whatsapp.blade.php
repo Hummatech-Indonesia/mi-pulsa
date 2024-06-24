@@ -10,8 +10,8 @@
         <div class="card p-3 bg-primary">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="">
-                    <h1 class="fw-bold text-white title">Menunggu Pembayaran</h1>
-                    <h3 class="fw-bold text-white">Segera Bayar Pesanan Anda!</h3>
+                    <h4 class="fw-bold text-white title">Menunggu Pembayaran</h4>
+                    <h5 class="fw-bold text-white">Segera Bayar Pesanan Anda!</h5>
                 </div>
                 <div class="">
                     <img src="{{ asset('assets/img/about.jpg') }}" alt="" class="img-fluid" width="125">
@@ -89,7 +89,7 @@
             <div class="col-12 col-lg-5">
                 <div class="card">
                     <div class="card-header text-center bg-primary">
-                        <h3 class="text-white">Instruksi Pembayaran</h3>
+                        <h5 class="text-white">Instruksi Pembayaran</h5>
                     </div>
                     <div class="card-body mb-3">
                         <div class="accordion" id="paymentInstructions">
