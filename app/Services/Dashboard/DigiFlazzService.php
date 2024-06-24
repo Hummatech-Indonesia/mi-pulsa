@@ -43,7 +43,6 @@ class DigiFlazzService
             "customer_no" => $customer->phone_number,
             "ref_id" => $ref_id,
             "sign" => $hash,
-            "testing" => true
         ];
 
         $product = $this->product->getProduct(['buyer_sku_code' => $customer->product->buyer_sku_code]);
