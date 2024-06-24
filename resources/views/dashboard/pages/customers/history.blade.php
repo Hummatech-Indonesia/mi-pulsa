@@ -138,7 +138,7 @@
     <script>
         $(document).on('click', '#message', function() {
             const message = $(this).data('message');
-            $('message').html(message);
+            $('#message').html(message);
         });
         $(document).on('click', '#topUp', function() {
             $('#topUpSaldoModal').modal('show');
