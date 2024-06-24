@@ -71,6 +71,9 @@
                                     <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
                                 </th>
                                 <th>
+                                    <h6 class="fs-4 fw-semibold mb-0">Status</h6>
+                                </th>
+                                <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Tanggal Transaksi</h6>
                                 </th>
                             </tr>
@@ -94,13 +97,15 @@
                                             <h6>0</h6>
                                         @endif
                                     </td>
-                                    @if ($transaction->status == StatusDigiFlazzEnum::SUCCESS->value)
-                                        <h6><span class="badge text-bg-success">{{ $transaction->status }}</span></h6>
-                                    @elseif ($transaction->status == StatusDigiFlazzEnum::PENDING->value)
-                                        <h6><span class="badge text-bg-warning">{{ $transaction->status }}</span></h6>
-                                    @else
-                                        <h6><span class="badge text-bg-danger">{{ $transaction->status }}</span></h6>
-                                    @endif
+                                    <td>
+                                        @if ($transaction->status == StatusDigiFlazzEnum::SUCCESS->value)
+                                            <h6><span class="badge text-bg-success">{{ $transaction->status }}</span></h6>
+                                        @elseif ($transaction->status == StatusDigiFlazzEnum::PENDING->value)
+                                            <h6><span class="badge text-bg-warning">{{ $transaction->status }}</span></h6>
+                                        @else
+                                            <h6><span class="badge text-bg-danger">{{ $transaction->status }}</span></h6>
+                                        @endif
+                                    </td>
                                     <td>
                                         <h6>{{ FormatedHelper::dateTimeFormat($transaction->created_at) }}</h6>
                                     </td>
