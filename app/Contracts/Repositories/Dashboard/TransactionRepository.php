@@ -57,7 +57,7 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
                 $query->where('blazz_id', '!=', null);
             })
             ->when($request->blazz == 0, function ($query) {
-                $query->where('blazz_id', '!=', null);
+                $query->where('blazz_id', null);
             })
             ->when($request->blazz_id, function ($query) use ($request) {
                 $query->where('blazz_id', $request->blazz_id);
