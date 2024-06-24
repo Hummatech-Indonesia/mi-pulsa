@@ -111,6 +111,15 @@
                                     <td>
                                         <h6>{{ FormatedHelper::dateTimeFormat($transaction->created_at) }}</h6>
                                     </td>
+                                    <td>
+                                        <button data-bs-toggle="modal" id="message" data-bs-target="#messageModal"
+                                            data-message="{{ $transaction->message }}" class="btn btn-primary"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                                            </svg></button>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -125,8 +134,12 @@
     </div>
 @endsection
 @section('script')
-    <x-top-up-saldo-modal></x-top-up-saldo-modal>
+    <x-message-modal></x-message-modal>
     <script>
+        $(document).on('click', '#message', function() {
+            const message = $(this).data('message');
+            $('message').html(message);
+        });
         $(document).on('click', '#topUp', function() {
             $('#topUpSaldoModal').modal('show');
             const id = $(this).data('id');
