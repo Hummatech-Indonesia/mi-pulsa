@@ -217,7 +217,7 @@
             // Inisialisasi Select2 dengan opsi untuk menambahkan tag baru
             $('#agent-select').select2({
                 placeholder: "Pilih Agen",
-                allowClear: true,
+                // allowClear: true,
                 tags: true, // Memungkinkan penambahan tag baru
                 createTag: function(params) {
                     return {
