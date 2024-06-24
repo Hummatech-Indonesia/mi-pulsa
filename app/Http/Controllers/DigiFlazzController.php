@@ -226,7 +226,10 @@ class DigiFlazzController extends Controller
             if ($logContent['data'] == StatusDigiFlazzEnum::SUCCESS->value) {
                 $agen->update(['saldo' => $agen->saldo - $product->selling_price]);
             }
-            $transaction->update(['status' => $logContent['data']['status']]);
+            $transaction->update([
+                'status' => $logContent['data']['status'],
+                'message' => $logContent['data']['message']
+            ]);
 
             // dd(json_decode($request->getContent(), true));
         } else {
