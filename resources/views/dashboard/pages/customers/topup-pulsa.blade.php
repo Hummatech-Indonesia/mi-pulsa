@@ -168,8 +168,6 @@
             let url = `{{ route('transactions.topup.customer') }}`
             $('#addTopupCustomerForm').attr('action', url)
         })
-
-
         $(document).on('click', '#topUp', function() {
             $('#topUpSaldoModal').modal('show');
             const id = $(this).data('id');
