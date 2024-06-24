@@ -95,6 +95,7 @@ class TransactionController extends Controller
      */
     public function historyTopupCustomer(Request $request)
     {
+        $request->merge(['blazz' => 0]);
         $transactions = $this->transaction->customPaginate($request);
         return view('dashboard.pages.customers.history', compact('transactions'));
     }

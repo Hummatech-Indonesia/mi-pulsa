@@ -87,7 +87,11 @@
                                         <h6>{{ $transaction->product->product_name }}</h6>
                                     </td>
                                     <td>
-                                        <h6>{{ FormatedHelper::rupiahCurrency($transaction->price) }}</h6>
+                                        @if ($transaction->price != 0)
+                                            <h6>{{ FormatedHelper::rupiahCurrency($transaction->price) }}</h6>
+                                        @else
+                                            <h6>0</h6>
+                                        @endif
                                     </td>
                                     <td>
                                         <h6>{{ FormatedHelper::dateTimeFormat($transaction->created_at) }}</h6>
