@@ -69,8 +69,8 @@ class TransactionController extends Controller
     public function topupCustomer(CustomerRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $this->customer->store($data);
-
+        $customer = $this->customer->store($data);
+        $this->digiFlazzService->topUp($customer);
         return back()->with('success', 'Berhasil menambah dan topup customer');
     }
 
