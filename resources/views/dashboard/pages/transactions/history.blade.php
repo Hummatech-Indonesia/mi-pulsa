@@ -169,12 +169,12 @@
             const formattedAmount = amount.toLocaleString('id-ID');
 
             // Masukkan nilai ke dalam elemen modal
-            $('#name').html(name);
-            $('#email').html(email);
-            $('#invoiceId').html(invoiceId);
-            $('#amount').html('Rp.' + formattedAmount); // Gunakan formattedAmount yang sudah diformat
-            $('#status').html(status);
-            $('#transactionVia').html(transactionVia);
+            $('#name').html(': ' + name);
+            $('#email').html(': ' + email);
+            $('#invoiceId').html(': ' + invoiceId);
+            $('#amount').html(': ' + 'Rp.' + formattedAmount); // Gunakan formattedAmount yang sudah diformat
+            $('#status').html(': ' + status);
+            $('#transactionVia').html(': ' + transactionVia);
         });
     </script>
 @endsection
