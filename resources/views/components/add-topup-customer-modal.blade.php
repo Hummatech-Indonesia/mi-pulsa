@@ -1,7 +1,7 @@
-<div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="addTopupCustomerModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form action="{{ route('customers.store') }}" id="addCustomerForm" method="POST">
+            <form action="{{ route('customers.store') }}" id="addTopupCustomerForm" method="POST">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title">Modal Penambahan Data Pelanggan</h5>

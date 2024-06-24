@@ -10,8 +10,8 @@
         <div class="card p-3 bg-primary">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="">
-                    <h1 class="fw-bold text-white title">Menunggu Pembayaran</h1>
-                    <h3 class="fw-bold text-white">Segera Bayar Pesanan Anda!</h3>
+                    <h4 class="fw-bold text-white title">Menunggu Pembayaran</h4>
+                    <h5 class="fw-bold text-white">Segera Bayar Pesanan Anda!</h5>
                 </div>
                 <div class="">
                     <img src="{{ asset('assets/img/about.jpg') }}" alt="" class="img-fluid" width="125">
@@ -82,7 +82,7 @@
             <div class="col-12 col-lg-5">
                 <div class="card">
                     <div class="card-header text-center bg-primary">
-                        <h3 class="text-white">Instruksi Pembayaran</h3>
+                        <h5 class="text-white">Instruksi Pembayaran</h5>
                     </div>
                     <div class="card-body mb-3">
                         <div class="accordion" id="paymentInstructions">
@@ -118,16 +118,16 @@
     </div>
 @endsection
 @section('script')
-<script>
-$(document).ready(function() {
-    $.ajax({
-        url: '{{ route("tripay.instructions", $topupAgen->id) }}',
-        type: 'GET',
-        success: function(response) {
-            const instructions = response.data;
-            let html = '';
-            $.each(instructions, function(index, instruction) {
-                html += `
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '{{ route('tripay.instructions', $topupAgen->id) }}',
+                type: 'GET',
+                success: function(response) {
+                    const instructions = response.data;
+                    let html = '';
+                    $.each(instructions, function(index, instruction) {
+                        html += `
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="heading${index}">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -148,22 +148,22 @@ $(document).ready(function() {
                         </div>
                     </div>
                 `;
+                    });
+                    $('#paymentInstructions').html(html);
+                },
+                error: function(error) {
+                    console.error('Error loading the instructions:', error);
+                }
             });
-            $('#paymentInstructions').html(html);
-        },
-        error: function(error) {
-            console.error('Error loading the instructions:', error);
-        }
-    });
-});
+        });
 
-function copyPayCode() {
-    const payCode = document.getElementById('payCode').innerText;
-    navigator.clipboard.writeText(payCode).then(() => {
-        alert('Kode pembayaran telah disalin!');
-    }, (err) => {
-        console.error('Gagal menyalin kode: ', err);
-    });
-}
-</script>
+        function copyPayCode() {
+            const payCode = document.getElementById('payCode').innerText;
+            navigator.clipboard.writeText(payCode).then(() => {
+                alert('Kode pembayaran telah disalin!');
+            }, (err) => {
+                console.error('Gagal menyalin kode: ', err);
+            });
+        }
+    </script>
 @endsection
