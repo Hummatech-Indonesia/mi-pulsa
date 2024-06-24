@@ -77,9 +77,9 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="">
                                         <p class="text-dark">Kode Pembayaran</p>
-                                        <p class="text-primary">{{ $service->data->pay_code }}</p>
+                                        <p class="text-primary" id="payCode">{{ $service->data->pay_code }}</p>
                                     </div>
-                                    <button class="btn btn-primary">Salin</button>
+                                    <button class="btn btn-primary " onclick="copyPayCode()">Salin</button>
                                 </div>
                             </div>
                         </div>
@@ -117,11 +117,23 @@
                         </div>
                     </div>
 
-                    <a href="{{ $service->data->checkout_url }}"
+                    <a href="{{ $service->data->checkout_url }}" target="_blank"
                         class="btn bg-primary-subtle text-primary btn-light text-center text-primary mt-3">OK</a>
                 </div>
             </div>
         </div>
 
     </div>
+@endsection
+@section('script')
+    <script>
+        function copyPayCode() {
+            const payCode = document.getElementById('payCode').innerText;
+            navigator.clipboard.writeText(payCode).then(() => {
+                alert('Kode pembayaran telah disalin!');
+            }, (err) => {
+                console.error('Gagal menyalin kode: ', err);
+            });
+        }
+    </script>
 @endsection
