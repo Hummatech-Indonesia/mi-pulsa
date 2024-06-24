@@ -1,5 +1,6 @@
 @php
     use App\Helpers\FormatedHelper;
+    use App\Enums\StatusDigiFlazzEnum;
 @endphp
 @extends('dashboard.layouts.app')
 @section('content')
