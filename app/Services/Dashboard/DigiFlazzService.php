@@ -51,6 +51,7 @@ class DigiFlazzService
         try {
             $response = Http::post('https://api.digiflazz.com/v1/transaction', $postData);
             $data = $response->json()['data'];
+            dd($data);
             if ($blazz != false) {
                 $blazz_id = $blazz;
             } else {
