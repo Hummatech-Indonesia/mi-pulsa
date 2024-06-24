@@ -36,7 +36,6 @@
                 <div class="row align-items-center py-3 border-bottom">
                     <div class="col-12 col-md-9 mb-3 mb-md-0">
                         <form action="" class="row gx-2 gy-2 align-items-center">
-                            @csrf
                             <div class="col-12 col-sm-6 col-md-3">
                                 <input type="text" name="search" id="search" placeholder="cari.."
                                     value="{{ request()->search }}" class="form-control">
@@ -69,12 +68,9 @@
                     </div>
                 </div>
             </div>
-
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
-
-
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th>
@@ -128,7 +124,6 @@
                                     <td>
                                         <p class="mb-0 fw-normal">{{ $topup->transaction_via }}</p>
                                     </td>
-
                                     <td>
                                         <button type="button"
                                             class="btn d-flex align-items-center gap-3 detail-transaction"
@@ -147,6 +142,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{ $topups->appends(['search' => request('search'), 'filter' => request('filter')])->links() }}
             </div>
         </div>
         <!-- --------------------------------------------------- -->
