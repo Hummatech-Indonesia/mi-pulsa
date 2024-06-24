@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('blazz_id')->unique()->nullable();
             $table->string('ref_id');
             $table->string('customer_no');
-            $table->integer('buyer_last_saldo');
-            $table->integer('price');
-            $table->string('tele');
-            $table->string('wa');
+            $table->integer('buyer_last_saldo')->nullable();
+            $table->integer('price')->nullable();
+            $table->string('tele')->nullable();
+            $table->string('wa')->nullable();
             $table->string('message')->nullable();
             $table->enum('status', [StatusDigiFlazzEnum::PENDING->value, StatusDigiFlazzEnum::FAILED->value, StatusDigiFlazzEnum::SUCCESS->value])->default(StatusDigiFlazzEnum::PENDING->value);
             $table->timestamps();

@@ -56,22 +56,30 @@ class DigiFlazzService
             } else {
                 $blazz_id = null;
             }
-            $this->transaction->store([
-                'customer_id' => $customer->id,
-                'blazz_id' => $blazz_id,
-                'product_id' => $customer->product->id,
-                'ref_id' => $data['ref_id'],
-                'customer_no' => $data['customer_no'],
-                'buyer_last_saldo' => $data['buyer_last_saldo'],
-                'price' => $product->selling_price,
-                'status' => $data['status'],
-                'tele' => $data['tele'],
-                'status' => $data['status'],
-                'wa' => $data['wa']
-            ]);
             if ($data['status'] == "Sukses" || $data['status'] == StatusDigiFlazzEnum::PENDING->value) {
+                $this->transaction->store([
+                    'customer_id' => $customer->id,
+                    'blazz_id' => $blazz_id,
+                    'product_id' => $customer->product->id,
+                    'ref_id' => $data['ref_id'],
+                    'customer_no' => $data['customer_no'],
+                    'buyer_last_saldo' => $data['buyer_last_saldo'],
+                    'price' => $product->selling_price,
+                    'status' => $data['status'],
+                    'tele' => $data['tele'],
+                    'status' => $data['status'],
+                    'wa' => $data['wa']
+                ]);
                 return true;
             } else {
+                $this->transaction->store([
+                    'customer_id' => $customer->id,
+                    'blazz_id' => $blazz_id,
+                    'product_id' => $customer->product->id,
+                    'ref_id' => $data['ref_id'],
+                    'customer_no' => $data['customer_no'],
+                    'status' => $data['status'],
+                ]);
                 return $data['message'];
             }
         } catch (\Throwable $th) {
