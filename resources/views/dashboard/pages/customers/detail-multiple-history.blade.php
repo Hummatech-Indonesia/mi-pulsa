@@ -105,7 +105,7 @@
                                         <h6>{{ FormatedHelper::dateTimeFormat($transaction->created_at) }}</h6>
                                     </td>
                                     <td>
-                                        <button data-bs-toggle="modal" id="message" data-bs-target="#messageModal"
+                                        <button data-bs-toggle="modal" id="button_message" data-bs-target="#messageModal"
                                             data-message="{{ $transaction->message }}" class="btn btn-primary"><svg
                                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
@@ -130,7 +130,7 @@
     <x-top-up-saldo-modal></x-top-up-saldo-modal>
     <x-message-modal></x-message-modal>
     <script>
-        $(document).on('click', '#message', function() {
+        $(document).on('click', '#button_message', function() {
             const message = $(this).data('message');
             $('#message').html(message);
         });
