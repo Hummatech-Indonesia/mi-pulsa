@@ -34,6 +34,17 @@ class DigiFlazzController extends Controller
         $this->transaction = $transaction;
         $this->deposit = $deposit;
     }
+    public function getPriceList(Request $request): JsonResponse
+    {
+        $priceList = $this->product->getPriceList($request);
+
+        if ($request->ajax()) {
+            return response()->json($priceList);
+        }
+
+        return response()->json($priceList);
+    }
+
 
     /**
      * cekSaldo

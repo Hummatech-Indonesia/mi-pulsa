@@ -37,6 +37,7 @@ Auth::routes([
 Route::prefix('digi-flazz')->name('digi-flazz.')->group(function () {
     Route::post('cek-saldo', [DigiFlazzController::class, 'cekSaldo'])->name('ceksaldo');
     Route::post('price-list', [DigiFlazzController::class, 'priceList'])->name('pricelist');
+    Route::get('get-price-list',[DigiFlazzController::class,'getPriceList'])->name('get.price.list');
     Route::post('deposit', [DigiFlazzController::class, 'deposit'])->name('deposit');
     Route::post('blazz-top-up', [DigiFlazzController::class, 'blazzTopUp'])->name('blazz.topup');
     Route::post('transaction/{customer}', [DigiFlazzController::class, 'transaction'])->name('transaction');

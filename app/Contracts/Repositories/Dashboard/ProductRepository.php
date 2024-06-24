@@ -45,6 +45,20 @@ class ProductRepository extends BaseRepository implements ProductInterface
             ->fastPaginate(5);
     }
     /**
+     * Method getPriceList
+     *
+     * @param Request $request [explicite description]
+     *
+     * @return mixed
+     */
+    public function getPriceList(Request $request): mixed
+    {
+        return $this->model->query()->when($request->search, function ($query) use ($request) {
+            $query->where('product_name', 'like', '%' . $request->search . '%')->orWhere('buyer_sku_code', $request->search);
+        })
+            ->fastPaginate(5);
+    }
+    /**
      * Method store
      *
      * @param array $data [explicite description]

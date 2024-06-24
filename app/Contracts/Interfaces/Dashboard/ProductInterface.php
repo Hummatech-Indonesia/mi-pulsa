@@ -5,6 +5,7 @@ namespace App\Contracts\Interfaces\Dashboard;
 use App\Contracts\Interfaces\Eloquent\BaseInterface;
 use App\Contracts\Interfaces\Eloquent\GetWhereInterface;
 use App\Contracts\Interfaces\Eloquent\SearchInterface;
+use Illuminate\Http\Request;
 
 interface ProductInterface extends BaseInterface, SearchInterface, GetWhereInterface
 {
@@ -17,4 +18,12 @@ interface ProductInterface extends BaseInterface, SearchInterface, GetWhereInter
      */
 
     public function getProduct(array $data): mixed;
+    /**
+     * Method getPriceList
+     *
+     * @param Request $request [explicite description]
+     *
+     * @return mixed
+     */
+    public function getPriceList(Request $request):mixed;
 }
