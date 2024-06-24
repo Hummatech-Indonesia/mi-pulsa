@@ -6,58 +6,34 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body m-3">
-                <div class="row">
-                    <div class="col-4">
-                        <span class="fw-bold">Nama Pembeli</span>
-                    </div>
-                    <div class="col-8">
-                        <span class="text-dark" id="name"></span>
-                    </div>
+                <div class="row mb-3">
+                    <div class="col-4 fw-bold">Nama Pembeli</div>
+                    <div class="col-8 text-dark" id="name"></div>
                 </div>
-                <div class="row">
-                    <div class="col-4">
-                        <span class="fw-bold">Email Pembeli</span>
-                    </div>
-                    <div class="col-8">
-                        <span class="text-dark" id="email"></span>
-                    </div>
+                <div class="row mb-3">
+                    <div class="col-4 fw-bold">Email Pembeli</div>
+                    <div class="col-8 text-dark" id="email"></div>
                 </div>
-                <div class="row">
-                    <div class="col-4">
-                        <span class="fw-bold">Invoice Id</span>
-                    </div>
-                    <div class="col-8">
-                        <span class="text-dark" id="invoiceId"></span>
-                    </div>
+                <div class="row mb-3">
+                    <div class="col-4 fw-bold">Invoice Id</div>
+                    <div class="col-8 text-dark" id="invoiceId"></div>
                 </div>
-                <div class="row">
-                    <div class="col-4">
-                        <span class="fw-bold">Nominal Pembayaran</span>
-                    </div>
-                    <div class="col-8">
-                        <span class="text-dark" id="amount"></span>
-                    </div>
+                <div class="row mb-3">
+                    <div class="col-4 fw-bold">Nominal Pembayaran</div>
+                    <div class="col-8 text-dark" id="amount"></div>
                 </div>
-                <div class="row">
-                    <div class="col-4">
-                        <span class="fw-bold">Status</span>
-                    </div>
-                    <div class="col-8">
-                        <span class="text-dark" id="status"></span>
-                    </div>
+                <div class="row mb-3">
+                    <div class="col-4 fw-bold">Status</div>
+                    <div class="col-8 text-dark" id="status"></div>
                 </div>
-                <div class="row">
-                    <div class="col-4">
-                        <span class="fw-bold">Transaksi Via</span>
-                    </div>
-                    <div class="col-8">
-                        <span class="text-dark" id="transactionVia"></span>
-                    </div>
+                <div class="row mb-3">
+                    <div class="col-4 fw-bold">Transaksi Via</div>
+                    <div class="col-8 text-dark" id="transactionVia"></div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-secondary">Hapus</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-danger">Hapus</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
             </div>
         </div>
     </div>
