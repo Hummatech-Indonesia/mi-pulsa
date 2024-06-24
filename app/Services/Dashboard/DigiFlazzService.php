@@ -2,7 +2,9 @@
 
 namespace App\Services\Dashboard;
 
+use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Contracts\Interfaces\Dashboard\TransactionInterface;
+use App\Enums\StatusDigiFlazzEnum;
 use App\Models\Customer;
 use Faker\Provider\Uuid;
 use Illuminate\Support\Str;
@@ -12,10 +14,12 @@ use Illuminate\Support\Facades\Http;
 class DigiFlazzService
 {
     private TransactionInterface $transaction;
+    private ProductInterface $product;
 
-    public function __construct(TransactionInterface $transaction)
+    public function __construct(TransactionInterface $transaction, ProductInterface $product)
     {
         $this->transaction = $transaction;
+        $this->product = $product;
     }
     /**
      * topUp
@@ -39,7 +43,6 @@ class DigiFlazzService
             "customer_no" => $customer->phone_number,
             "ref_id" => $ref_id,
             "sign" => $hash,
-            "testing" => true
         ];
 
         try {
@@ -50,7 +53,8 @@ class DigiFlazzService
             } else {
                 $blazz_id = null;
             }
-            if ($data['status'] == "Sukses" || $data['status'] == "Pending") {
+
+            if ($data['status'] == "Sukses" || $data['status'] == StatusDigiFlazzEnum::PENDING->value) {
                 $this->transaction->store([
                     'customer_id' => $customer->id,
                     'blazz_id' => $blazz_id,

@@ -228,14 +228,26 @@
                     },
                     error: function(xhr, status, error) {
                         let response = JSON.parse(xhr.responseText);
-                        $('#alert').html(
-                            `<div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                <div class="alert-message">
+                        console.log(response);
+                        if (response.meta.code == 400) {
+                            $('#alert').html(
+                                `<div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <div class="alert-message">
+                                        <strong>Terjadi Kesalahan!</strong> ${response.meta.message}
+                                    </div>
+                                </div>`
+                            );
+                        } else {
+                            $('#alert').html(
+                                `<div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <div class="alert-message">
                                     <strong>Terjadi Kesalahan!</strong> ${response.errors.checkedValues}
-                                </div>
-                            </div>`
-                        );
+                                    </div>
+                                    </div>`
+                            );
+                        }
                     }
                 });
             });

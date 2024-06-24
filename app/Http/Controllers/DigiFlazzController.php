@@ -175,6 +175,10 @@ class DigiFlazzController extends Controller
      */
     public function transaction(Customer $customer)
     {
+        $product = $this->product->show($customer->product->id);
+        if ($product->selling_price > auth()->user()->saldo) {
+            return redirect()->back()->withErrors('Saldo anda tidak mencukupi, untuk melakukan transaksi tersebut dibutuhkan saldo sebesar ' . FormatedHelper::rupiahCurrency($product->selling_price) . ' sedangkan saldo anda saat ini adalah ' . FormatedHelper::rupiahCurrency(auth()->user()->saldo));
+        }
         $service = $this->service->topUp($customer);
         if ($service === true) {
             return redirect()->back()->with('success', 'Berhasil mengirim saldo, Status pending');
@@ -225,9 +229,22 @@ class DigiFlazzController extends Controller
     {
         $data = $request->validated();
 
+        $selling_price = 0;
         foreach ($data['checkedValues'] as $customer_id) {
             $customer = $this->customer->show($customer_id);
-            $this->service->topUp($customer, true);
+            $product = $customer->product;
+            $selling_price += $product->selling_price;
+        }
+        if ($selling_price > auth()->user()->saldo) {
+            $customer = $this->customer->show($customer_id);
+            return ResponseHelper::error(null, 'Saldo anda tidak mencukupi, untuk melakukan transaksi tersebut dibutuhkan saldo sebesar ' . FormatedHelper::rupiahCurrency($selling_price) . ' sedangkan saldo anda saat ini adalah ' . FormatedHelper::rupiahCurrency(auth()->user()->saldo));
+        }
+        foreach ($data['checkedValues'] as $customer_id) {
+            $customer = $this->customer->show($customer_id);
+            $service = $this->service->topUp($customer, true);
+            if ($service === false) {
+                return redirect()->back()->withErrors($service);
+            }
         }
 
         return ResponseHelper::success(null, 'Berhasil mengirim saldo, Status anda pending');

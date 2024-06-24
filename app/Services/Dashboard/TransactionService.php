@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Contracts\Interfaces\Dashboard\TopupAgenInterface;
 use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\SliderInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Enums\StatusTransactionEnum;
 use App\Enums\TopupViaEnum;
 use App\Enums\UploadDiskEnum;
@@ -24,10 +25,12 @@ class TransactionService implements ShouldHandleFileUpload
     use UploadTrait;
 
     private TopupAgenInterface $topup;
+    private UserInterface $user;
 
-    public function __construct(TopupAgenInterface $topup)
+    public function __construct(TopupAgenInterface $topup, UserInterface $user)
     {
         $this->topup = $topup;
+        $this->user = $user;
     }
     public function store(RequestTransactionWhatsappRequest $request): array|bool
     {
@@ -35,13 +38,14 @@ class TransactionService implements ShouldHandleFileUpload
         $getYear = substr(now()->format('Y'), -2);
         $count = TopupAgen::count() + 1;
         $external_id = "MPLS" . $getYear . str_pad($count, 4, '0', STR_PAD_LEFT);
-
+        $user = $this->user->show($data['user_id']);
+        $user->update(['saldo' => $user->saldo + $data['balance']]);
         return [
             'amount' => $data['balance'],
             'user_id' => $data['user_id'],
             'payment_method' => $data['method'],
-            'invoice_id'=>$external_id,
-            'status'=>StatusTransactionEnum::UNPAID->value,
+            'invoice_id' => $external_id,
+            'status' => StatusTransactionEnum::UNPAID->value,
             'transaction_via' => TopupViaEnum::WHATSAPP->value,
         ];
     }
