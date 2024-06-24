@@ -102,7 +102,7 @@ class TripayService
         $responseSuccess = json_decode($response);
 
         $data = $responseSuccess->data;
-        
+
         TopupAgen::create([
             'user_id' => auth()->user()->id,
             'invoice_id' => $data->reference,
@@ -164,20 +164,17 @@ class TripayService
                     $topupAgen->update(['status' => StatusTransactionEnum::PAID->value]);
                     $user->update(['saldo' => $user->saldo + $data->amount_received]);
                     break;
-
-                    // case 'EXPIRED':
-                    //     $invoice->update(['status' => 'EXPIRED']);
-                    //     break;
-
-                    // case 'FAILED':
-                    //     $invoice->update(['status' => 'FAILED']);
-                    //     break;
-
-                    // default:
-                    //     return Response::json([
-                    //         'success' => false,
-                    //         'message' => 'Unrecognized payment status',
-                    //     ]);
+                case 'EXPIRED':
+                    $topupAgen->update(['status' => StatusTransactionEnum::EXPIRED->value]);
+                    break;
+                case 'FAILED':
+                    $topupAgen->update(['status' => StatusTransactionEnum::FAILED->value]);
+                    break;
+                default:
+                    return Response::json([
+                        'success' => false,
+                        'message' => 'Unrecognized payment status',
+                    ]);
             }
 
             return ResponseHelper::success('success');
