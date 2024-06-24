@@ -70,8 +70,12 @@ class TransactionController extends Controller
     {
         $data = $request->validated();
         $customer = $this->customer->store($data);
-        $this->digiFlazzService->topUp($customer);
-        return back()->with('success', 'Berhasil menambah dan topup customer');
+        $service = $this->digiFlazzService->topUp($customer);
+        if ($service == true) {
+            return to_route('dashboard.topup.history')->with('success', 'Berhasil mengirim saldo, Status pending');
+        } else {
+            return redirect()->back()->withErrors($service);
+        }
     }
 
     /**
