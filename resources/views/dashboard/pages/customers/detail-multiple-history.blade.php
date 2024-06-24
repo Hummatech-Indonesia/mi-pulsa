@@ -87,12 +87,19 @@
                                         <h6>{{ $transaction->product->product_name }}</h6>
                                     </td>
                                     <td>
-                                        @if ($transaction->price != 0)
+                                        @if ($transaction->price != null)
                                             <h6>{{ FormatedHelper::rupiahCurrency($transaction->price) }}</h6>
                                         @else
                                             <h6>0</h6>
                                         @endif
                                     </td>
+                                    @if ($transaction->status == StatusDigiFlazzEnum::SUCCESS->value)
+                                        <h6><span class="badge text-bg-success">{{ $transaction->status }}</span></h6>
+                                    @elseif ($transaction->status == StatusDigiFlazzEnum::PENDING->value)
+                                        <h6><span class="badge text-bg-warning">{{ $transaction->status }}</span></h6>
+                                    @else
+                                        <h6><span class="badge text-bg-danger">{{ $transaction->status }}</span></h6>
+                                    @endif
                                     <td>
                                         <h6>{{ FormatedHelper::dateTimeFormat($transaction->created_at) }}</h6>
                                     </td>

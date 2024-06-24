@@ -1,5 +1,6 @@
 @php
     use App\Helpers\FormatedHelper;
+    use App\Enums\StatusDigiFlazzEnum;
 @endphp
 @extends('dashboard.layouts.app')
 @section('content')
@@ -99,7 +100,13 @@
                                         </td>
                                     @endif
                                     <td>
-                                        <h6>{{ $transaction->status }}</h6>
+                                        @if ($transaction->status == StatusDigiFlazzEnum::SUCCESS->value)
+                                            <h6><span class="badge text-bg-success">{{ $transaction->status }}</span></h6>
+                                        @elseif ($transaction->status == StatusDigiFlazzEnum::PENDING->value)
+                                            <h6><span class="badge text-bg-warning">{{ $transaction->status }}</span></h6>
+                                        @else
+                                            <h6><span class="badge text-bg-danger">{{ $transaction->status }}</span></h6>
+                                        @endif
                                     </td>
                                     <td>
                                         <h6>{{ FormatedHelper::dateTimeFormat($transaction->created_at) }}</h6>

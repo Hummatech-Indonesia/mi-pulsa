@@ -66,6 +66,7 @@ class DigiFlazzService
                     'buyer_last_saldo' => $data['buyer_last_saldo'],
                     'price' => $product->selling_price,
                     'status' => $data['status'],
+                    'message' => $data['message'],
                     'tele' => $data['tele'],
                     'status' => $data['status'],
                     'wa' => $data['wa']
@@ -79,6 +80,7 @@ class DigiFlazzService
                     'ref_id' => $data['ref_id'],
                     'customer_no' => $data['customer_no'],
                     'status' => $data['status'],
+                    'message' => $data['message'],
                 ]);
                 return $data['message'];
             }
