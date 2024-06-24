@@ -63,13 +63,12 @@ class DigiFlazzService
                     'product_id' => $customer->product->id,
                     'ref_id' => $data['ref_id'],
                     'customer_no' => $data['customer_no'],
-                    'buyer_last_saldo' => $data['buyer_last_saldo'],
+                    'buyer_last_saldo' => $data['buyer_last_saldo'] ?? null,
                     'price' => $product->selling_price,
-                    'status' => $data['status'],
-                    'message' => $data['message'],
-                    'tele' => $data['tele'],
-                    'status' => $data['status'],
-                    'wa' => $data['wa']
+                    'status' => $data['status'] ?? null,
+                    'message' => $data['message'] ?? null,
+                    'tele' => $data['tele'] ?? null,
+                    'wa' => $data['wa'] ?? null
                 ]);
                 return true;
             } else {
@@ -79,8 +78,8 @@ class DigiFlazzService
                     'product_id' => $customer->product->id,
                     'ref_id' => $data['ref_id'],
                     'customer_no' => $data['customer_no'],
-                    'status' => $data['status'],
-                    'message' => $data['message'],
+                    'status' => $data['status'] ?? null,
+                    'message' => $data['message'] ?? null,
                 ]);
                 return $data['message'];
             }

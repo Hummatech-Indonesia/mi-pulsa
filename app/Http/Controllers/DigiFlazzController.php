@@ -257,9 +257,10 @@ class DigiFlazzController extends Controller
             return ResponseHelper::error(null, 'Saldo anda tidak mencukupi, untuk melakukan transaksi tersebut dibutuhkan saldo sebesar ' . FormatedHelper::rupiahCurrency($selling_price) . ' sedangkan saldo anda saat ini adalah ' . FormatedHelper::rupiahCurrency(auth()->user()->saldo));
         }
 
+        $digi_flazz = Uuid::uuid();
         foreach ($data['checkedValues'] as $customer_id) {
             $customer = $this->customer->show($customer_id);
-            $service = $this->service->topUp($customer, Uuid::uuid());
+            $service = $this->service->topUp($customer, $digi_flazz);
             if ($service !== true) {
                 return ResponseHelper::error(null, $service);
             }
