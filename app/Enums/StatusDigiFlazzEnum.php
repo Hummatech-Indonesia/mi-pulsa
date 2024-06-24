@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum StatusDigiFlazzEnum: string
 {
-    case PENDING = 'pending';
+    case PENDING = 'Pending';
     case SUCCESS = 'Sukses';
     case FAILED = 'Gagal';
 }
