@@ -13,6 +13,7 @@ use App\Http\Requests\BlazzUpdateProductRequest;
 use App\Http\Requests\DepositRequest;
 use App\Models\Customer;
 use App\Services\Dashboard\DigiFlazzService;
+use Faker\Provider\Uuid;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -239,11 +240,12 @@ class DigiFlazzController extends Controller
             $customer = $this->customer->show($customer_id);
             return ResponseHelper::error(null, 'Saldo anda tidak mencukupi, untuk melakukan transaksi tersebut dibutuhkan saldo sebesar ' . FormatedHelper::rupiahCurrency($selling_price) . ' sedangkan saldo anda saat ini adalah ' . FormatedHelper::rupiahCurrency(auth()->user()->saldo));
         }
+
         foreach ($data['checkedValues'] as $customer_id) {
             $customer = $this->customer->show($customer_id);
-            $service = $this->service->topUp($customer, true);
-            if ($service === false) {
-                return redirect()->back()->withErrors($service);
+            $service = $this->service->topUp($customer, Uuid::uuid());
+            if ($service !== true) {
+                return ResponseHelper::error(null, $service);
             }
         }
 

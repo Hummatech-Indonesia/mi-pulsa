@@ -43,17 +43,19 @@ class DigiFlazzService
             "customer_no" => $customer->phone_number,
             "ref_id" => $ref_id,
             "sign" => $hash,
+            "testing" => true
         ];
+
+        $product = $this->product->getProduct(['buyer_sku_code' => $customer->product->buyer_sku_code]);
 
         try {
             $response = Http::post('https://api.digiflazz.com/v1/transaction', $postData);
             $data = $response->json()['data'];
-            if ($blazz) {
-                $blazz_id = Uuid::uuid();
+            if ($blazz != false) {
+                $blazz_id = $blazz;
             } else {
                 $blazz_id = null;
             }
-
             if ($data['status'] == "Sukses" || $data['status'] == StatusDigiFlazzEnum::PENDING->value) {
                 $this->transaction->store([
                     'customer_id' => $customer->id,
@@ -62,7 +64,7 @@ class DigiFlazzService
                     'ref_id' => $data['ref_id'],
                     'customer_no' => $data['customer_no'],
                     'buyer_last_saldo' => $data['buyer_last_saldo'],
-                    'price' => $data['price'],
+                    'price' => $product->selling_price,
                     'status' => $data['status'],
                     'tele' => $data['tele'],
                     'status' => $data['status'],
