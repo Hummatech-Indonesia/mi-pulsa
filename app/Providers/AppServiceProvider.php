@@ -13,6 +13,7 @@ use App\Contracts\Interfaces\Dashboard\TransactionInterface;
 use App\Contracts\Interfaces\FcmTokenInterface;
 use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\RegisterInterface;
+use Illuminate\Pagination\Paginator;
 use App\Contracts\Interfaces\UserInterface;
 use App\Contracts\Repositories\Dashboard\AboutRepository;
 use App\Contracts\Repositories\Dashboard\ContactRepository;
@@ -58,6 +59,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::useBootstrap();
     }
 }

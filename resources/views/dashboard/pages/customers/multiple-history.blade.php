@@ -62,13 +62,7 @@
                                     <h6 class="fs-4 fw-semibold mb-0">#</h6>
                                 </th>
                                 <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Nama Customer</h6>
-                                </th>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Produk</h6>
-                                </th>
-                                <th>
-                                    <h6 class="fs-4 fw-semibold mb-0">Harga</h6>
+                                    <h6 class="fs-4 fw-semibold mb-0">Kode Transaksi</h6>
                                 </th>
                                 <th>
                                     <h6 class="fs-4 fw-semibold mb-0">Tanggal Transaksi</h6>
@@ -82,13 +76,9 @@
                                         <h6>{{ $index + 1 }}</h6>
                                     </td>
                                     <td>
-                                        <h6>{{ $transaction->customer->name }}</h6>
-                                    </td>
-                                    <td>
-                                        <h6>{{ $transaction->product->product_name }}</h6>
-                                    </td>
-                                    <td>
-                                        <h6>{{ FormatedHelper::rupiahCurrency($transaction->price) }}</h6>
+                                        <a href="{{route('dashboard.detail.topup.history.multiple', $transaction->blazz_id)}}">
+                                            <h6>{{ $transaction->blazz_id }}</h6>
+                                        </a>
                                     </td>
                                     <td>
                                         <h6>{{ FormatedHelper::dateTimeFormat($transaction->created_at) }}</h6>
@@ -98,7 +88,6 @@
                         </tbody>
                     </table>
                     <div class="mt-3">
-
                         {{ $transactions->links() }}
                     </div>
                 </div>

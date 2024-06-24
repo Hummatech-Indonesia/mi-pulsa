@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use App\Base\Interfaces\HasCustomer;
+use App\Base\Interfaces\HasProduct;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Transaction extends Model implements HasCustomer
+class Transaction extends Model implements HasCustomer, HasProduct
 {
     use HasFactory;
     public $incrementing = false;
@@ -37,5 +38,15 @@ class Transaction extends Model implements HasCustomer
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    /**
+     * product
+     *
+     * @return BelongsTo
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
     }
 }

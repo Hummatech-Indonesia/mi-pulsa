@@ -140,7 +140,7 @@
                                     <div class="round-16 d-flex align-items-center justify-content-center">
                                         <i class="ti ti-circle"></i>
                                     </div>
-                                    <span class="hide-menu">Kirim Pulsa</span>
+                                    <span class="hide-menu" style="font-size:0.8rem">Kirim Pulsa</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
@@ -148,7 +148,15 @@
                                     <div class="round-16 d-flex align-items-center justify-content-center">
                                         <i class="ti ti-circle"></i>
                                     </div>
-                                    <span class="hide-menu">Riwayat Transaksi</span>
+                                    <span class="hide-menu" style="font-size:0.8rem">Riwayat Single Transaksi</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('dashboard.topup.history.multiple') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu" style="font-size:0.8rem">Riwayat Multiple Transaksi</span>
                                 </a>
                             </li>
                         </ul>

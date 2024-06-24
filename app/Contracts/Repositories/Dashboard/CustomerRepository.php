@@ -5,6 +5,7 @@ namespace App\Contracts\Repositories\Dashboard;
 use App\Contracts\Interfaces\Dashboard\CustomerInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Contracts\Repositories\BaseRepository;
+use App\Enums\RoleEnum;
 use App\Enums\UserRoleEnum;
 use App\Helpers\UserHelper;
 use App\Models\Customer;
@@ -41,6 +42,9 @@ class CustomerRepository extends BaseRepository implements CustomerInterface
             ->when($request->search, function ($query) use ($request) {
                 $query->where('name', 'like', '%' . $request->search . '%');
             })
+            // ->when(auth()->user()->role == RoleEnum::AGEN->value, function FunctionName() : Returntype {
+
+            // })
             ->fastPaginate(5);
     }
 
