@@ -223,8 +223,10 @@ class DigiFlazzController extends Controller
             $transaction = $this->transaction->getWhere(['ref_id' => $logContent['data']['ref_id']]);
             $product = $this->product->getProduct(['buyer_sku_code' => $logContent['data']['buyer_sku_code']]);
             $agen = $transaction->customer->user;
-            $agen->update(['saldo' => $agen->saldo - $product->selling_price]);
-            $transaction->update(['status' => StatusDigiFlazzEnum::SUCCESS->value]);
+            if ($logContent['data'] == StatusDigiFlazzEnum::SUCCESS->value) {
+                $agen->update(['saldo' => $agen->saldo - $product->selling_price]);
+            }
+            $transaction->update(['status' => $logContent['data']['status']]);
 
             // dd(json_decode($request->getContent(), true));
         } else {
