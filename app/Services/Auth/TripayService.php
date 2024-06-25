@@ -46,6 +46,7 @@ class TripayService
 
         $data = $response ? $response : $error;
         $response = json_decode($data);
+        // dd($response);
         if ($response->success == true) {
             $data = $response->data;
             return $data;
