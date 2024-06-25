@@ -69,7 +69,8 @@
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp" name="email" placeholder="mipulsa@gmail.com" value="{{old('email')}}">
+                                            aria-describedby="emailHelp" name="email" placeholder="mipulsa@gmail.com"
+                                            value="{{ old('email') }}">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -83,8 +84,9 @@
 
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input primary" type="checkbox" value=""
-                                                id="flexCheckChecked" checked>
+                                            <input class="form-check-input primary" type="checkbox" value="1"
+                                                name="remember" id="flexCheckChecked"
+                                                {{ old('remember') ? 'checked' : '' }}>
                                             <label class="form-check-label text-dark" for="flexCheckChecked">
                                                 Ingat perangkat ini
                                             </label>
