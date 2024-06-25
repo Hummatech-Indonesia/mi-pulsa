@@ -14,7 +14,6 @@
                 <h5 class="fw-bold text-primary text-uppercase">Daftar Harga</h5>
             </div>
             <form action="{{ route('digi-flazz.get.price.list') }}" method="get">
-                @csrf
                 <div class="d-flex">
                     <input type="text" name="search" id="search" class="form-control rounded mb-3"
                         placeholder="cari produk..">

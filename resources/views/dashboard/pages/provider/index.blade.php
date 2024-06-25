@@ -30,7 +30,6 @@
                 <div class="card-body">
                     <div class="w-100 position-relative overflow-hidden">
                         <form action="" method="GET" class="d-flex mb-0 col-3">
-                            @csrf
                             <input type="text" name="name" id="search" placeholder="cari.."
                                 class="form-control me-2" value="{{ request()->name }}">
                             <button type="submit" class="btn btn-primary">Cari</button>
