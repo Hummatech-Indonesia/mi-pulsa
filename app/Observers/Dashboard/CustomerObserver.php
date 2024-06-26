@@ -20,6 +20,5 @@ class CustomerObserver
     public function creating(Customer $customer): void
     {
         $customer->id = Uuid::uuid();
-        $customer->user_id = auth()->user()->id;
     }
 }

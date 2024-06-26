@@ -43,7 +43,9 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request): RedirectResponse
     {
-        $this->customer->store($request->validated());
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
+        $this->customer->store($data);
         return back()->with('success', 'Berhasil menambah data');
     }
     /**
