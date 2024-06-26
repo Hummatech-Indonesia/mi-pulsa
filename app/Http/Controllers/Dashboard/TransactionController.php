@@ -112,8 +112,7 @@ class TransactionController extends Controller
      */
     public function historyTopupCustomerMultiple(Request $request)
     {
-        $request->merge(['blazz' => 1]);
-        $transactions = $this->transaction->customPaginate($request);
+        $transactions = $this->transaction->historyTransactionMultiple($request);
         return view('dashboard.pages.customers.multiple-history', compact('transactions'));
     }
 

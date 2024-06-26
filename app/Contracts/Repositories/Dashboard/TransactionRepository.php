@@ -7,6 +7,7 @@ use App\Contracts\Repositories\BaseRepository;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class TransactionRepository extends BaseRepository implements TransactionInterface
 {
@@ -62,6 +63,21 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
             ->when($request->blazz_id, function ($query) use ($request) {
                 $query->where('blazz_id', $request->blazz_id);
             })
+            ->latest()
+            ->fastPaginate(5);
+    }
+
+    /**
+     * historyTransactionMultiple
+     *
+     * @param  mixed $request
+     * @param  mixed $pagination
+     * @return mixed
+     */
+    public function historyTransactionMultiple(Request $request, int $pagination = 10): mixed
+    {
+        return $this->model->query()->select('blazz_id', DB::raw('MAX(created_at) AS created_at'))
+            ->groupBy('blazz_id')
             ->latest()
             ->fastPaginate(5);
     }
