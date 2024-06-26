@@ -75,7 +75,8 @@
                                         <h6>{{ $index + 1 }}</h6>
                                     </td>
                                     <td>
-                                        <a href="{{route('dashboard.detail.topup.history.multiple', $transaction->blazz_id)}}">
+                                        <a
+                                            href="{{ route('dashboard.detail.topup.history.multiple', $transaction->blazz_id) }}">
                                             <h6>{{ $transaction->blazz_id }}</h6>
                                         </a>
                                     </td>
