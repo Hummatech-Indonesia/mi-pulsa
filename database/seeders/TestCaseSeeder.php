@@ -21,7 +21,7 @@ class TestCaseSeeder extends Seeder
         for ($i = 1; $i <= 480; $i++) {
             Customer::query()->create([
                 'id' => Uuid::uuid(),
-                'name' => 'Testing Sukses ' . $i,
+                'name' => 'Testing Pending Sukses ' . $i,
                 'user_id' => $user->id,
                 'product_id' => $product->id,
                 'phone_number' => '087800001233',
@@ -31,10 +31,30 @@ class TestCaseSeeder extends Seeder
         for ($i = 1; $i <= 20; $i++) {
             Customer::query()->create([
                 'id' => Uuid::uuid(),
-                'name' => 'Testing Gagal ' . $i,
+                'name' => 'Testing Pending Gagal ' . $i,
                 'user_id' => $user->id,
                 'product_id' => $product->id,
                 'phone_number' => '087800001234',
+            ]);
+        }
+
+        for ($i = 1; $i <= 10; $i++) {
+            Customer::query()->create([
+                'id' => Uuid::uuid(),
+                'name' => 'Testing Gagal ' . $i,
+                'user_id' => $user->id,
+                'product_id' => $product->id,
+                'phone_number' => '087800001232',
+            ]);
+        }
+
+        for ($i = 1; $i <= 10; $i++) {
+            Customer::query()->create([
+                'id' => Uuid::uuid(),
+                'name' => 'Testing Sukses ' . $i,
+                'user_id' => $user->id,
+                'product_id' => $product->id,
+                'phone_number' => '087800001230',
             ]);
         }
     }
