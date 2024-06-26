@@ -41,7 +41,6 @@
                 <div class="row align-items-center py-3 border-bottom">
                     <div class="col-12 col-md-9 mb-3 mb-md-0">
                         <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
-                            @csrf
                             <div class="col-12 col-sm-8 col-md-9">
                                 <input type="text" name="search" id="search" placeholder="cari.."
                                     class="form-control" value="{{ request()->search }}">
@@ -131,7 +130,7 @@
                         </tbody>
                     </table>
                     <div class="mt-3">
-                        {{ $users->links('pagination::bootstrap-5') }}
+                        {{ $users->appends(['search' => request('search')])->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             </div>
