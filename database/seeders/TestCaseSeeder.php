@@ -24,7 +24,7 @@ class TestCaseSeeder extends Seeder
                 'name' => 'Testing Sukses ' . $i,
                 'user_id' => $user->id,
                 'product_id' => $product->id,
-                'phone_number' => '087800001230',
+                'phone_number' => '087800001233',
             ]);
         }
 
@@ -34,7 +34,7 @@ class TestCaseSeeder extends Seeder
                 'name' => 'Testing Gagal ' . $i,
                 'user_id' => $user->id,
                 'product_id' => $product->id,
-                'phone_number' => '087800001232',
+                'phone_number' => '087800001234',
             ]);
         }
     }

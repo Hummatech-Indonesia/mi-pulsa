@@ -36,6 +36,7 @@ class DigiFlazzService
         $message = $username . $developmentKey . $ref_id;
         $hash = md5($message);
 
+        $user = $customer->user;
 
         $postData = [
             "username" => $username,
@@ -69,6 +70,9 @@ class DigiFlazzService
                     'tele' => $data['tele'] ?? null,
                     'wa' => $data['wa'] ?? null
                 ]);
+                if ($data['status'] == "Sukses") {
+                    $user->update(['saldo' => $user->saldo - $product->selling_price]);
+                }
                 return true;
             } else {
                 $this->transaction->store([
