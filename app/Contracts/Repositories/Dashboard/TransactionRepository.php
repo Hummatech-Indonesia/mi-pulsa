@@ -77,6 +77,7 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     public function historyTransactionMultiple(Request $request, int $pagination = 10): mixed
     {
         return $this->model->query()->select('blazz_id', DB::raw('MAX(created_at) AS created_at'))
+            ->where('blazz_id', '!=', null)
             ->groupBy('blazz_id')
             ->latest()
             ->fastPaginate(5);
