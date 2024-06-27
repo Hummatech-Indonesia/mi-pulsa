@@ -196,6 +196,10 @@
                         );
                     },
                     error: function(xhr, status, error) {
+                        $('#loading-top-up').html('')
+                        $('#saveCheckedValues').prop('disabled', false);
+                        $('.check').prop('checked', false);
+                        $('#checkbox-all').prop('checked', false);
                         let response = JSON.parse(xhr.responseText);
                         console.log(response);
                         if (response.meta.code == 400) {

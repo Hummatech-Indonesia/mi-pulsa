@@ -11,10 +11,12 @@ use App\Helpers\FormatedHelper;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\BlazzUpdateProductRequest;
 use App\Http\Requests\DepositRequest;
+use App\Jobs\BlazzTopUpJob;
 use App\Models\Customer;
 use App\Services\Dashboard\DigiFlazzService;
 use Faker\Provider\Uuid;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -191,7 +193,7 @@ class DigiFlazzController extends Controller
         if ($product->selling_price > auth()->user()->saldo) {
             return redirect()->back()->withErrors('Saldo anda tidak mencukupi, untuk melakukan transaksi tersebut dibutuhkan saldo sebesar ' . FormatedHelper::rupiahCurrency($product->selling_price) . ' sedangkan saldo anda saat ini adalah ' . FormatedHelper::rupiahCurrency(auth()->user()->saldo));
         }
-        $service = $this->service->topUp($customer);
+        $service = $this->service->topUp($customer, false, $this->product, $this->transaction);
         if ($service === true) {
             return redirect()->back()->with('success', 'Berhasil mengirim saldo, Status pending');
         } else {
@@ -252,6 +254,7 @@ class DigiFlazzController extends Controller
             $product = $customer->product;
             $selling_price += $product->selling_price;
         }
+
         if ($selling_price > auth()->user()->saldo) {
             $customer = $this->customer->show($customer_id);
             return ResponseHelper::error(null, 'Saldo anda tidak mencukupi, untuk melakukan transaksi tersebut dibutuhkan saldo sebesar ' . FormatedHelper::rupiahCurrency($selling_price) . ' sedangkan saldo anda saat ini adalah ' . FormatedHelper::rupiahCurrency(auth()->user()->saldo));
@@ -260,11 +263,13 @@ class DigiFlazzController extends Controller
         $uuid = Uuid::uuid();
         $cropUuid = explode('-', $uuid)[0];
         $blazz_id = "MPLS-BLZZ-" . $cropUuid;
+
         foreach ($data['checkedValues'] as $customer_id) {
             $customer = $this->customer->show($customer_id);
-            $this->service->topUp($customer, $blazz_id);
+
+            Queue::push(new BlazzTopUpJob($customer, $blazz_id, $this->product, $this->transaction));
         }
 
-        return ResponseHelper::success(null, 'Berhasil mengirim saldo, Status anda pending');
+        return ResponseHelper::success(null, 'Berhasil Melakukan Top Up.');
     }
 }
