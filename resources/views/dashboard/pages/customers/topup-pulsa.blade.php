@@ -38,17 +38,6 @@
         <div class="card w-100 overflow-hidden">
             <div class="">
                 <div class="d-flex align-items-center py-3 px-3 border-bottom justify-content-between">
-                    <div class="col-12 col-md-4 mb-3 mb-md-0">
-                        <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
-                            <div class="col-12 col-sm-8 col-md-9">
-                                <input type="text" name="search" id="search" placeholder="Cari.."
-                                    class="form-control">
-                            </div>
-                            <div class="col-12 col-sm-4 col-md-3">
-                                <button class="btn btn-primary w-100">Cari</button>
-                            </div>
-                        </form>
-                    </div>
                     <div class="col-12 col-md-2 text-md-end">
                         <button id="addTopupCustomer" data-bs-toggle="modal" data-bs-target="#addCustomerModal"
                             data-products="{{ $products }}" class="btn btn-primary w-100"><svg
@@ -58,8 +47,11 @@
                                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
                             </svg> Kirim Langsung</button>
                     </div>
-                    <div class="col-12 col-md-2 text-md-end">
+                    <div class="col-12 col-md-2 text-md-end d-flex">
                         <button id="saveCheckedValues" class="btn btn-primary w-100">Top Up Semua</button>
+                        <div id="loading-top-up">
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,8 +68,19 @@
                                 <option value="1000">Tampilkan Semua</option>
                             </select>
                         </div>
-                        <div class="">
-                            <input type="search" name="" class="form-control" id="">
+                        <div class="row gx-2 gy-2 align-items-center mb-3">
+                            <div class="col-12 col-sm-8 col-md-9">
+                                <input type="text" name="search" id="search" placeholder="Cari.."
+                                    class="form-control">
+                            </div>
+                            <div class="col-12 col-sm-4 col-md-3">
+                                <button id="button-search" class="btn btn-primary w-100"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-search" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                    </svg></button>
+                            </div>
                         </div>
                     </div>
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
@@ -106,6 +109,9 @@
                         <tbody id="table_content">
                         </tbody>
                     </table>
+                    <div id="loading">
+
+                    </div>
                     <div class="mt-3" id="pagination">
                     </div>
                 </div>
@@ -171,7 +177,15 @@
                     data: {
                         checkedValues: checkedValues
                     },
+                    beforeSend: function() {
+                        $('#loading-top-up').html(showLoadingTopUp())
+                        $('#saveCheckedValues').prop('disabled', true);
+                    },
                     success: function(response) {
+                        $('#loading-top-up').html('')
+                        $('#saveCheckedValues').prop('disabled', false);
+                        $('.check').prop('checked', false);
+                        $('#checkbox-all').prop('checked', false);
                         $('#alert').html(
                             `<div class="alert alert-success alert-dismissible" role="alert">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -214,6 +228,10 @@
             e.preventDefault();
             get(1)
         });
+        $('#button-search').click(function(e) {
+            e.preventDefault();
+            get(1)
+        });
 
         function get(page) {
             $.ajax({
@@ -221,25 +239,27 @@
                 type: "GET",
                 data: {
                     pagination: $('#showPagination').val(),
+                    name: $('#search').val(),
                     page: page
                 },
                 beforeSend: function() {
                     $('#table_content').html('')
                     $('#pagination').html('')
+                    $('#loading').html(showLoading())
                 },
                 success: function(response) {
                     $.ajax({
                         type: "GET",
                         url: "{{ route('json.products') }}",
                         success: function(products) {
+                            $('#loading').html('')
                             $.each(response.data.data.data, function(index, data) {
                                 $('#table_content').append(kirimPulsa((page - 1) * 10 +
                                     index, data, products.data))
                             })
+                            $('#pagination').html(handlePaginate(response.data.paginate))
                         }
                     });
-                    $('#pagination').html(handlePaginate(response.data.paginate))
-
                 }
             });
         }
@@ -292,6 +312,26 @@
             $('tbody').append(html);
             return '';
         }
+
+        $(document).ready(function() {
+            $('tbody').on('click', '.check', function(e) {
+                e.preventDefault();
+                console.log('yaps');
+            });
+
+            $('#checkbox-all').change(function() {
+                if ($(this).prop('checked')) {
+                    $('.check').prop('checked', true);
+                } else {
+                    $('.check').prop('checked', false);
+                }
+            });
+            $('tbody').on('change', '.check', function() {
+                if (!$(this).prop('checked')) {
+                    $('#checkbox-all').prop('checked', false);
+                }
+            });
+        });
 
         function handlePaginate(pagination) {
             const paginate = $('<ul>').addClass('pagination')
@@ -365,26 +405,21 @@
             paginate.append(next)
             return paginate
         }
-        $(document).ready(function() {
-            $('tbody').on('click', '.check', function(e) {
-                e.preventDefault();
-                console.log('yaps');
-            });
 
-            $('#checkbox-all').change(function() {
-                if ($(this).prop('checked')) {
-                    $('.check').prop('checked', true);
-                } else {
-                    $('.check').prop('checked', false);
-                }
-            });
+        function showLoading() {
+            return `<div class="d-flex justify-content-center" style="margin-top:11rem">
+                        <div class="spinner-border my-auto" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>`
+        }
 
-            $('tbody').on('change', '.check', function() {
-                if (!$(this).prop('checked')) {
-                    $('#checkbox-all').prop('checked', false);
-                }
-            });
-
-        });
+        function showLoadingTopUp() {
+            return ` <div class="d-flex justify-content-center">
+                                <div class="spinner-border my-auto" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>`
+        }
     </script>
 @endsection
