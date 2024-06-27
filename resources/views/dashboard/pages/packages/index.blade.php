@@ -14,7 +14,6 @@
                 <div class="col-lg-7">
                     <div class="card p-3">
                         <div class="d-flex gap-3 align-items-center mb-3">
-                            <div class="bg-primary rounded-circle p-3"></div>
                             <span class="fw-bold">Pilih Pulsa</span>
                         </div>
                         <div class="col">
@@ -38,7 +37,6 @@
                             </div>
                         </div>
                         <div class="d-flex gap-3 align-items-center mb-3">
-                            <div class="bg-primary rounded-circle p-3"></div>
                             <span class="fw-bold">Metode Pembayaran</span>
                         </div>
                         <div class="accordion" id="paymentAccordion">
@@ -130,7 +128,7 @@
     <script>
         $(document).ready(function() {
 
-            // format uang 
+            // format uang
             $('#balanceInput').on('input', function(){
                 let balanceInput = $(this).val();
                 let formattedValue = formatCurrency(balanceInput);
