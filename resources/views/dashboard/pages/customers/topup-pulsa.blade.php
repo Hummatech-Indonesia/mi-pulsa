@@ -201,7 +201,6 @@
                         $('.check').prop('checked', false);
                         $('#checkbox-all').prop('checked', false);
                         let response = JSON.parse(xhr.responseText);
-                        console.log(response);
                         if (response.meta.code == 400) {
                             $('#alert').html(
                                 `<div class="alert alert-danger alert-dismissible" role="alert">

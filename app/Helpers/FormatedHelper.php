@@ -28,7 +28,7 @@ class FormatedHelper
     public static function dateTimeFormat(string $dateTime): string
     {
         $date = Carbon::parse($dateTime);
-        $newFormat = $date->isoFormat('dddd, D MMMM Y');
+        $newFormat = $date->isoFormat('dddd, D MMMM Y HH:mm');
         return $newFormat;
     }
 }
