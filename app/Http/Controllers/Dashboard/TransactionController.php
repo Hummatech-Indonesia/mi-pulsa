@@ -6,17 +6,21 @@ use App\Contracts\Interfaces\Dashboard\CustomerInterface;
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
 use App\Contracts\Interfaces\Dashboard\TopupAgenInterface;
 use App\Contracts\Interfaces\Dashboard\TransactionInterface;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CustomerRequest;
 use App\Http\Requests\RequestTransactionWhatsappRequest;
 use App\Services\Dashboard\DigiFlazzService;
 use App\Services\Dashboard\TransactionService;
+use App\Traits\PaginationTrait;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    use PaginationTrait;
     private TopupAgenInterface $topup;
     private CustomerInterface $customer;
     private TransactionService $service;
@@ -128,5 +132,19 @@ class TransactionController extends Controller
         $request->merge(['blazz' => 1]);
         $transactions = $this->transaction->customPaginate($request);
         return view('dashboard.pages.customers.detail-multiple-history', compact('transactions'));
+    }
+
+    /**
+     * jsonCustomer
+     *
+     * @param  mixed $request
+     * @return JsonResponse
+     */
+    public function jsonCustomer(Request $request): JsonResponse
+    {
+        $customers = $this->customer->customPaginate($request, $request->pagination);
+        $data['paginate'] = $this->customPaginate($customers->currentPage(), $customers->lastPage());
+        $data['data'] = $customers;
+        return ResponseHelper::success($data);
     }
 }

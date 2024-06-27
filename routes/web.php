@@ -72,6 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::get('topup-digiflazz', [DashboardController::class, 'index'])->name('topup.digiflazz');
         Route::get('topup-customer', [TransactionController::class, 'index'])->name('topup.customer');
+        Route::get('json-customer', [TransactionController::class, 'jsonCustomer'])->name('json.customer');
         Route::get('history-topup-customer', [TransactionController::class, 'historyTopupCustomer'])->name('topup.history');
         Route::get('history-topup-customer-multiple', [TransactionController::class, 'historyTopupCustomerMultiple'])->name('topup.history.multiple');
         Route::get('history-topup-customer-multiple/{blazz_id?}', [TransactionController::class, 'detailHistoryTopupCustomerMultiple'])->name('detail.topup.history.multiple');
@@ -86,6 +87,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('update-product-customer/{customer}', [CustomerController::class, 'customerProduct'])->name('update.product.customer');
     Route::post('customers-import', [CustomerController::class, 'import'])->name('customers.import');
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('json-products', [ProductController::class, 'jsonProduct'])->name('json.products');
     Route::patch('product-selling-price/{product}', [ProductController::class, 'sellingPrice'])->name('product.selling.price');
     Route::resource('users', UserController::class)->except('index');
     Route::get('users', [UserController::class, 'index'])->name('users.index');

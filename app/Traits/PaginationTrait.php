@@ -26,4 +26,20 @@ trait PaginationTrait
 
         return new LengthAwarePaginator(array_values($items->forPage($page, $perPage)->toArray()), $items->count(), $perPage, $page, $options);
     }
+
+    /**
+     * custom paginate
+     *
+     * @param int $currentPage
+     * @param int $lastPage
+     *
+     * @return mixed
+     */
+    public function customPaginate(int $currentPage, int $lastPage): mixed
+    {
+        return [
+            'last_page' => $lastPage,
+            'current_page' => $currentPage
+        ];
+    }
 }

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ProductRequest;
 use App\Http\Requests\SellingPriceRequest;
 use App\Models\Product;
 use App\Services\Dashboard\ProductService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -30,6 +32,17 @@ class ProductController extends Controller
     {
         $products = $this->product->search($request);
         return view('dashboard.pages.products.index', compact('products'));
+    }
+
+    /**
+     * jsonCategory
+     *
+     * @return JsonResponse
+     */
+    public function jsonProduct(): JsonResponse
+    {
+        $products = $this->product->get();
+        return ResponseHelper::success($products);
     }
 
     /**

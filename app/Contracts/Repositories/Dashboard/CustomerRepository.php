@@ -110,4 +110,17 @@ class CustomerRepository extends BaseRepository implements CustomerInterface
             ->where('user_id', auth()->user()->id)
             ->fastPaginate($pagination);
     }
+
+    /**
+     * ajaxDatatable
+     *
+     * @param  mixed $request
+     * @param  mixed $pagination
+     * @return void
+     */
+    public function ajaxDatatable(Request $request, int $pagination = 10)
+    {
+        return $this->model->query()
+            ->get();
+    }
 }

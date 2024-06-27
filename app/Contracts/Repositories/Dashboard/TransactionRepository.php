@@ -80,6 +80,11 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
             ->where('blazz_id', '!=', null)
             ->groupBy('blazz_id')
             ->latest()
-            ->fastPaginate(5);
+            ->when($pagination == 0, function ($query) {
+                $query->get();
+            })
+            ->when($pagination != 0, function ($query) use ($pagination) {
+                $query->fastPaginate($pagination);
+            });
     }
 }

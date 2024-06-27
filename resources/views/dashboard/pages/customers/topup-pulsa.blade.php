@@ -66,6 +66,20 @@
 
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
+                    <div class="d-flex justify-content-between">
+                        <div class="">
+                            <select name="pagination" id="showPagination" class="form-control">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="0">Tampilkan Semua</option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <input type="search" name="" class="form-control" id="">
+                        </div>
+                    </div>
                     <table class="table border text-nowrap customize-table mb-0 align-middle">
                         <thead class="text-dark fs-4">
                             <tr>
@@ -89,63 +103,10 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($customers as $customer)
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="check" value="{{ $customer->id }}"
-                                            name="customer_id[]" id="">
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 fw-normal">{{ $loop->iteration }}</p>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="{{ asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"
-                                                class="rounded-circle" width="40" height="40" />
-                                            <div class="ms-3">
-                                                <h6 class="fs-4 fw-semibold mb-0">{{ $customer->name }}</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('update.product.customer', $customer->id) }}" method="post"
-                                            style="display: flex">
-                                            @csrf
-                                            @method('PATCH')
-                                            <select name="product_id" class="form-control" id="">
-                                                @foreach ($products as $product)
-                                                    <option {{ $product->id == $customer->product_id ? 'selected' : '' }}
-                                                        value="{{ $product->id }}">
-                                                        {{ $product->product_name }}</option>
-                                                @endforeach
-                                            </select>
-                                            <button style="margin-left: 1rem" class="btn btn-primary" type="submit"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
-                                                    <path d="M11 2H9v3h2z" />
-                                                    <path
-                                                        d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z" />
-                                                </svg></button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 fw-normal">{{ $customer->phone_number }}</p>
-                                    </td>
-                                    <td>
-                                        <button data-bs-toggle="modal" data-bs-target="#topUpSaldoModal"
-                                            data-name="{{ $customer->name }}" data-product="{{ $products }}"
-                                            data-package="{{ $customer->product->product_name }}"
-                                            data-product-id="{{ $customer->product_id }}" type="button"
-                                            data-id="{{ $customer->id }}" id="topUp" class="btn btn-primary">Top
-                                            up</button>
-                                    </td>
-                                </tr>
-                            @endforeach
+                        <tbody id="table_content">
                         </tbody>
                     </table>
-                    <div class="mt-3">
-                        {{ $customers->links('pagination::bootstrap-5') }}
+                    <div class="mt-3" id="pagination">
                     </div>
                 </div>
             </div>
@@ -192,26 +153,9 @@
                     );
                 }
             });
-
             let url = `{{ route('digi-flazz.transaction', ':id') }}`.replace(':id', id);
             $('#topUpSaldo').attr('action', url);
         });
-        $(document).ready(function() {
-            $('#checkbox-all').change(function() {
-                if ($(this).prop('checked')) {
-                    $('.check').prop('checked', true);
-                } else {
-                    $('.check').prop('checked', false);
-                }
-            });
-
-            $('.check').change(function() {
-                if (!$(this).prop('checked')) {
-                    $('#checkbox-all').prop('checked', false);
-                }
-            });
-        });
-
         $(document).ready(function() {
             $('#saveCheckedValues').click(function() {
                 var checkedValues = [];
@@ -262,6 +206,190 @@
                     }
                 });
             });
+        });
+    </script>
+    <script>
+        get(1);
+        $('#showPagination').change(function(e) {
+            e.preventDefault();
+            get(1)
+        });
+
+        function get(page) {
+            $.ajax({
+                url: "{{ route('dashboard.json.customer') }}",
+                type: "GET",
+                data: {
+                    pagination: $('#showPagination').val(),
+                    page: page
+                },
+                beforeSend: function() {
+                    $('#table_content').html('')
+                    $('#pagination').html('')
+                },
+                success: function(response) {
+                    $.each(response.data.data.data, function(index, data) {
+                        $('#table_content').append(kirimPulsa((page - 1) * 10 + index, data))
+                    })
+                    $('#pagination').html(handlePaginate(response.data.paginate))
+
+                }
+            });
+        }
+
+        function kirimPulsa(index, customer) {
+            let options = '';
+
+            $.ajax({
+                url: "{{ route('json.products') }}",
+                type: "GET",
+                success: function(response) {
+                    var products = response.data;
+                    products.forEach(product => {
+                        options += `<option ${product.id == customer.product_id ? 'selected' : ''} value="${product.id}">
+                               ${product.product_name}
+                           </option>`;
+                    });
+
+                    let html = `<tr>
+                            <td>
+                                <input type="checkbox" class="check" value="${customer.id}" name="customer_id[]" id="">
+                            </td>
+                            <td>
+                                <p class="mb-0 fw-normal">${index + 1}</p>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"
+                                        class="rounded-circle" width="40" height="40" />
+                                    <div class="ms-3">
+                                        <h6 class="fs-4 fw-semibold mb-0">${customer.name}</h6>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <form action="/update-product-customer/${customer.id}" method="post" style="display: flex">
+                                    <input type="hidden" name="_method" value="PATCH">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <select name="product_id" class="form-control">${options}</select>
+                                    <button style="margin-left: 1rem" class="btn btn-primary" type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
+                                            <path d="M11 2H9v3h2z" />
+                                            <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <p class="mb-0 fw-normal">${customer.phone_number}</p>
+                            </td>
+                            <td>
+                                <button data-bs-toggle="modal" data-bs-target="#topUpSaldoModal" id="topUp" class="btn btn-primary">Top up</button>
+                            </td>
+                        </tr>`;
+
+                    $('tbody').append(html);
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+
+            return '';
+        }
+
+        function handlePaginate(pagination) {
+            const paginate = $('<ul>').addClass('pagination')
+            const currentPage = pagination.current_page
+            const lastPage = pagination.last_page
+            if (lastPage >= 11) {
+                var startPage = currentPage
+                var endPage = currentPage + 1
+                if (startPage > 1) startPage = currentPage - 1
+                if (currentPage == lastPage) endPage -= 1
+                for (var page = startPage; page <= endPage; page++) {
+                    const pageItem = $('<li>').addClass('page-item')
+                    page == currentPage ? pageItem.addClass('active') : '';
+                    const pageLink =
+                        `<button class="page-link" onclick="get(${page})" >${page}</button>`
+                    pageItem.html(pageLink)
+                    paginate.append(pageItem)
+                }
+                const morePage = `<li class="page-item disabled">
+                            <button
+                            class="page-link"
+                            tabindex="-1"
+                            aria-disabled="true"
+                            >...</button>
+                        </li>`
+                if (currentPage >= 3) {
+                    var leftPage = 3;
+                    if (currentPage == 3) leftPage = 1
+                    if (currentPage == 4) leftPage = 2
+                    if (currentPage >= 6) paginate.prepend(morePage)
+                    for (var page = leftPage; page >= 1; page--) {
+                        const pageItem = $('<li>').addClass('page-item')
+                        const pageLink =
+                            `<button  class="page-link" onclick="get(${page})">${page}</button>`
+                        pageItem.html(pageLink)
+                        paginate.prepend(pageItem)
+                    }
+                }
+                if (currentPage <= (lastPage - 2)) {
+                    var rightPage = 1
+                    if (currentPage == (lastPage - 2)) rightPage = 0
+                    if (currentPage == (lastPage - 3)) rightPage = 1
+                    if (currentPage < (lastPage - 4)) paginate.append(morePage)
+                    for (var page = (lastPage - rightPage); page <= lastPage; page++) {
+                        const pageItem = $('<li>').addClass('page-item')
+                        const pageLink = `<button class="page-link" onclick="get(${page})">${page}</button>`
+                        pageItem.html(pageLink)
+                        paginate.append(pageItem)
+                    }
+                }
+            } else {
+                for (var page = 1; page <= lastPage; page++) {
+                    const pageItem = $('<li>').addClass('page-item')
+                    page == currentPage ? pageItem.addClass('active') : '';
+                    const pageLink = `<button class="page-link" onclick="get(${page})">${page}</button>`
+                    pageItem.append(pageLink)
+                    paginate.append(pageItem)
+                }
+            }
+            const previous = `<li class="page-item ${currentPage == 1 ? 'disabled' : ''}" ${currentPage != 1 ? 'onclick="get('+(currentPage - 1)+')"' : ''}>
+                            <button
+                            class="page-link"
+                            tabindex="-1"
+                            aria-disabled="true"
+                            >Previous</button>
+                        </li>`
+            const next = `<li class="page-item ${currentPage == lastPage ? 'disabled' : ''}" ${currentPage != lastPage ? 'onclick="get('+(pagination.current_page + 1)+')"' : ''}>
+                                <button class="page-link" href="#">Next</button>
+                        </li>`
+            paginate.prepend(previous)
+            paginate.append(next)
+            return paginate
+        }
+        $(document).ready(function() {
+            $('tbody').on('click', '.check', function(e) {
+                e.preventDefault();
+                console.log('yaps');
+            });
+
+            $('#checkbox-all').change(function() {
+                if ($(this).prop('checked')) {
+                    $('.check').prop('checked', true);
+                } else {
+                    $('.check').prop('checked', false);
+                }
+            });
+
+            $('tbody').on('change', '.check', function() {
+                if (!$(this).prop('checked')) {
+                    $('#checkbox-all').prop('checked', false);
+                }
+            });
+
         });
     </script>
 @endsection
