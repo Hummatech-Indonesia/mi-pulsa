@@ -13,21 +13,21 @@ use Illuminate\Support\Facades\Http;
 
 class DigiFlazzService
 {
-    private TransactionInterface $transaction;
-    private ProductInterface $product;
+    // private TransactionInterface $transaction;
+    // private ProductInterface $product;
 
-    public function __construct(TransactionInterface $transaction, ProductInterface $product)
-    {
-        $this->transaction = $transaction;
-        $this->product = $product;
-    }
+    // public function __construct(TransactionInterface $transaction, ProductInterface $product)
+    // {
+    //     $this->transaction = $transaction;
+    //     $this->product = $product;
+    // }
     /**
      * topUp
      *
      * @param  mixed $customer
      * @return void
      */
-    public function topUp(Customer $customer, $blazz = false)
+    public function topUp(Customer $customer, $blazz = false, ProductInterface $product, TransactionInterface $transaction)
     {
         $username = env('DIGIFLAZZ_USERNAME');
         $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
@@ -46,7 +46,7 @@ class DigiFlazzService
             "sign" => $hash,
         ];
 
-        $product = $this->product->getProduct(['buyer_sku_code' => $customer->product->buyer_sku_code]);
+        $product = $product->getProduct(['buyer_sku_code' => $customer->product->buyer_sku_code]);
 
         try {
             $response = Http::post('https://api.digiflazz.com/v1/transaction', $postData);
@@ -57,7 +57,7 @@ class DigiFlazzService
                 $blazz_id = null;
             }
             if ($data['status'] == "Sukses" || $data['status'] == StatusDigiFlazzEnum::PENDING->value) {
-                $this->transaction->store([
+                $transaction->store([
                     'customer_id' => $customer->id,
                     'blazz_id' => $blazz_id,
                     'product_id' => $customer->product->id,
@@ -75,7 +75,7 @@ class DigiFlazzService
                 }
                 return true;
             } else {
-                $this->transaction->store([
+                $transaction->store([
                     'customer_id' => $customer->id,
                     'blazz_id' => $blazz_id,
                     'product_id' => $customer->product->id,
