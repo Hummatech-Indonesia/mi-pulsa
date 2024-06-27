@@ -270,6 +270,6 @@ class DigiFlazzController extends Controller
             Queue::push(new BlazzTopUpJob($customer, $blazz_id, $this->product, $this->transaction));
         }
 
-        return ResponseHelper::success(null, 'Pekerjaan telah ditambahkan ke dalam antrian untuk diproses.');
+        return ResponseHelper::success(null, 'Berhasil Melakukan Top Up.');
     }
 }
