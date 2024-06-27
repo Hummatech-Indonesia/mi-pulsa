@@ -228,30 +228,31 @@
                     $('#pagination').html('')
                 },
                 success: function(response) {
-                    $.each(response.data.data.data, function(index, data) {
-                        $('#table_content').append(kirimPulsa((page - 1) * 10 + index, data))
-                    })
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('json.products') }}",
+                        success: function(products) {
+                            $.each(response.data.data.data, function(index, data) {
+                                $('#table_content').append(kirimPulsa((page - 1) * 10 +
+                                    index, data, products.data))
+                            })
+                        }
+                    });
                     $('#pagination').html(handlePaginate(response.data.paginate))
 
                 }
             });
         }
 
-        function kirimPulsa(index, customer) {
-            let options = '';
-
-            $.ajax({
-                url: "{{ route('json.products') }}",
-                type: "GET",
-                success: function(response) {
-                    var products = response.data;
-                    products.forEach(product => {
-                        options += `<option ${product.id == customer.product_id ? 'selected' : ''} value="${product.id}">
+        function kirimPulsa(index, customer, products) {
+            let options = "";
+            products.forEach(product => {
+                options += `<option ${product.id == customer.product_id ? 'selected' : ''} value="${product.id}">
                                ${product.product_name}
                            </option>`;
-                    });
+            });
 
-                    let html = `<tr>
+            let html = `<tr>
                             <td>
                                 <input type="checkbox" class="check" value="${customer.id}" name="customer_id[]" id="">
                             </td>
@@ -288,13 +289,7 @@
                             </td>
                         </tr>`;
 
-                    $('tbody').append(html);
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                }
-            });
-
+            $('tbody').append(html);
             return '';
         }
 
