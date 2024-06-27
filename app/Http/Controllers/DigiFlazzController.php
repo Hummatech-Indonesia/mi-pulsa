@@ -257,7 +257,7 @@ class DigiFlazzController extends Controller
 
         if ($selling_price > auth()->user()->saldo) {
             $customer = $this->customer->show($customer_id);
-            return ResponseHelper::error(null, 'Saldo anda tidak mencukupi, untuk melakukan transaksi tersebut dibutuhkan saldo sebesar ' . FormatedHelper::rupiahCurrency($selling_price) . ' sedangkan saldo anda saat ini adalah ' . FormatedHelper::rupiahCurrency(auth()->user()->saldo));
+            return ResponseHelper::error(null, 'Saldo anda tidak mencukupi, untuk melakukan transaksi tersebut dibutuhkan saldo sebesar ' . FormatedHelper::rupiahCurrency($selling_price) . ' sedangkan saldo anda saat ini adalah ' . FormatedHelper::rupiahCurrency(auth()->user()->saldo), 400);
         }
 
         $uuid = Uuid::uuid();

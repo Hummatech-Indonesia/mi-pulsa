@@ -75,7 +75,7 @@ class TransactionController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         $customer = $this->customer->store($data);
-        $service = $this->digiFlazzService->topUp($customer);
+        $service = $this->digiFlazzService->topUp($customer, false, $this->product, $this->transaction);
         if ($service == true) {
             return to_route('dashboard.topup.history')->with('success', 'Berhasil mengirim saldo, Status pending');
         } else {
