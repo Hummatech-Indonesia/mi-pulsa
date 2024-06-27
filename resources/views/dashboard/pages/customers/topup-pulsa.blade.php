@@ -73,7 +73,7 @@
                                 <option value="10">10</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
-                                <option value="0">Tampilkan Semua</option>
+                                <option value="1000">Tampilkan Semua</option>
                             </select>
                         </div>
                         <div class="">
