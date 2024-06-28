@@ -90,4 +90,46 @@ class DigiFlazzService
             return false;
         }
     }
+
+    /**
+     * repeatTopUp
+     *
+     * @param  mixed $transaction
+     * @param  mixed $customer
+     * @param  mixed $product
+     * @return void
+     */
+    public function repeatTopUp($transaction, $customer, $product)
+    {
+        $username = env('DIGIFLAZZ_USERNAME');
+        $developmentKey = env('DIGIFLAZZ_DEVELOPMENT_KEY');
+
+        $ref_id = $transaction->ref_id;
+        $message = $username . $developmentKey . $ref_id;
+        $hash = md5($message);
+
+        $postData = [
+            "username" => $username,
+            "buyer_sku_code" => $customer->product->buyer_sku_code,
+            "customer_no" => $customer->phone_number,
+            "ref_id" => $ref_id,
+            "sign" => $hash,
+        ];
+
+        $product = $product->getProduct(['buyer_sku_code' => $customer->product->buyer_sku_code]);
+
+        $response = Http::post('https://api.digiflazz.com/v1/transaction', $postData);
+        $data = $response->json()['data'];
+
+        $transaction->update([
+            'message' => $data['message'],
+            'status' => $data['status']
+        ]);
+
+        if ($data['status'] == "Sukses" || $data['status'] == StatusDigiFlazzEnum::PENDING->value) {
+            return true;
+        } else {
+            return $data['message'];
+        }
+    }
 }

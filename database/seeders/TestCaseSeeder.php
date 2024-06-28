@@ -6,7 +6,6 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\User;
 use Faker\Provider\Uuid;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TestCaseSeeder extends Seeder

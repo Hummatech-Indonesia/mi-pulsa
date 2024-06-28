@@ -311,7 +311,6 @@
                                 <button data-bs-toggle="modal" data-bs-target="#topUpSaldoModal" data-id="${customer.id}" id="topUp" class="btn btn-primary">Top up</button>
                             </td>
                         </tr>`;
-
             $('tbody').append(html);
             return '';
         }

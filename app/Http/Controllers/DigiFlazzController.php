@@ -13,6 +13,7 @@ use App\Http\Requests\BlazzUpdateProductRequest;
 use App\Http\Requests\DepositRequest;
 use App\Jobs\BlazzTopUpJob;
 use App\Models\Customer;
+use App\Models\Transaction;
 use App\Services\Dashboard\DigiFlazzService;
 use Faker\Provider\Uuid;
 use Illuminate\Http\JsonResponse;
@@ -195,7 +196,29 @@ class DigiFlazzController extends Controller
         }
         $service = $this->service->topUp($customer, false, $this->product, $this->transaction);
         if ($service === true) {
-            return redirect()->back()->with('success', 'Berhasil mengirim saldo, Status pending');
+            return redirect()->back()->with('success', 'Berhasil mengirim saldo');
+        } else {
+            return redirect()->back()->withErrors($service);
+        }
+    }
+
+
+    /**
+     * repeatTransaction
+     *
+     * @param  mixed $customer
+     * @return void
+     */
+    public function repeatTransaction(Transaction $transaction)
+    {
+        $customer = $transaction->customer;
+        $product = $this->product->show($customer->product->id);
+        if ($product->selling_price > auth()->user()->saldo) {
+            return redirect()->back()->withErrors('Saldo anda tidak mencukupi, untuk melakukan transaksi tersebut dibutuhkan saldo sebesar ' . FormatedHelper::rupiahCurrency($product->selling_price) . ' sedangkan saldo anda saat ini adalah ' . FormatedHelper::rupiahCurrency(auth()->user()->saldo));
+        }
+        $service = $this->service->repeatTopUp($transaction, $customer, $this->product);
+        if ($service === true) {
+            return redirect()->back()->with('success', 'Berhasil melakukan topup ulang');
         } else {
             return redirect()->back()->withErrors($service);
         }
