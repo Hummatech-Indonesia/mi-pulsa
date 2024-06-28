@@ -48,7 +48,7 @@
                             </svg> Kirim Langsung</button>
                     </div>
                     <div class="col-12 col-md-2 text-md-end d-flex">
-                        <button id="saveCheckedValues" class="btn btn-primary w-100"><div id="loading-top-up">
+                        <button id="saveCheckedValues" class="btn btn-primary w-100 d-flex flex-row"><div id="loading-top-up">
 
                         </div> Top Up Semua</button>
                         
