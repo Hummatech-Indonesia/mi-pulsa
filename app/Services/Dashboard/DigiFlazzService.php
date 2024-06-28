@@ -121,9 +121,17 @@ class DigiFlazzService
         $response = Http::post('https://api.digiflazz.com/v1/transaction', $postData);
         $data = $response->json()['data'];
 
+        $user = $customer->user;
+
+        if ($data['status'] == StatusDigiFlazzEnum::SUCCESS->value) {
+            $user->update([
+                'saldo' => $user->saldo - $product->selling_price
+            ]);
+        }
         $transaction->update([
             'message' => $data['message'],
-            'status' => $data['status']
+            'status' => $data['status'],
+            'price' => $product->selling_price,
         ]);
 
         if ($data['status'] == "Sukses" || $data['status'] == StatusDigiFlazzEnum::PENDING->value) {
