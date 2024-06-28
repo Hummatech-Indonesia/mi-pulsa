@@ -47,9 +47,9 @@
                             <div class="col-12 col-md-3 mb-3 mb-md-0">
                                 <select name="filter" id="filter" class="form-control">
                                     <option value="">Status</option>
-                                    <option value="{{ StatusDigiFlazzEnum::PENDING->value }}">Pending</option>
-                                    <option value="{{ StatusDigiFlazzEnum::SUCCESS->value }}">Berhasil</option>
-                                    <option value="{{ StatusDigiFlazzEnum::FAILED->value }}">Gagal</option>
+                                    <option value="{{ StatusDigiFlazzEnum::PENDING->value }}" {{request()->filter == StatusDigiFlazzEnum::PENDING->value ? 'selected' : ''}}>Pending</option>
+                                    <option value="{{ StatusDigiFlazzEnum::SUCCESS->value }}" {{request()->filter == StatusDigiFlazzEnum::SUCCESS->value ? 'selected' : ''}}>Berhasil</option>
+                                    <option value="{{ StatusDigiFlazzEnum::FAILED->value }}" {{request()->filter == StatusDigiFlazzEnum::FAILED->value ? 'selected' : ''}}>Gagal</option>
                                 </select>
                             </div>
                             <!-- Search Input -->

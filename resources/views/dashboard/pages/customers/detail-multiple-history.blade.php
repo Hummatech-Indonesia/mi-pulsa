@@ -47,14 +47,21 @@
                             <div class="col-12 col-md-3 mb-3 mb-md-0">
                                 <select name="filter" id="filter" class="form-control">
                                     <option value="">Status</option>
-                                    <option value="{{ StatusDigiFlazzEnum::PENDING->value }}">Pending</option>
-                                    <option value="{{ StatusDigiFlazzEnum::SUCCESS->value }}">Berhasil</option>
-                                    <option value="{{ StatusDigiFlazzEnum::FAILED->value }}">Gagal</option>
+                                    <option value="{{ StatusDigiFlazzEnum::PENDING->value }}"
+                                        {{ request()->filter == StatusDigiFlazzEnum::PENDING->value ? 'selected' : '' }}>
+                                        Pending</option>
+                                    <option value="{{ StatusDigiFlazzEnum::SUCCESS->value }}"
+                                        {{ request()->filter == StatusDigiFlazzEnum::SUCCESS->value ? 'selected' : '' }}>
+                                        Berhasil</option>
+                                    <option value="{{ StatusDigiFlazzEnum::FAILED->value }}"
+                                        {{ request()->filter == StatusDigiFlazzEnum::FAILED->value ? 'selected' : '' }}>
+                                        Gagal</option>
                                 </select>
                             </div>
                             <!-- Search Input -->
                             <div class="col-12 col-md-3 mb-3 mb-md-0">
-                                <input type="text" name="name" id="search" placeholder="cari.." class="form-control" value="{{ request()->name }}">
+                                <input type="text" name="name" id="search" placeholder="cari.."
+                                    class="form-control" value="{{ request()->name }}">
                             </div>
                             <!-- Start Date -->
                             <div class="col-12 col-md-2 mb-3 mb-md-0">
@@ -145,7 +152,7 @@
                     </table>
                     <div class="mt-3">
 
-                        {{ $transactions->appends(['search' => request('search'), 'start_date' => request('start_date'), 'end_date' => request('end_date')])->links() }}
+                        {{ $transactions->appends(['filter'=>request('filter'),'search' => request('search'), 'start_date' => request('start_date'), 'end_date' => request('end_date')])->links() }}
                     </div>
                 </div>
             </div>
