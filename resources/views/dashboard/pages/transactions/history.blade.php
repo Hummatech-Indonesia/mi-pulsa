@@ -36,6 +36,7 @@
                 <div class="row align-items-center py-3 border-bottom">
                     <div class="col-12 col-md-9 mb-3 mb-md-0">
                         <form action="" class="row gx-2 gy-2 align-items-center">
+                            
                             <div class="col-12 col-sm-6 col-md-3">
                                 <input type="text" name="search" id="search" placeholder="cari.."
                                     value="{{ request()->search }}" class="form-control">

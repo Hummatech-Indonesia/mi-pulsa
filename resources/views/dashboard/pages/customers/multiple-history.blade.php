@@ -40,6 +40,7 @@
             <div class="container">
                 <div class="row align-items-center py-3 border-bottom">
                     <!-- Search Form -->
+                    
                     <div class="col-12 col-md-4 mb-3 mb-md-0">
                         <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
                             <div class="col-12 col-sm-8 col-md-9">
@@ -48,20 +49,6 @@
                             </div>
                             <div class="col-12 col-sm-4 col-md-3">
                                 <button class="btn btn-primary w-100">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- Date Range Form -->
-                    <div class="col-12 col-md-8 mb-3 mb-md-0">
-                        <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
-                            <div class="col-12 col-sm-6 col-md-4">
-                                <input type="date" name="start_date" id="start_date" class="form-control">
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-4">
-                                <input type="date" name="end_date" id="end_date" class="form-control">
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <button class="btn btn-primary w-100">Terapkan</button>
                             </div>
                         </form>
                     </div>
@@ -103,7 +90,7 @@
                         </tbody>
                     </table>
                     <div class="mt-3">
-                        {{ $transactions->appends(['search' => request('search'), 'start_date' => request('start_date'), 'end_date' => request('end_date')])->links() }}
+                        {{ $transactions->appends(['filter' => request('filter'), 'search' => request('search'), 'start_date' => request('start_date'), 'end_date' => request('end_date')])->links() }}
                     </div>
                 </div>
             </div>

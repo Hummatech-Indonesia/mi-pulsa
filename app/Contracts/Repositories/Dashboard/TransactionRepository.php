@@ -54,6 +54,9 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
             ->when($request->name, function ($query) use ($request) {
                 $query->whereRelation('customer', 'name', 'like', '%' . $request->name . '%');
             })
+            ->when($request->filter, function ($query) use ($request) {
+                $query->where('status', $request->filter);
+            })
             ->when($request->start_date && $request->end_date, function ($query) use ($request) {
                 $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
             })
@@ -83,6 +86,9 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
             ->where('blazz_id', '!=', null)
             ->when($request->start_date && $request->end_date, function ($query) use ($request) {
                 $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
+            })
+            ->when($request->filter, function ($query) use ($request) {
+                $query->where('status', $request->filter);
             })
             ->groupBy('blazz_id')
             ->latest()

@@ -40,33 +40,40 @@
         <div class="card w-100 position-relative overflow-hidden">
             <div class="container">
                 <div class="row align-items-center py-3 border-bottom">
-                    <!-- Search Form -->
-                    <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <!-- Combined Form -->
+                    <div class="col-12">
                         <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
-                            <div class="col-12 col-sm-8 col-md-9">
-                                <input type="text" name="name" id="search" placeholder="cari.." class="form-control" value="{{ request()->name }}">
+                            <!-- Filter Select -->
+                            <div class="col-12 col-md-3 mb-3 mb-md-0">
+                                <select name="filter" id="filter" class="form-control">
+                                    <option value="">Status</option>
+                                    <option value="{{ StatusDigiFlazzEnum::PENDING->value }}">Pending</option>
+                                    <option value="{{ StatusDigiFlazzEnum::SUCCESS->value }}">Berhasil</option>
+                                    <option value="{{ StatusDigiFlazzEnum::FAILED->value }}">Gagal</option>
+                                </select>
                             </div>
-                            <div class="col-12 col-sm-4 col-md-3">
-                                <button class="btn btn-primary w-100">Cari</button>
+                            <!-- Search Input -->
+                            <div class="col-12 col-md-3 mb-3 mb-md-0">
+                                <input type="text" name="name" id="search" placeholder="cari.."
+                                    class="form-control" value="{{ request()->name }}">
                             </div>
-                        </form>
-                    </div>
-                    <!-- Date Range Form -->
-                    <div class="col-12 col-md-8 mb-3 mb-md-0">
-                        <form action="" method="GET" class="row gx-2 gy-2 align-items-center mb-0">
-                            <div class="col-12 col-sm-6 col-md-4">
+                            <!-- Start Date -->
+                            <div class="col-12 col-md-2 mb-3 mb-md-0">
                                 <input type="date" name="start_date" id="start_date" class="form-control">
                             </div>
-                            <div class="col-12 col-sm-6 col-md-4">
+                            <!-- End Date -->
+                            <div class="col-12 col-md-2 mb-3 mb-md-0">
                                 <input type="date" name="end_date" id="end_date" class="form-control">
                             </div>
-                            <div class="col-12 col-md-4">
+                            <!-- Submit Button -->
+                            <div class="col-12 col-md-2">
                                 <button class="btn btn-primary w-100">Terapkan</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+
 
             <div class="card-body p-4">
                 <div class="table-responsive rounded-2 mb-4">
@@ -141,7 +148,7 @@
                     </table>
                     <div class="mt-3">
 
-                        {{ $transactions->appends(['search' => request('search'), 'start_date' => request('start_date'), 'end_date' => request('end_date')])->links() }}
+                        {{ $transactions->appends(['filter' => request('filter'), 'search' => request('search'), 'start_date' => request('start_date'), 'end_date' => request('end_date')])->links() }}
 
                     </div>
                 </div>
