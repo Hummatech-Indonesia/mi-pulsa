@@ -48,10 +48,10 @@
                             </svg> Kirim Langsung</button>
                     </div>
                     <div class="col-12 col-md-2 text-md-end d-flex">
-                        <button id="saveCheckedValues" class="btn btn-primary w-100">Top Up Semua</button>
-                        <div id="loading-top-up">
+                        <button id="saveCheckedValues" class="btn btn-primary w-100"><div id="loading-top-up">
 
-                        </div>
+                        </div> Top Up Semua</button>
+                        
                     </div>
                 </div>
             </div>
@@ -414,7 +414,7 @@
 
         function showLoadingTopUp() {
             return ` <div class="d-flex justify-content-center">
-                                <div class="spinner-border my-auto" role="status">
+                                <div class="spinner-border my-auto text-white" role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </div>`
