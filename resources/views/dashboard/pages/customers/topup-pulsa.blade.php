@@ -308,7 +308,7 @@
                                 <p class="mb-0 fw-normal">${customer.phone_number}</p>
                             </td>
                             <td>
-                                <button data-bs-toggle="modal" data-bs-target="#topUpSaldoModal" id="topUp" class="btn btn-primary">Top up</button>
+                                <button data-bs-toggle="modal" data-bs-target="#topUpSaldoModal" data-id="${customer.id}" id="topUp" class="btn btn-primary">Top up</button>
                             </td>
                         </tr>`;
 
@@ -317,11 +317,6 @@
         }
 
         $(document).ready(function() {
-            $('tbody').on('click', '.check', function(e) {
-                e.preventDefault();
-                console.log('yaps');
-            });
-
             $('#checkbox-all').change(function() {
                 if ($(this).prop('checked')) {
                     $('.check').prop('checked', true);
