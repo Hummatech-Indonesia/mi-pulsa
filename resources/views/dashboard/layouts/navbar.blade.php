@@ -130,7 +130,7 @@
                                     <img src="{{ UserHelper::getUserPhoto() ? asset('storage/' . UserHelper::getUserPhoto()) : asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"
                                         class="rounded-circle" width="35" height="35" alt="" />
                                 </div>
-                            </div>
+                            </div>  
                         </a>
                         <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up"
                             aria-labelledby="drop1">
@@ -158,9 +158,9 @@
                                                 alt="" width="24" height="24">
                                         </span>
                                         <div class="w-75 d-inline-block v-middle ps-3">
-                                            <h6 class="mb-1 bg-hover-primary fw-semibold"> My Profile
+                                            <h6 class="mb-1 bg-hover-primary fw-semibold"> Profil Saya
                                             </h6>
-                                            <span class="d-block text-dark">Account Settings</span>
+                                            <span class="d-block text-dark">Pengaturan Akun</span>
                                         </div>
                                     </a>
                                 </div>

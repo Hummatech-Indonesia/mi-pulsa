@@ -25,19 +25,19 @@ class ProfileRequest extends FormRequest
             'name'=>'required',
             'email'=>'required',
             'password'=>'nullable|min:8',
-            'phone_number'=>'required',
-            'photo'=>'nullable',
-            'address'=>"required",
+            'phone_number'=>'nullable',
+            'photo'=>'nullable|image|mimes:png,jpg',
+            'address'=>"nullable",
         ];
     }
     public function messages():array
     {
         return [
+            'photo.mimes'=>'Hanya ekstensi png dan jpg yang diperbolehkan',
             'name.required'=>"Kolom nama tidak boleh kosong",
             'email.required'=>"Kolom email tidak boleh kosong",
             'phone_number.required'=>"Kolom nomor telepon tidak boleh kosong",
             'password'=>"Kolom password minimal 8 karakter",
-            'address'=>"Kolom alamat tidak boleh kosong",
         ];
     }
 }

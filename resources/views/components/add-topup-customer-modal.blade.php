@@ -4,7 +4,7 @@
             <form action="{{ route('customers.store') }}" id="addTopupCustomerForm" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal Penambahan Data Pelanggan</h5>
+                    <h5 class="modal-title">Kirim langsung ke pengguna baru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body m-3">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-secondary">Tambahkan</button>
+                    <button type="submit" class="btn btn-secondary">Konfirmasi</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
                 </div>
             </form>

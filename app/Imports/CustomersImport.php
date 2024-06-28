@@ -16,6 +16,7 @@ class CustomersImport implements ToCollection, WithHeadingRow, WithValidation
 
     public function collection(Collection $rows)
     {
+        dd($rows);
         $firstRow = true;
         foreach ($rows as $row) {
             if ($firstRow) {
@@ -39,7 +40,7 @@ class CustomersImport implements ToCollection, WithHeadingRow, WithValidation
     {
         return [
             'nama' => 'required',
-            'produk' => 'required|exists:products,product_name',
+            'kode_produk' => 'required|exists:products,buyer_sku_code',
             'nomor_telepon' => 'required'
         ];
     }
@@ -47,8 +48,8 @@ class CustomersImport implements ToCollection, WithHeadingRow, WithValidation
     {
         return [
             'nama.required' => 'Nama kosong',
-            'produk.required' => 'Produk kosong',
-            'produk.exists' => 'Produk yang diberikan tidak valid',
+            'kode_produk.required' => 'kode kosong',
+            'kode_produk.exists' => 'kode yang diberikan tidak valid',
             'nomor_telepon.required' => 'Nomor telepon kosong',
         ];
     }
