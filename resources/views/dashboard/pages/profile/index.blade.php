@@ -8,8 +8,6 @@
         @endif
         <div class="card">
             <div class="card-body">
-
-
                 <div class="text-center mb-3">
 
                     <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('dashboard_assets/dist/images/profile/user-1.jpg') }}"
@@ -31,21 +29,22 @@
                             </div>
                         </div>
 
+
                         <div class="form-group col-6">
-                            <label for="" class="form-label mb-2 text-black fw-bold fs-4">Nomor Telepon :</label>
+                            <label for="" class="form-label mb-2 text-black fw-bold fs-4">Email :</label>
                             <div class="mb-3">
 
-                                <span class="fs-3">{{ auth()->user()->phone_number ?? '081335574634' }}</span>
+                                <span class="fs-3">{{ auth()->user()->email }}</span>
                                 <hr style="border:1px solid;">
                             </div>
                         </div>
                     </div>
                     <div class="row align-items-center">
                         <div class="form-group col-6">
-                            <label for="" class="form-label mb-2 text-black fw-bold fs-4">Email :</label>
+                            <label for="" class="form-label mb-2 text-black fw-bold fs-4">Nomor Telepon :</label>
                             <div class="mb-3">
 
-                                <span class="fs-3">{{ auth()->user()->email }}</span>
+                                <span class="fs-3">{{ auth()->user()->phone_number }}</span>
                                 <hr style="border:1px solid;">
                             </div>
                         </div>

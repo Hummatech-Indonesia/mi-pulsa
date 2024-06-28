@@ -26,7 +26,7 @@
                         <span>
                             <i class="ti ti-dashboard"></i>
                         </span>
-                        <span class="hide-menu">Dashboard</span>
+                        <span class="hide-menu">Beranda</span>
                     </a>
                 </li>
                 @role('admin')
@@ -36,7 +36,7 @@
                             <span>
                                 <i class="ti ti-package"></i>
                             </span>
-                            <span class="hide-menu">Product</span>
+                            <span class="hide-menu">Produk</span>
                         </a>
                     </li>
                 @endrole
