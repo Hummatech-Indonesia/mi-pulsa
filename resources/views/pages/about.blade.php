@@ -27,7 +27,7 @@
                         </div>
                         <div class="ps-4">
                             <h5 class="mb-2">Hubungi Kami</h5>
-                            <a class="text-primary mb-0 fs-4"
+                            <a class="text-primary mb-0 fs-4" target="__blank"
                                 href="https://wa.me/{{ $about->phone_number }}">{{ $about->phone_number }}</a>
                         </div>
                     </div>

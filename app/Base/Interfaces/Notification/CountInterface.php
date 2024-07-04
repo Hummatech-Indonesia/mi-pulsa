@@ -10,5 +10,5 @@ interface CountInterface
      * @return int
      */
 
-    public static function count(): int;
+    public function count(): int;
 }

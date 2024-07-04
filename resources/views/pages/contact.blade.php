@@ -52,25 +52,26 @@
             </div>
             <div class="row g-5">
                 <div class="col-lg-6 wow slideInUp" data-wow-delay="0.3s">
-                    <form>
+                    <form action="{{ route('home.contactus.store') }}" method="POST">
+                        @csrf
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <input type="text" class="form-control border-0 bg-light px-4" placeholder="Your Name"
-                                    style="height: 55px;">
+                                <input type="text" name="name" class="form-control border-0 bg-light px-4"
+                                    placeholder="Your Name" style="height: 55px;">
                             </div>
                             <div class="col-md-6">
-                                <input type="email" class="form-control border-0 bg-light px-4" placeholder="Your Email"
-                                    style="height: 55px;">
+                                <input type="email" name="email" class="form-control border-0 bg-light px-4"
+                                    placeholder="Your Email" style="height: 55px;">
                             </div>
                             <div class="col-12">
-                                <input type="text" class="form-control border-0 bg-light px-4" placeholder="Subject"
-                                    style="height: 55px;">
+                                <input type="text" name="subject" class="form-control border-0 bg-light px-4"
+                                    placeholder="Subject" style="height: 55px;">
                             </div>
                             <div class="col-12">
-                                <textarea class="form-control border-0 bg-light px-4 py-3" rows="4" placeholder="Message"></textarea>
+                                <textarea name="message" class="form-control border-0 bg-light px-4 py-3" rows="4" placeholder="Message"></textarea>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                <button type="submit" class="btn btn-primary w-100 py-3" type="submit">Kirim Pesan</button>
                             </div>
                         </div>
                     </form>

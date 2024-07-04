@@ -45,7 +45,6 @@ class UserRepository extends BaseRepository implements UserInterface
             ->where('id', '!=', auth()->id()) // Exclude the currently logged-in user
             ->where('email', '!=', 'admin@gmail.com') // Exclude the currently logged-in user
             ->fastPaginate(5);
-
     }
     public function searchAgen(Request $request): mixed
     {
@@ -68,6 +67,19 @@ class UserRepository extends BaseRepository implements UserInterface
     public function getAgen(): mixed
     {
         return $this->model->query()->role(RoleEnum::AGEN->value)->get();
+    }
+
+    /**
+     * takeAgen
+     *
+     * @return mixed
+     */
+    public function takeAgen(): mixed
+    {
+        return $this->model->query()->role(RoleEnum::AGEN->value)
+            ->orderBy('saldo', 'desc')
+            ->take(10)
+            ->get();
     }
     /**
      * Method store
@@ -113,5 +125,15 @@ class UserRepository extends BaseRepository implements UserInterface
     public function delete(mixed $id): mixed
     {
         return $this->show($id)->delete();
+    }
+
+    /**
+     * count
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->model->query()->count();
     }
 }

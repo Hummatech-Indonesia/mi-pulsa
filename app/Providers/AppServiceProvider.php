@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Contracts\Interfaces\Dashboard\AboutInterface;
 use App\Contracts\Interfaces\Dashboard\ContactInterface;
+use App\Contracts\Interfaces\Dashboard\ContactUsInterface;
 use App\Contracts\Interfaces\Dashboard\CustomerInterface;
 use App\Contracts\Interfaces\Dashboard\DepositInterface;
 use App\Contracts\Interfaces\Dashboard\ProductInterface;
@@ -17,6 +18,7 @@ use Illuminate\Pagination\Paginator;
 use App\Contracts\Interfaces\UserInterface;
 use App\Contracts\Repositories\Dashboard\AboutRepository;
 use App\Contracts\Repositories\Dashboard\ContactRepository;
+use App\Contracts\Repositories\Dashboard\ContactUsRepository;
 use App\Contracts\Repositories\Dashboard\CustomerRepository as DashboardCustomerRepository;
 use App\Contracts\Repositories\Dashboard\DepositRepository;
 use App\Contracts\Repositories\Dashboard\ProductRepository;
@@ -43,7 +45,8 @@ class AppServiceProvider extends ServiceProvider
         TopupAgenInterface::class => TopupAgenRepository::class,
         ProviderInterface::class => ProviderRepository::class,
         DepositInterface::class => DepositRepository::class,
-        TransactionInterface::class => TransactionRepository::class
+        TransactionInterface::class => TransactionRepository::class,
+        ContactUsInterface::class => ContactUsRepository::class
     ];
     /**
      * Register any application services.

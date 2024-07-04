@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\Dashboard\AboutController;
 use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\CustomerController;
@@ -65,6 +66,7 @@ Route::name('home.')->group(function () {
     Route::get('product', [HomeController::class, 'product'])->name('product');
     Route::get('about', [HomeController::class, 'about'])->name('about');
     Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+    Route::post('contact-us', [ContactUsController::class, 'store'])->name('contactus.store');
 });
 Route::post('upload_image', [DashboardController::class, 'uploadImage'])->name('upload');
 
@@ -120,5 +122,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
         Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
         Route::patch('contact/{contact}', [ContactController::class, 'update'])->name('contact.update');
+        Route::get('contact-us', [ContactUsController::class, 'index'])->name('contactus.index');
     });
 });

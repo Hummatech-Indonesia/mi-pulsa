@@ -129,4 +129,15 @@ class ProductRepository extends BaseRepository implements ProductInterface
             ->where('buyer_sku_code', $data['buyer_sku_code'])
             ->first();
     }
+
+    /**
+     * count
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->model->query()
+            ->count();
+    }
 }

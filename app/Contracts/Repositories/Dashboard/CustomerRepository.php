@@ -5,12 +5,7 @@ namespace App\Contracts\Repositories\Dashboard;
 use App\Contracts\Interfaces\Dashboard\CustomerInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Contracts\Repositories\BaseRepository;
-use App\Enums\RoleEnum;
-use App\Enums\UserRoleEnum;
-use App\Helpers\UserHelper;
 use App\Models\Customer;
-use App\Models\User;
-use App\Traits\Datatables\UserDatatable;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -27,8 +22,14 @@ class CustomerRepository extends BaseRepository implements CustomerInterface
      */
     public function get(): mixed
     {
-        return $this->model->query()->fastPaginate(10);
+        return $this->model->query()
+            ->where('user_id', auth()->user()->id)
+            ->withCount('transactions')
+            ->orderBy('transactions_count', 'desc')
+            ->take(10)
+            ->get();
     }
+
     /**
      * Method search
      *
@@ -42,6 +43,7 @@ class CustomerRepository extends BaseRepository implements CustomerInterface
             ->when($request->search, function ($query) use ($request) {
                 $query->where('name', 'like', '%' . $request->search . '%');
             })
+            ->where('user_id', auth()->user()->id)
             // ->when(auth()->user()->role == RoleEnum::AGEN->value, function FunctionName() : Returntype {
 
             // })
@@ -122,5 +124,17 @@ class CustomerRepository extends BaseRepository implements CustomerInterface
     {
         return $this->model->query()
             ->get();
+    }
+
+    /**
+     * count
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->model->query()
+            ->where('user_id', auth()->user()->id)
+            ->count();
     }
 }

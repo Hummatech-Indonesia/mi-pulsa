@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories\Dashboard;
 
 use App\Contracts\Interfaces\Dashboard\TransactionInterface;
 use App\Contracts\Repositories\BaseRepository;
+use App\Enums\StatusDigiFlazzEnum;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -93,5 +94,55 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
             ->groupBy('blazz_id')
             ->latest()
             ->fastPaginate($pagination);
+    }
+
+    /**
+     * count
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->model->query()
+            ->count();
+    }
+
+    /**
+     * count_agen
+     *
+     * @return int
+     */
+    public function count_agen(): int
+    {
+        return $this->model->query()
+            ->whereRelation('customer', 'user_id', auth()->user()->id)
+            ->count();
+    }
+
+    /**
+     * count_agen_status
+     *
+     * @param  mixed $data
+     * @return int
+     */
+    public function count_agen_status(array $data): int
+    {
+        return $this->model->query()
+            ->where('status', $data['status'])
+            ->whereRelation('customer', 'user_id', auth()->user()->id)
+            ->count();
+    }
+
+    /**
+     * count_status
+     *
+     * @param  mixed $data
+     * @return int
+     */
+    public function count_status(array $data): int
+    {
+        return $this->model->query()
+            ->where('status', $data['status'])
+            ->count();
     }
 }
